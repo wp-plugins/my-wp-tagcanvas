@@ -2,8 +2,8 @@
 /*
 Plugin Name: My WP-TagCanvas
 Plugin URI: http://peter.bg/archives/7373
-Description: My WP-TagCanvas draws and animates a HTML5 canvas based tag cloud. The plugin gets a 3D Tag cloud from Graham Breach's TagCanvas (http://www.goat1000.com/tagcanvas.php). TagCanvas is a Javascript class that draws and animates a HTML5 canvas based tag cloud. It supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle. My WP-TagCanvas is derivative of Harry Xu's WP-TagCanvas v. 1.3.1 plugin and is based on TagCanvas v. 2.4.
-Version: 1.0.0
+Description: My WP-TagCanvas draws and animates a HTML5 canvas based tag cloud. The plugin gets a 3D Tag cloud from Graham Breach's TagCanvas (http://www.goat1000.com/tagcanvas.php). TagCanvas is a Javascript class that draws and animates a HTML5 canvas based tag cloud. It supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle. My WP-TagCanvas is derivative of Harry Xu's WP-TagCanvas v. 1.3.1 plugin and is based on TagCanvas v. 2.4. It supports Taxonomy, meaning that the Tag Cloud may consist of Post Tags or Categories or both mixed. The Number of tags is also adjustable.
+Version: 1.1.0
 Author: Peter Petrov, Harry Xu
 Author URI: http://peter.bg
 Update Server: http://peter.bg/
@@ -20,6 +20,8 @@ function wpTagCanvasPage(){
 function wpTagCanvasInstall(){
 	$tag_option = get_option('tag_Canvas_options');
 	$tag_option['title'] ='My Tag Cloud';
+	$tag_option['tags'] ='45';
+	$tag_option['taxonomy'] ='post_tag';
 	$tag_option['width'] ='260';
 	$tag_option['height'] ='260';
 	$tag_option['splitWidth'] ='120';
@@ -176,6 +178,8 @@ function wpTagCanvasLoad(){
 		$tag_option = get_option('tag_Canvas_options');
 		if ( $_POST["wpTagCanvas_widget_submit"] ) {
 			$tag_option['title'] =strip_tags(stripslashes($_POST["wpTagCanvas_widget_title"]));
+			$tag_option['tags'] =strip_tags(stripslashes($_POST["wpTagCanvas_widget_tags"]));
+			$tag_option['taxonomy'] =strip_tags(stripslashes($_POST["wpTagCanvas_widget_taxonomy"]));
 			$tag_option['width'] =strip_tags(stripslashes($_POST["wpTagCanvas_widget_width"]));
 			$tag_option['height'] =strip_tags(stripslashes($_POST["wpTagCanvas_widget_height"]));
 			$tag_option['splitWidth'] =strip_tags(stripslashes($_POST["wpTagCanvas_widget_swidth"]));
@@ -208,6 +212,8 @@ function wpTagCanvasLoad(){
 			update_option('tag_Canvas_options',$tag_option);
 		}
 		$title = attribute_escape($tag_option['title']);
+		$tags = attribute_escape($tag_option['tags']);
+		$taxonomy = attribute_escape($tag_option['taxonomy']);
 		$width = attribute_escape($tag_option['width']);
 		$height = attribute_escape($tag_option['height']);
 		$swidth = attribute_escape($tag_option['splitWidth']);
@@ -237,16 +243,40 @@ function wpTagCanvasLoad(){
 		$drag_ctrl = attribute_escape($tag_option['dragControl']);
 		$depth = attribute_escape($tag_option['depth']);
 		$weight_colour = attribute_escape($tag_option['weight_colour']);
-
 		?>
+
 <div  style="border-bottom: 1px solid #444; text-align: justify; padding: 10px 0;">All TagCanvas Options are described <a href="http://www.goat1000.com/tagcanvas-options.php" target="_blank"><strong>here</strong></a>. Those not included below can be tuned directly in <strong>jquery.tagcanvas.js <a href="/wp-admin/plugin-editor.php?file=my-wp-tagcanvas%2Fjquery.tagcanvas.js&plugin=my-wp-tagcanvas%2FMy-WP-TagCanvas.php" target="_blank">here</a>.<p style="margin: 10px 0 0 0;"><u>Tip:</u></strong> Type Option Values carefully. Wrong values make TagCloud disappear until you correct them.</p></div>
 
 <p>
-	<label for="wpTagCanvas_widget_title"><?php _e('Title'); ?> <input
+	<label for="wpTagCanvas_widget_title" style="width: 100%; float: left; margin-bottom: 20px;"><?php _e('Title'); ?> <input
 		class="widefat" id="wpTagCanvas_widget_title"
 		name="wpTagCanvas_widget_title" type="text"
 		value="<?php echo $title; ?>" /> </label>
+
 </p>
+<div>
+	<label for="wpTagCanvas_widget_tags" style="width: 61px; float: left; margin: 0 0 20px 0"><?php _e('Tags'); ?> <input
+		class="widefat" id="wpTagCanvas_widget_tags"
+		name="wpTagCanvas_widget_tags" type="text"
+		value="<?php echo $tags; ?>" /> </label>
+	<div style="display: inline-block;"><?php _e('Taxonomy'); ?></div>
+	<div style="width: 245px; float: left; margin: 0 0 20px 0; display:  inline-flex; border: solid 1px #ccc; padding: 7px 5px 0 5px;">
+	<br /> <input class="radio" id="wpTagCanvas_widget_taxonomy"
+		name="wpTagCanvas_widget_taxonomy" type="radio" value="post_tag"
+
+		<?php if( $taxonomy == "post_tag" ){ echo ' checked="checked"'; } ?>>
+	post tags <input class="radio" id="wpTagCanvas_widget_taxonomy"
+		name="wpTagCanvas_widget_taxonomy" type="radio" value="category"
+
+		<?php if( $taxonomy == "category" ){ echo ' checked="checked"'; } ?> style="margin-left: 15px;">
+	categories <input class="radio" id="wpTagCanvas_widget_taxonomy"
+		name="wpTagCanvas_widget_taxonomy" type="radio" value="both"
+
+		<?php if( $taxonomy == "both" ){ echo ' checked="checked"'; } ?> style="margin-left: 15px;">
+	both	
+
+</div>
+</div>
 <p style="clear: both"></p>
 <p>
 	<label for="wpTagCanvas_widget_width" style="width: 33%; float: left; margin-bottom: 20px;"><?php _e('Width'); ?> <input
@@ -280,37 +310,40 @@ function wpTagCanvasLoad(){
 		value="<?php echo $weight_colour; ?>" /> </label>
 </p>
 <p style="clear: both"></p>
-<p style="float: left; margin: 0;">
-	<label style="width: 25%; float: left;" for="wpTagCanvas_widget_initial"><?php _e('Initial Speed'); ?> <input
-		class="widefat" id="wpTagCanvas_widget_initial"
+<div style="float: left; margin: 0;">
+	<label style="width: 80px; float: left;" for="wpTagCanvas_widget_initial"><?php _e('Initial Speed'); ?> <input
+		class="widefat" style="border-right: 0;" id="wpTagCanvas_widget_initial"
 		name="wpTagCanvas_widget_initial" type="text"
 		value="<?php echo $initial; ?>" /> </label>
 		
-	<label style="width: 25%; float: left;" for="wpTagCanvas_widget_speed"><?php _e('Max Speed'); ?> <input
-		class="widefat" id="wpTagCanvas_widget_speed"
+	<label style="width: 70px; float: left;" for="wpTagCanvas_widget_speed"><?php _e('Max Speed'); ?> <input
+		class="widefat" style="border-right: 0;" id="wpTagCanvas_widget_speed"
 		name="wpTagCanvas_widget_speed" type="text"
 		value="<?php echo $speed; ?>" /> </label>
 
-	<label style="width: 25%; float: left; margin: 0 10px 0 0;" for="wpTagCanvas_widget_decel"><?php _e('Deceleration'); ?> <input
-		class="widefat" id="wpTagCanvas_widget_decel"
+	<label style="width: 80px; float: left;" for="wpTagCanvas_widget_decel"><?php _e('Deceleration'); ?> <input
+		class="widefat" style="border-right: 0;" id="wpTagCanvas_widget_decel"
 		name="wpTagCanvas_widget_decel" type="text"
 		value="<?php echo $decel; ?>" /> </label>
 
-<u><?php _e('Reverse'); ?></u>
-	<br /> <input class="radio" id="wpTagCanvas_widget_reverse"
+		
+<div style="display: inline-block;"><?php _e('Reverse'); ?></div>
+<div  style="float: left; margin: 0 0 20px 0; display:  inline-flex; border: solid 1px #ccc; padding: 7px 1px 0 1px;">
+	<input style="margin-right: 0;" class="radio" id="wpTagCanvas_widget_reverse"
 		name="wpTagCanvas_widget_reverse" type="radio" value="false"
 
 		<?php if( $reverse == "false" ){ echo ' checked="checked"'; } ?>>
-	false<br /> <input class="radio" id="wpTagCanvas_widget_reverse"
+	false<br /> <input style="margin-right: 0;" class="radio" id="wpTagCanvas_widget_reverse"
 		name="wpTagCanvas_widget_reverse" type="radio" value="true"
 
 		<?php if( $reverse == "true" ){ echo ' checked="checked"'; } ?>>
 	true 
-</p>
-<p style="clear: both"></p>
-<p style="float: left; margin: 0 20px 20px 0; whdth: 33%;">
-<u><?php _e('Shape'); ?></u>
-	<br /> <input class="radio" id="wpTagCanvas_widget_shape"
+	</div>
+</div>
+<div style="float: left; width:106px;">
+<div><?php _e('Shape'); ?></div>
+<div style="border: 1px solid #ccc; float: left; width: 94px; padding: 5px;">
+	<input class="radio" id="wpTagCanvas_widget_shape"
 		name="wpTagCanvas_widget_shape" type="radio" value="sphere"
 
 		<?php if( $shape == "sphere" ){ echo ' checked="checked"'; } ?>>
@@ -331,10 +364,12 @@ function wpTagCanvasLoad(){
 
 		<?php if( $shape == "vring" ){ echo ' checked="checked"'; } ?>>
 	vring
-</p>
-<p style="float: left; margin: 0 20px 20px 0; whdth: 33%;">
-<u><?php _e('Outline Method'); ?></u>
-	<br /> <input class="radio" id="wpTagCanvas_widget_olmethod"
+	</div>
+</div>
+<div style="float: left; display: inline; width:106px;">
+<div><?php _e('Outline Method'); ?></div>
+<div style="border: 1px solid #ccc; float: left; width: 94px; padding: 5px;">
+	<input class="radio" id="wpTagCanvas_widget_olmethod"
 		name="wpTagCanvas_widget_olmethod" type="radio" value="outline"
 
 		<?php if( $olmethod == "outline" ){ echo ' checked="checked"'; } ?>>
@@ -355,10 +390,12 @@ function wpTagCanvasLoad(){
 		
 		<?php if( $olmethod == "none" ){ echo ' checked="checked"'; } ?>>
 	none
-</p>
-<p style="float: left; margin: 0 0 20px 0; whdth: 34%;">
-<u><?php _e('Weight Mode'); ?></u>
-	<br /> <input class="radio" id="wpTagCanvas_widget_weight_mode"
+	</div>
+</div>
+<div style="float: left; margin: 0 0 20px 0; whdth: 106px;">
+<div><?php _e('Weight Mode'); ?></div>
+<div style="border: 1px solid #ccc; float: left; width: 94px; height: 90px; padding: 5px;">
+	<input class="radio" id="wpTagCanvas_widget_weight_mode"
 		name="wpTagCanvas_widget_weight_mode" type="radio" value="off"
 
 		<?php if( $weight_mode == "off" ){ echo ' checked="checked"'; } ?>>
@@ -375,7 +412,8 @@ function wpTagCanvasLoad(){
 
 		<?php if( $weight_mode == "both" ){ echo ' checked="checked"'; } ?>>
 	both
-</p>
+	</div>
+</div>
 <p style="clear: both"></p>
 <p>
 	<label style="width: 33%; float: left;" for="wpTagCanvas_widget_pulsateto"><?php _e('Pulsate2Opacity'); ?> <input
@@ -394,9 +432,10 @@ function wpTagCanvasLoad(){
 		value="<?php echo $fadein; ?>" /> </label>
 </p>
 <p style="clear: both"></p>
-<p style="float: left; width: 33%; margin: 0">
-<u><?php _e('Drag Control'); ?></u>
-	<br /> <input class="radio" id="wpTagCanvas_widget_drag_ctrl"
+<div style="float: left; width:105px;">
+<div><?php _e('Drag Control'); ?></div>
+<div  style="float: left; margin: 0 0 20px 0; width: 93px; display: inline-flex; border: solid 1px #ccc; padding: 7px 5px 0 5px;">
+	<input class="radio" id="wpTagCanvas_widget_drag_ctrl"
 		name="wpTagCanvas_widget_drag_ctrl" type="radio" value="false"
 
 		<?php if( $drag_ctrl == "false" ){ echo ' checked="checked"'; } ?>>
@@ -405,10 +444,12 @@ function wpTagCanvasLoad(){
 
 		<?php if( $drag_ctrl == "true" ){ echo ' checked="checked"'; } ?>>
 	true 
-</p>
-<p style="float: left; width: 33%; margin: 0">
-<u><?php _e('Front Select'); ?></u>
-	<br /> <input class="radio" id="wpTagCanvas_widget_front_select"
+</div>
+</div>
+<div style="float: left; width: 105px; margin: 0">
+<div><?php _e('Front Select'); ?></div>
+<div  style="float: left; margin: 0 0 20px 0; width: 93px; display: inline-flex; border: solid 1px #ccc; padding: 7px 5px 0 5px;">
+	<input class="radio" id="wpTagCanvas_widget_front_select"
 		name="wpTagCanvas_widget_front_select" type="radio" value="false"
 
 		<?php if( $front_select == "false" ){ echo ' checked="checked"'; } ?>>
@@ -417,9 +458,10 @@ function wpTagCanvasLoad(){
 
 		<?php if( $front_select == "true" ){ echo ' checked="checked"'; } ?>>
 	true 
-</p>
+</div>
+</div>
 <div style="display: inline">
-	<label style="width: 34%; float: left; margin-bottom: 20px;" for="wpTagCanvas_widget_clicktof"><?php _e('Click2Front Time'); ?> <input
+	<label style="width: 107px; float: left; margin-bottom: 20px;" for="wpTagCanvas_widget_clicktof"><?php _e('Click2Front Time'); ?> <input
 		class="widefat" id="wpTagCanvas_widget_clicktof"
 		name="wpTagCanvas_widget_clicktof" type="text"
 		value="<?php echo $clicktof; ?>" /> </label>
@@ -495,14 +537,20 @@ function wpTagCanvasLoad(){
 		$title = attribute_escape($options['title']);
 		$width = attribute_escape($options['width']);
 		$height = attribute_escape($options['height']);
+		$tags = attribute_escape($options['tags']);
+		$taxonomy = attribute_escape($options['taxonomy']);
 		echo $before_widget;
 		if( $title )
 		echo $before_title . $title . $after_title;?>
 <div id="tag_html5" width="<?php echo $width;?>"
 	height="<?php echo $height;?>" hidden>
 
+<?php 
+	if( $taxonomy == "both" ){ $args = array ('number' => $tags, 'taxonomy' => array('post_tag','category'));}
+	else {  $args = array ('number' => $tags, 'taxonomy' => $taxonomy);}
+	wp_tag_cloud( $args );
+?>
 
-	<?php wp_tag_cloud(); ?>
 </div>
 <canvas width="<?php echo $width;?>" height="<?php echo $height;?>"
 	id="tag_canvas">
