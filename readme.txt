@@ -13,7 +13,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 
 == Description ==
 
-This plugin creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. In addition to Post Tags and Post Categories clouds may consist of Recent Posts, External Links and Menu items. Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives the option to put images and/or text in the center of the cloud. The Number of tags in the cloud is adjustable. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
+This plugin creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. In addition to Post Tags and Post Categories now clouds may rotate Recent Posts, External Links and Menu items. Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives the option to put images and/or text in the center of the cloud. The Number of tags in the cloud is adjustable. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
 
 == Installation ==
 
@@ -31,6 +31,10 @@ This plugin creates multiple instances widget that draws and animates a HTML5 ca
 
 
 == Changelog ==
+
+= 2.0.1 =
+During upload of v. 2.0 some files were missed.
+Small amendments in Description are made.
 
 = 2.0 =
 1. Multiple widget instances
