@@ -32,6 +32,12 @@ Description: This plugin creates multiple instances widget that draws and animat
 
 == Changelog ==
 
+2.1.1
+
+1. Fixed bug in multiple coloring.
+2. Improved help for Gradient Colors.
+3. Added tips in Help Section.
+
 = 2.1 =
 1. New types of Cloud Content added: 
 	Archives (monthly, limit option), 

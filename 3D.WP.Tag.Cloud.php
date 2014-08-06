@@ -3,7 +3,7 @@
 Plugin Name: 3D WP Tag Cloud
 Plugin URI: http://peter.bg/archives/7373
 Description: This plugin creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Now clouds may rotate Pages, Recent Posts, External Links, Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content.  Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives the option to put images and/or text in the center of the cloud. The Number of tags in the cloud is adjustable. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
-Version: 2.1
+Version: 2.1.1
 Author: Peter Petrov
 Author URI: http://peter.bg
 Update Server: http://peter.bg/
@@ -31,6 +31,8 @@ class wpTagCanvasWidget extends WP_Widget {
         wp_enqueue_script('jq-CF');
 		wp_register_script('jq-demo', plugin_dir_url( __FILE__ ) . '3D.WP.Tag.Cloud/demo.js', array('jquery'), '1.0',true);
         wp_enqueue_script('jq-demo');
+		wp_register_script('jq-underscore', plugin_dir_url( __FILE__ ) . '3D.WP.Tag.Cloud/underscore-min.js', array('jquery'), '1.0',true);
+        wp_enqueue_script('jq-underscore');
 		
 		$tooltip_status = attribute_escape($instance['tooltip_status']);		
 		$title = attribute_escape($instance['title']);
