@@ -9,25 +9,25 @@
 	<style>.widget-inside {padding:0!important; border-radius: 4px;};</style>
 	<script type="text/javascript">
 		$(document).tooltip({content: function() {var element = $( this ); var html_text=element.attr('title'); return html_text;}, position: {  my: 'left top+20',  at: 'left bottom'}}); 
+		$(function() {$( "#accordion" ).accordion({heightStyle: "content", collapsible: true, active: false});});
 	</script>
 	
 <div id="tabs" style="-webkit-text-size-adjust: 100%; padding: 0; border: 0;">
 	<ul style=" margin-bottom: 10px; font-size: 12px; text-align: center!important; border-bottom-right-radius: 0; border-bottom-left-radius: 0;">
 		<li><a href="#fragment-1">General<br>Settings</a></li>
-		<li><a href="#fragment-2">Properties &<br>Attributes</a></li>
+		<li><a href="#fragment-2">Tag<br>Properties</a></li>
 		<li><a href="#fragment-3">Action<br>Settings</a></li>
 		<li><a href="#fragment-4">Help<br>&nbsp;</a></li>
-		<li><label style="padding: 0 5px; font-size: 11px; font-weight: normal;" for="<?=$this->get_field_id('tooltip_status'); ?>">Settings<br>Tooltips
-					<div>
+		<div style="font-size: 11px; font-weight: normal; padding: 7px 0 0;" for="<?=$this->get_field_id('tooltip_status'); ?>">Settings Tooltips<br>
+					
 						<input style="margin: 0;" title="Turns on Settings Tooltips." class="radio" id="<?=$this->get_field_id('tooltip_status'); ?>"
 						name="<?=$this->get_field_name('tooltip_status'); ?>" type="radio" value="on" 
 						<?php if( $tooltip_status == "on" ){ echo ' checked="checked"'; } ?> onclick="$(document).tooltip({content: function() {var element = $( this ); var html_text=element.attr('title'); return html_text;}, position: {  my: 'left top+20',  at: 'left bottom'}}); ">on
 						
 						<input style="margin: 0;" title="Turns off settings' tooltips." class="radio" id="<?=$this->get_field_id('tooltip_status'); ?>"						name="<?=$this->get_field_name('tooltip_status'); ?>" type="radio" value="off"
 						<?php if( $tooltip_status == "off" ){ echo ' checked="checked"'; } ?> onclick="$(document).tooltip({position: { my: 'left-300 top', at: 'left bottom',  of: 'body'}});">off
-					</div>
-				</label>
-		</li>
+					
+		</div>
 	</ul>
 
 	<div id="fragment-1">
@@ -112,43 +112,58 @@
 						<label for="<?=$this->get_field_id('taxonomy'); ?>">
 							<span>Content</span>
 							<div>
-								<input  class="radio" style="margin: 0 5px 0 1px;" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays most recent posts. Font Size weighting is provided for all <span style='font-weight: bold;'>Weight Mode</span> options except for <span style='font-weight: bold; color: #063;'>none</span>. As older a post is, as smaller its title font is."
+								<input  class="radio" style="margin: 0 5px 0 1px;" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays most recent posts. Font Size weighting is provided for all <span style='font-weight: bold; color: #063;'>Weight Mode</span> options except for <span style='font-weight: bold; color: #063;'>none</span>. As older a post is, as smaller its title font is."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="recent_posts"
 								<?php if( $taxonomy == "recent_posts" ){ echo ' checked="checked"'; } ?>>recent posts
 								<span style="font-size: 18px; float: right; padding: 0 1px 0 0;">&#8594;</span>
 								<br>
 							
-								<input  class="radio" style="margin: 14px 5px 14px 1px;" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays bookmarks found in the WP Admin Dashboard <span style='font-size: 18px;'>&#8594;</span> Links panel. Font Size weighting is provided for all <span style='font-weight: bold;'>Weight Mode</span> options except for <span style='font-weight: bold; color: #063;'>none</span>. Font size of the Links is calculated in accordance with their position in the list: The last in it has the smallest font size."
+								<input  class="radio" style="margin: 15px 5px 15px 1px;" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays bookmarks found in the WP Admin Panel: <span style='font-weight: bold; color: #063;'>Links</span>. Font Size weighting is provided for all  <span style='font-weight: bold; color: #063;'>Weight Mode</span> options except for <span style='font-weight: bold; color: #063;'>none</span>. Font size of the Links is calculated in accordance with their position in the list: The last in it has the smallest font size."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="links"									
 								<?php if( $taxonomy == "links" ){ echo ' checked="checked"'; } ?>>links
 								<span style="font-size: 18px; float: right; padding: 12px 1px 0 0;">&#8594;</span>
 								<br>
 								
-								<input style="margin: 0 5px 0 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a navigation menu created via WP Admin Dashboard <span style='font-size: 18px;'>&#8594;</span> Appearance <span style='font-size: 18px;'>&#8594;</span> Menus."
+								<input style="margin: 0 5px 0 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a navigation menu created via WP Admin Panel:  <span style='font-weight: bold; color: #063;'>Appearance</span> <span style='font-size: 18px;'>&#8594;</span>  <span style='font-weight: bold; color: #063;'>Menus</span>. <span style='font-weight: bold; color: #063;'>Weight Mode</span> is not applicable to this option."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="menu"
 								<?php if( $taxonomy == "menu" ){ echo ' checked="checked"'; } ?>>menu
 								<span style="font-size: 18px; float: right; padding: 0 1px 0 0;">&#8594;</span>
-							
-								<div style="border: 1px dotted #aaa; border-radius: 5px; padding-right: 1px; display: block; margin: 13px 0 0 0">
-									<input class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of categories created in the Posts <span style='font-size: 18px;'>&#8594;</span> Categories."
+								<br>
+								
+								<div style="border: 1px dotted #aaa; border-radius: 5px; padding-right: 1px; display: block; margin: 14px 0">									
+									<input style="margin: 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of post tags."
+									name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="post_tag"
+									<?php if( $taxonomy == "post_tag" ){ echo ' checked="checked"'; } ?>>post tags<span style="font-size: 18px; float: right; padding-top: 1px;">&#8594;</span>
+									<br>
+								
+									<input style="margin: 15px 5px 15px 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of categories created in the WP Admin Panel: <span style='font-weight: bold; color: #063;'>Posts</span> <span style='font-size: 18px;'>&#8594;</span>  <span style='font-weight: bold; color: #063;'>Categories</span>."
 									name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="category"
 									<?php if( $taxonomy == "category" ){ echo ' checked="checked"'; } ?>>categories
-									<br>
-									
-									<input style="margin: 14px 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of post tags."
-									name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="post_tag"
-									<?php if( $taxonomy == "post_tag" ){ echo ' checked="checked"'; } ?>>post tags<span style="font-size: 18px; float: right; padding-top: 11px;">&#8594;</span>
 									<br>
 									
 									<input class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of post tags & categories."
 									name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="both"
 									<?php if( $taxonomy == "both" ){ echo ' checked="checked"'; } ?>>both
 								</div>
+								
+									<input style="margin: 0 5px 0 1px;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of archives."
+									name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="archives"
+									<?php if( $taxonomy == "archives" ){ echo ' checked="checked"'; } ?>>archives
+									<span style="font-size: 18px; float: right; padding: 0 1px 0 0;">&#8594;</span>
+									<br>
+									<input style="margin: 15px 0 15px 1px;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of authors."
+									name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="authors"
+									<?php if( $taxonomy == "authors" ){ echo ' checked="checked"'; } ?>>authors
+									<span style="font-size: 18px; float: right; padding: 12px 1px 0 0;">&#8594;</span>
+									<br>								
+									<input style="margin: 0 5px 0 1px;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of pages. <span style='font-weight: bold; color: #063;'>Weight Mode</span> is not applicable to this option."
+									name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="pages"
+									<?php if( $taxonomy == "pages" ){ echo ' checked="checked"'; } ?>>pages
 							</div>
 						</label>
 					</td >
 					<td style="border-bottom: 1px solid #fff; vertical-align: top;">
-						<div style="margin-bottom: 22px;">
+						<div>
 							<label title="Comma separated list of Posts Category IDs to be displayed. If none is specified, the most recent posts from all Categories are shown." for="<?=$this->get_field_id('rp_category_id'); ?>" style="width: 120px; margin: 0 5px 0 0; line-height: 13px;">
 								<span>Posts&#039; Categories</span> 
 								<input style="width: 120px;"
@@ -193,6 +208,34 @@
 							name="<?=$this->get_field_name('tags'); ?>" type="text"
 							value="<?php echo $tags; ?>" />
 						</label>
+						<label title="Number of archives to get. Empty (Default) for no limit." for="<?=$this->get_field_id('archives_limit'); ?>" style="width: 140px; line-height: 13px; margin-top: 58px;">
+							<span style="margin-right: 5px;">Number of Archives</span> 
+							<input
+							class="widefat" id="<?=$this->get_field_id('archives_limit'); ?>"
+							name="<?=$this->get_field_name('archives_limit'); ?>" type="text"
+							value="<?php echo $archives_limit; ?>" />
+						</label>
+						<label title="Number of authors to get. Empty (Default) for no limit." for="<?=$this->get_field_id('authors_limit'); ?>" style="width: 120px; line-height: 13px;">
+							<span style="margin-right: 5px;">Number of Authors</span> 
+							<input
+							class="widefat" id="<?=$this->get_field_id('authors_limit'); ?>"
+							name="<?=$this->get_field_name('authors_limit'); ?>" type="text"
+							value="<?php echo $authors_limit; ?>" />
+						</label>
+						<div title="Exclude Administrators from Authors List." style="float: left;">
+							<div>
+								<span>Exclude Admins</span>
+							</div>
+							<div  style="float: left; line-height: 13px;">
+								<input style="margin: 0;" class="radio" id="<?=$this->get_field_id('exclude_admin'); ?>"
+								name="<?=$this->get_field_name('exclude_admin'); ?>" type="radio" value="false"
+								<?php if( $exclude_admin == "false" ){ echo ' checked="checked"'; } ?>>false
+									
+								<input style="margin: 0 0 0 5px;" class="radio" id="<?=$this->get_field_id('exclude_admin'); ?>"
+								name="<?=$this->get_field_name('exclude_admin'); ?>" type="radio" value="true"
+								<?php if( $exclude_admin == "true" ){ echo ' checked="checked"'; } ?>>true 
+							</div>
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -243,9 +286,9 @@
 											<?php if( $weight_mode == "size" ){ echo ' checked="checked"'; } ?>>size
 											<br> 
 											
-											<input title="Display tags using <span style='font-weight: bold; color: #063;'>colour</span> values from the <span style='font-weight: bold; color: #063;'>weightGradient</span> option." class="radio" id="<?=$this->get_field_id('weight_mode'); ?>"
+											<input title="Display tags using colour values from an automatically calculated gradient based on <span style='color: #063;'>Popular tag</span> color." class="radio" id="<?=$this->get_field_id('weight_mode'); ?>"
 											name="<?=$this->get_field_name('weight_mode'); ?>" type="radio" value="colour"
-											<?php if( $weight_mode == "colour" ){ echo ' checked="checked"'; } ?>>colour
+											<?php if( $weight_mode == "colour" ){ echo ' checked="checked"'; } ?>>color
 											<br> 
 											
 											<input title="Use both <span style='font-weight: bold; color: #063;'>size</span> and <span style='font-weight: bold; color: #063;'>colour</span> to visualise weights." class="radio" id="<?=$this->get_field_id('weight_mode'); ?>"
@@ -253,11 +296,12 @@
 											<?php if( $weight_mode == "both" ){ echo ' checked="checked"'; } ?>>both
 										</div>
 										
-										<input title="Use a <span style='font-weight: bold; color: #063;'>weightGradient</span> to set the tag background colour." class="radio" id="<?=$this->get_field_id('weight_mode'); ?>"
-										name="<?=$this->get_field_name('weight_mode'); ?>" type="radio" value="bgcolour"											<?php if( $weight_mode == "bgcolour" ){ echo ' checked="checked"'; } ?>>bgcolour
+										<input title="Use <span style='color: #063;'>Gradient Colors</span> to set the tag background colour." class="radio" id="<?=$this->get_field_id('weight_mode'); ?>"
+										name="<?=$this->get_field_name('weight_mode'); ?>" type="radio" value="bgcolour"											
+										<?php if( $weight_mode == "bgcolour" ){ echo ' checked="checked"'; } ?>>bgcolor
 										<br> 
 										
-										<input title="Use a <span style='font-weight: bold; color: #063;'>weightGradient</span> to set the tag background outline colour. Tag background outlines must be enabled using the <span style='font-weight: bold; color: #063;'>bgOutlineThickness</span> option." class="radio" id="<?=$this->get_field_id('weight_mode'); ?>"
+										<input title="Use a <span style='color: #063;'>Gradient Colors</span> to set the tag background outline colour. Tag background outlines must be enabled using the <span style='font-weight: bold; color: #063;'>Bg Outline Thickness</span> option." class="radio" id="<?=$this->get_field_id('weight_mode'); ?>"
 										name="<?=$this->get_field_name('weight_mode'); ?>" type="radio" value="bgoutline"
 										<?php if( $weight_mode == "bgoutline" ){ echo ' checked="checked"'; } ?>>bgoutline
 										<br>
@@ -287,305 +331,10 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
-	<div id="fragment-2">
-		<table style="margin: 0 1px 10px 1px;">  
+		<table  style="margin: 10px 1px 1px;">
 			<thead>
 				<tr>
-					<th colspan="3">TAG PROPERTIES
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td style="border-bottom: 1px solid #fff;">
-						<label><span style="padding-bottom: 5px;">COLORS</span>
-							<div style="padding-top: 10px;">
-								<label title="Colour of the tag text - empty string to use the colour of the original link" for="<?=$this->get_field_id('text_color'); ?>" style="width: 113px; padding-bottom: 10px;">
-									<span>Tags</span>
-									<br>
-									#<input style="width: 60px;"
-									class="widefat" id="<?=$this->get_field_id('text_color'); ?>"
-									name="<?=$this->get_field_name('text_color'); ?>" type="text"
-									value="<?php echo $text_color; ?>" />
-								</label>
-								<label  title="The colour gradient used for colouring tags when using a weight mode of <span style='color: #063;'>colour</span> or <span style='color: #063;'>both</span>. In other words this is the color of the biggest (most popular) tag." for="<?=$this->get_field_id('weight_gradient'); ?>" style="width: 113px; padding-bottom: 10px;">
-									<span>Gradient</span>
-									<br>
-									#<input style="width: 60px;" 
-									class="widefat" id="<?=$this->get_field_id('weight_gradient'); ?>"
-									name="<?=$this->get_field_name('weight_gradient'); ?>" type="text"
-									value="<?php echo $weight_gradient; ?>" /> 
-								</label>
-								<label title="Background color of tags - empty option means no background. The string <span style='color: #063;'>'tag'</span> means use the original link background colour." for="<?=$this->get_field_id('bg_color'); ?>" style="width: 113px; padding-bottom: 10px;">
-									<span>Background</span>
-									<br>
-									#<input style="width: 60px;"
-									class="widefat" id="<?=$this->get_field_id('bg_color'); ?>"
-									name="<?=$this->get_field_name('bg_color'); ?>" type="text"
-									value="<?php echo $bg_color; ?>" /> 
-								</label>
-								<br>
-								<label title="Colour of the shadow behind each tag" style="width: 113px;" for="<?=$this->get_field_id('shadow'); ?>">
-									<span>Shadow</span>
-									<br>
-									#<input style="width: 60px;"
-									class="widefat" id="<?=$this->get_field_id('shadow'); ?>"
-									name="<?=$this->get_field_name('shadow'); ?>" type="text"
-									value="<?php echo $shadow; ?>" /> 
-								</label>								
-								<label title="Colour of the active tag highlight" for="<?=$this->get_field_id('outline_color'); ?>" style="width: 113px;">
-									<span>Outline</span>
-									<br>
-									#<input style="width: 60px;"
-									class="widefat" id="<?=$this->get_field_id('outline_color'); ?>"
-									name="<?=$this->get_field_name('outline_color'); ?>" type="text"
-									value="<?php echo $outline_color; ?>" /> 
-								</label>	
-								<label title="Colour of tag background outline. Use empty option for the same as the text colour, use <span style='color: #063;'>'tag'</span> for the original link text colour." for="<?=$this->get_field_id('bg_outline'); ?>" style="width: 116px;">
-									<span>Outline Background</span>
-									<br>
-									#<input style="width: 60px;"
-									class="widefat" id="<?=$this->get_field_id('bg_outline'); ?>"
-									name="<?=$this->get_field_name('bg_outline'); ?>" type="text"
-									value="<?php echo $bg_outline; ?>" /> 
-								</label>
-								
-							</div>
-						</label>
-						<div style="padding: 10px 0 0 0;"><sup>*</sup></span>Multiple color support will be available in a next plugin version.</div>			
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label><span>SIZES</span>
-							<div style="padding-top: 10px;">
-								<label title="Height of the tag text font" style="width: 25%;" for="<?=$this->get_field_id('text_height'); ?>">
-									<span>Tag Height</span>
-									<input
-									class="widefat" id="<?=$this->get_field_id('text_height'); ?>"
-									name="<?=$this->get_field_name('text_height'); ?>" type="text"
-									value="<?php echo $text_height; ?>" />px 
-								</label>
-								<label title="Amount of space around text and inside background" style="width: 25%; padding-bottom: 10px;" for="<?=$this->get_field_id('padding'); ?>">
-									<span>Padding</span>
-									<input
-									class="widefat" id="<?=$this->get_field_id('padding'); ?>"
-									name="<?=$this->get_field_name('padding'); ?>" type="text"
-									value="<?php echo $padding; ?>" />px 
-								</label>
-								<label title="Amount of tag shadow blurring" style="width: 25%; padding-bottom: 10px;" for="<?=$this->get_field_id('shadow_blur'); ?>">
-									<span>Shadow Blur</span>
-									<input
-									class="widefat" id="<?=$this->get_field_id('shadow_blur'); ?>"
-									name="<?=$this->get_field_name('shadow_blur'); ?>" type="text"
-									value="<?php echo $shadow_blur; ?>" />px 
-								</label>	
-								<label title="X and Y offset of the tag shadow" style="width: 25%; padding-bottom: 10px;" for="<?=$this->get_field_id('shadow_offset'); ?>">
-									<span>Shadow Offset</span>
-									<input
-									class="widefat" id="<?=$this->get_field_id('shadow_offset'); ?>"
-									name="<?=$this->get_field_name('shadow_offset'); ?>" type="text"
-									value="<?php echo $shadow_offset; ?>" />px, px 
-								</label>
-							</div>
-						</label>
-					</td>
-				</tr>
-				<tr>
-					<td style="border-bottom: 1px solid #fff;">
-						<label title="Radius for rounded corners of background" for="<?=$this->get_field_id('bg_radius'); ?>" style="width: 25%; margin-bottom: 10px;">
-							<span><br>Bg Radius</span>
-							<input class="widefat" id="<?=$this->get_field_id('bg_radius'); ?>"
-							name="<?=$this->get_field_name('bg_radius'); ?>" type="text"
-							value="<?php echo $bg_radius; ?>" />px 
-						</label>
-						<label title="Thickness of tag background outline in pixels, 0 for no outline." for="<?=$this->get_field_id('bg_outline_thickness'); ?>" style="width: 25%; margin-bottom: 10px;">
-							<span>Bg Outline Thickness</span>
-							<input
-							class="widefat" id="<?=$this->get_field_id('bg_outline_thickness'); ?>"
-							name="<?=$this->get_field_name('bg_outline_thickness'); ?>" type="text"
-							value="<?php echo $bg_outline_thickness; ?>" />px 
-						</label>
-						<label title="Radius for rounded corners on outline box" style="width: 25%; margin-bottom: 10px" for="<?=$this->get_field_id('outline_radius'); ?>">
-							<span>Outline<br>Radius</span>
-							<br>
-							<input
-							class="widefat" id="<?=$this->get_field_id('outline_radius'); ?>"
-							name="<?=$this->get_field_name('outline_radius'); ?>" type="text"
-							value="<?php echo $outline_radius; ?>" />px 
-						</label>
-						<label title="Thickness of outline" style="width: 25%; margin-bottom: 10px;" for="<?=$this->get_field_id('outline_thickness'); ?>">
-							<span>Outline Thickness</span>
-							<input class="widefat" id="<?=$this->get_field_id('outline_thickness'); ?>"
-							name="<?=$this->get_field_name('outline_thickness'); ?>" type="text"
-							value="<?php echo $outline_thickness; ?>" />px 
-						</label>	
-						<label title="Number of pixels to increase size of tag by for the &#34;size&#34; outline method. Negative values are supported for decreasing the size." for="<?=$this->get_field_id('outline_increase'); ?>" style="width: 86px; margin-bottom: 10px;">
-							<span>Outline Increase</span>
-							<input
-							class="widefat" id="<?=$this->get_field_id('outline_increase'); ?>"
-							name="<?=$this->get_field_name('outline_increase'); ?>" type="text"
-							value="<?php echo $outline_increase; ?>" />px
-						</label>
-						<label title="Distance of outline from text, in pixels. This also increases the size of the active area around the tag." for="<?=$this->get_field_id('outline_offset'); ?>" style="width: 86px; margin-bottom: 10px;">
-							<span>Outline<br>Offset</span>
-							<br>
-							<input
-							class="widefat" id="<?=$this->get_field_id('outline_offset'); ?>"
-							name="<?=$this->get_field_name('outline_offset'); ?>" type="text"
-							value="<?php echo $outline_offset; ?>" />px
-						</label>		
-						<label title="Maximal font size when weighted sizing is enabled." for="<?=$this->get_field_id('weight_size_max'); ?>" style=" width: 86px; margin-bottom: 10px;">
-							<span>Weight<br>Size Max</span>
-							<br>
-							<input
-							class="widefat" id="<?=$this->get_field_id('weight_size_max'); ?>"
-							name="<?=$this->get_field_name('weight_size_max'); ?>" type="text"
-							value="<?php echo $weight_size_max; ?>" />px
-						</label>
-						<label title="Minimal font size when weighted sizing is enabled." for="<?=$this->get_field_id('weight_size_min'); ?>" style="margin-bottom: 10px; width: 80px; ">
-							<span>Weight<br>Size Min</span>
-							<br>
-							<input
-							class="widefat" id="<?=$this->get_field_id('weight_size_min'); ?>"
-							name="<?=$this->get_field_name('weight_size_min'); ?>" type="text"
-							value="<?php echo $weight_size_min; ?>" />px
-						</label>	
-						<label title="If greater than 0, breaks the tag into multiple lines at word boundaries when the line would be longer than this value. Lines are automatically broken at line break tags." for="<?=$this->get_field_id('split_width'); ?>" style="width: 25%; margin-bottom: 5px;">
-							<span>Split Width</span>
-							<input
-							class="widefat" id="<?=$this->get_field_id('split_width'); ?>"
-							name="<?=$this->get_field_name('split_width'); ?>" type="text"
-							value="<?php echo $split_width; ?>" />px
-						</label>
-					</td>
-				</tr>					
-				<tr>
-					<td style="border-bottom: 1px solid #fff;">
-						<label style="padding-bottom: 5px;"><span>FONTS</span>
-							<p style="margin: 10px 0 5px;">3D WP Tag Cloud is connected to Google Font Library, so instead of Web Safe Font you can choose fancy one. See what are	<a title="Find what fonts are web safe." style="color: #1e8cbe;" href="http://www.w3schools.com/cssref/css_websafe_fonts.asp" target="_blank">Web Safe Fonts</a> and what are <a title="Find a Google Font Family." style="color: #1e8cbe;" href="http://www.google.com/fonts/" target="_blank">Google Fonts.</a>
-							</p>	
-							<div>
-								<label title="Font family for the tag text - empty string to use the font of the original link." style="width: 171px;" for="<?=$this->get_field_id('text_font'); ?>">
-									<span>Font</span>
-									<input style="width: 171px;"
-									class="widefat" id="<?=$this->get_field_id('text_font'); ?>"
-									name="<?=$this->get_field_name('text_font'); ?>" type="text"
-									value="<?php echo $text_font; ?>" /> 
-								</label>
-							</div>
-						</label>
-						<div style="padding: 10px 0 0 0;"><sup>*</sup></span>Multiple font support will be available in a next plugin version.</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label style="padding-bottom: 5px;"><span>MISCELANEOUS</span>
-							<div style="padding-top: 10px;">
-								<label title="Minimal brightness (opacity) of tags at back of cloud (0.0-1.0)." for="<?=$this->get_field_id('min_brightness'); ?>" style="width: 115px;">
-									<span>Min Brightness</span>
-									<input
-									class="widefat" id="<?=$this->get_field_id('min_brightness'); ?>"
-									name="<?=$this->get_field_name('min_brightness'); ?>" type="text"
-									value="<?php echo $min_brightness; ?>" />
-								</label>
-								<label title="Maximal brightness (opacity) of tags at front of cloud (0.0-1.0)." for="<?=$this->get_field_id('max_brightness'); ?>" style="width: 115px;">
-									<span>Max Brightness</span>
-									<input
-									class="widefat" id="<?=$this->get_field_id('max_brightness'); ?>"
-									name="<?=$this->get_field_name('max_brightness'); ?>" type="text"
-									value="<?php echo $max_brightness; ?>" />
-								</label>					
-								<label title="Amount to scale images by. The default of 1 uses the size they appear on the page. For no scaling (use the actual image size) leave empty." style="width: 90px;" for="<?=$this->get_field_id('image_scale'); ?>">
-									<span>Image Scale</span>
-									<input
-									class="widefat" id="<?=$this->get_field_id('image_scale'); ?>"
-									name="<?=$this->get_field_name('image_scale'); ?>" type="text"
-									value="<?php echo $image_scale; ?>" /> 
-								</label>
-							</div>
-						</label>
-					</td>
-				</tr>
-			</tbody>
-		</table>		
-		<table>
-			<thead>
-				<tr>
-					<th colspan="3">CLOUD PROPERTIES
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td colspan="3" style="padding-bottom: 5px;">
-						<label title="Initial size of cloud from centre to sides." for="<?=$this->get_field_id('radius_x'); ?>" style="width: 86px;">
-							<span>Radius X</span> 
-							<input
-							class="widefat" id="<?=$this->get_field_id('radius_x'); ?>"
-							name="<?=$this->get_field_name('radius_x'); ?>" type="text"
-							value="<?php echo $radius_x; ?>" /> 
-						</label>				
-						<label title="Initial size of cloud from centre to top and bottom." for="<?=$this->get_field_id('radius_y'); ?>" style="width: 86px;">
-							<span>Radius Y</span> 
-							<input
-							class="widefat" id="<?=$this->get_field_id('radius_y'); ?>"
-							name="<?=$this->get_field_name('radius_y'); ?>" type="text"
-							value="<?php echo $radius_y; ?>" /> 
-						</label>				
-						<label title="Initial size of cloud from centre to front and back." for="<?=$this->get_field_id('radius_z'); ?>" style="width: 86px;">
-							<span>Radius Z</span> 
-							<input
-							class="widefat" id="<?=$this->get_field_id('radius_z'); ?>"
-							name="<?=$this->get_field_name('radius_z'); ?>" type="text"
-							value="<?php echo $radius_z; ?>" />
-						</label> 
-						<label title="Controls the perspective. Range: 0.0-1.0" style="width: 70px;" for="<?=$this->get_field_id('depth'); ?>">
-							<span>Depth</span> 
-							<input
-							class="widefat" id="<?=$this->get_field_id('depth'); ?>"
-							name="<?=$this->get_field_name('depth'); ?>" type="text"
-							value="<?php echo $depth; ?>" /> 
-						</label>
-						<br style="clear: both;"/>
-						<label title="Offsets the centre of the cloud vertically (measured in pixels)" for="<?=$this->get_field_id('offset_y'); ?>" style="width: 86px;">
-							<span>Offset Y</span> 
-							<input
-							class="widefat" id="<?=$this->get_field_id('offset_y'); ?>"
-							name="<?=$this->get_field_name('offset_y'); ?>" type="text"
-							value="<?php echo $offset_y; ?>" /> 
-						</label>
-						<label title="Offsets the centre of the cloud horizontally (measured in pixels)" for="<?=$this->get_field_id('offset_x'); ?>" style="width: 86px;">
-							<span>Offset X</span> 
-							<input
-							class="widefat" id="<?=$this->get_field_id('offset_x'); ?>"
-							name="<?=$this->get_field_name('offset_x'); ?>" type="text"
-							value="<?php echo $offset_x; ?>" /> 
-						</label>
-						<label title="Stretch or compress the cloud horizontally." for="<?=$this->get_field_id('stretch_x'); ?>" style="width: 86px;">
-							<span>Stretch X</span> 
-							<input
-								class="widefat" id="<?=$this->get_field_id('stretch_x'); ?>"
-								name="<?=$this->get_field_name('stretch_x'); ?>" type="text"
-								value="<?php echo $stretch_x; ?>" /> 
-							</label>
-						<label title="Stretch or compress the cloud vertically." for="<?=$this->get_field_id('stretch_y'); ?>" style="width: 70px;">
-							<span>Stretch Y</span> 
-							<input
-							class="widefat" id="<?=$this->get_field_id('stretch_y'); ?>"
-							name="<?=$this->get_field_name('stretch_y'); ?>" type="text"
-							value="<?php echo $stretch_y; ?>" /> 
-						</label> 
-						<br style="clear: both;" />
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<table  style="margin: 0 1px 1px;">
-			<thead>
-				<tr>
-					<th colspan="3">CLOUD ATTRIBUTES
+					<th colspan="3">CLOUD ATTRIBUTES & PROPERETIES
 					</th>
 				</tr>
 			</thead>
@@ -753,8 +502,346 @@
 						</div>
 					</td>
 				</tr>
+				<tr>
+					<td colspan="3" style="padding-bottom: 5px; border-top: 1px solid #fff;">
+						<label title="Initial size of cloud from centre to sides." for="<?=$this->get_field_id('radius_x'); ?>" style="width: 86px;">
+							<span>Radius X</span> 
+							<input
+							class="widefat" id="<?=$this->get_field_id('radius_x'); ?>"
+							name="<?=$this->get_field_name('radius_x'); ?>" type="text"
+							value="<?php echo $radius_x; ?>" /> 
+						</label>				
+						<label title="Initial size of cloud from centre to top and bottom." for="<?=$this->get_field_id('radius_y'); ?>" style="width: 86px;">
+							<span>Radius Y</span> 
+							<input
+							class="widefat" id="<?=$this->get_field_id('radius_y'); ?>"
+							name="<?=$this->get_field_name('radius_y'); ?>" type="text"
+							value="<?php echo $radius_y; ?>" /> 
+						</label>				
+						<label title="Initial size of cloud from centre to front and back." for="<?=$this->get_field_id('radius_z'); ?>" style="width: 86px;">
+							<span>Radius Z</span> 
+							<input
+							class="widefat" id="<?=$this->get_field_id('radius_z'); ?>"
+							name="<?=$this->get_field_name('radius_z'); ?>" type="text"
+							value="<?php echo $radius_z; ?>" />
+						</label> 
+						<label title="Controls the perspective. Range: 0.0-1.0" style="width: 70px;" for="<?=$this->get_field_id('depth'); ?>">
+							<span>Depth</span> 
+							<input
+							class="widefat" id="<?=$this->get_field_id('depth'); ?>"
+							name="<?=$this->get_field_name('depth'); ?>" type="text"
+							value="<?php echo $depth; ?>" /> 
+						</label>
+						<br style="clear: both;"/>
+						<label title="Offsets the centre of the cloud vertically (measured in pixels)" for="<?=$this->get_field_id('offset_y'); ?>" style="width: 86px;">
+							<span>Offset Y</span> 
+							<input
+							class="widefat" id="<?=$this->get_field_id('offset_y'); ?>"
+							name="<?=$this->get_field_name('offset_y'); ?>" type="text"
+							value="<?php echo $offset_y; ?>" /> 
+						</label>
+						<label title="Offsets the centre of the cloud horizontally (measured in pixels)" for="<?=$this->get_field_id('offset_x'); ?>" style="width: 86px;">
+							<span>Offset X</span> 
+							<input
+							class="widefat" id="<?=$this->get_field_id('offset_x'); ?>"
+							name="<?=$this->get_field_name('offset_x'); ?>" type="text"
+							value="<?php echo $offset_x; ?>" /> 
+						</label>
+						<label title="Stretch or compress the cloud horizontally." for="<?=$this->get_field_id('stretch_x'); ?>" style="width: 86px;">
+							<span>Stretch X</span> 
+							<input
+								class="widefat" id="<?=$this->get_field_id('stretch_x'); ?>"
+								name="<?=$this->get_field_name('stretch_x'); ?>" type="text"
+								value="<?php echo $stretch_x; ?>" /> 
+							</label>
+						<label title="Stretch or compress the cloud vertically." for="<?=$this->get_field_id('stretch_y'); ?>" style="width: 70px;">
+							<span>Stretch Y</span> 
+							<input
+							class="widefat" id="<?=$this->get_field_id('stretch_y'); ?>"
+							name="<?=$this->get_field_name('stretch_y'); ?>" type="text"
+							value="<?php echo $stretch_y; ?>" /> 
+						</label> 
+						<br style="clear: both;" />
+					</td>
+				</tr>
 			</tbody>
-		</table> 
+		</table>
+	</div>
+	<div id="fragment-2">
+		<table style="margin: 0 1px 1px;">  
+			<thead>
+				<tr>
+					<th colspan="3">TAG PROPERTIES
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border-bottom: 1px solid #fff; padding-bottom: 5px;">
+						<label><span style="padding-bottom: 5px;">COLORS</span>
+							<div style="padding-top: 10px;">
+								<label title="Colour of the tag text - empty string to use the colour of the original link" for="<?=$this->get_field_id('text_color'); ?>">
+									<span>Tags</span>
+									<br>
+									#<input style="width: 55px; margin: 0 5px 0 0;"
+									class="widefat" id="<?=$this->get_field_id('text_color'); ?>"
+									name="<?=$this->get_field_name('text_color'); ?>" type="text"
+									value="<?php echo $text_color; ?>" />
+								</label>
+								<label title="Background color of tags - empty option means no background. The string <span style='color: #063;'>'tag'</span> means use the original link background colour." for="<?=$this->get_field_id('bg_color'); ?>">
+									<span>Background</span>
+									<br>
+									#<input style="width: 55px; margin: 0 5px 0 0;"
+									class="widefat" id="<?=$this->get_field_id('bg_color'); ?>"
+									name="<?=$this->get_field_name('bg_color'); ?>" type="text"
+									value="<?php echo $bg_color; ?>" /> 
+								</label>
+								<label title="Colour of the shadow behind each tag" for="<?=$this->get_field_id('shadow'); ?>">
+									<span>Shadow</span>
+									<br>
+									#<input style="width: 55px; margin: 0 5px 0 0;"
+									class="widefat" id="<?=$this->get_field_id('shadow'); ?>"
+									name="<?=$this->get_field_name('shadow'); ?>" type="text"
+									value="<?php echo $shadow; ?>" /> 
+								</label>								
+								<label title="Colour of the active tag highlight" for="<?=$this->get_field_id('outline_color'); ?>">
+									<span>Outline</span>
+									<br>
+									#<input style="width: 55px; margin: 0 5px 0 0;"
+									class="widefat" id="<?=$this->get_field_id('outline_color'); ?>"
+									name="<?=$this->get_field_name('outline_color'); ?>" type="text"
+									value="<?php echo $outline_color; ?>" /> 
+								</label>
+								<label title="Colour of tag background outline. Use empty option for the same as the text colour, use <span style='color: #063;'>'tag'</span> for the original link text colour." for="<?=$this->get_field_id('bg_outline'); ?>">
+									<span>Bg Outline</span>
+									<br>
+									#<input style="width: 55px;"
+									class="widefat" id="<?=$this->get_field_id('bg_outline'); ?>"
+									name="<?=$this->get_field_name('bg_outline'); ?>" type="text"
+									value="<?php echo $bg_outline; ?>" /> 
+								</label>
+								<div>	
+									<label title="The colour gradient applied for colouring tags when using a <span style='color: #063;'>Weight Mode</span> of <span style='color: #063;'>colour</span> or <span style='color: #063;'>both</span>. Start with the colour for the &#34;heaviest&#34; tag at 0, and ending at 1 with the least weighty tag colour." for="<?=$this->get_field_id('weight_gradient_1'); ?>" style="padding-top: 10px;">
+										<span>Gradient<br>Color 1</span>
+										<br>
+										#<input style="width: 55px; margin: 0 5px 0 0;" 
+										class="widefat" id="<?=$this->get_field_id('weight_gradient_1'); ?>"
+										name="<?=$this->get_field_name('weight_gradient_1'); ?>" type="text"
+										value="<?php echo $weight_gradient_1 ?>" /> 
+									</label>
+									<label title="The colour gradient applied for colouring tags when using a <span style='color: #063;'>Weight Mode</span> of <span style='color: #063;'>colour</span> or <span style='color: #063;'>both</span>. Start with the colour for the &#34;heaviest&#34; tag at 0, and ending at 1 with the least weighty tag colour." for="<?=$this->get_field_id('weight_gradient_2'); ?>" style="padding-top: 10px;">
+										<span>Gradient<br>Color 2</span>
+										<br>
+										#<input style="width: 55px; margin: 0 5px 0 0;" 
+										class="widefat" id="<?=$this->get_field_id('weight_gradient_2'); ?>"
+										name="<?=$this->get_field_name('weight_gradient_2'); ?>" type="text"
+										value="<?php echo $weight_gradient_2 ?>" /> 
+									</label>
+									<label title="The colour gradient applied for colouring tags when using a <span style='color: #063;'>Weight Mode</span> of <span style='color: #063;'>colour</span> or <span style='color: #063;'>both</span>. Start with the colour for the &#34;heaviest&#34; tag at 0, and ending at 1 with the least weighty tag colour." for="<?=$this->get_field_id('weight_gradient_3'); ?>" style="padding-top: 10px;">
+										<span>Gradient<br>Color 3</span>
+										<br>
+										#<input style="width: 55px; margin: 0 5px 0 0;" 
+										class="widefat" id="<?=$this->get_field_id('weight_gradient_3'); ?>"
+										name="<?=$this->get_field_name('weight_gradient_3'); ?>" type="text"
+										value="<?php echo $weight_gradient_3 ?>" /> 
+									</label>
+									<label title="The colour gradient applied for colouring tags when using a <span style='color: #063;'>Weight Mode</span> of <span style='color: #063;'>colour</span> or <span style='color: #063;'>both</span>. Start with the colour for the &#34;heaviest&#34; tag at 0, and ending at 1 with the least weighty tag colour." for="<?=$this->get_field_id('weight_gradient_4'); ?>" style="padding-top: 10px;">
+										<span>Gradient<br>Color 4</span>
+										<br>
+										#<input style="width: 55px; margin: 0;" 
+										class="widefat" id="<?=$this->get_field_id('weight_gradient_4'); ?>"
+										name="<?=$this->get_field_name('weight_gradient_4'); ?>" type="text"
+										value="<?php echo $weight_gradient_4 ?>" /> 
+									</label>
+								</div>
+								<label style="padding: 25px 0 0 10px;">
+										<a style="color:#1e8cbe; font-weight: bold;" href="http://www.goat1000.com/tagcanvas-weighted.php" target="_blank">Gradient<br>Examples</a>
+								</label>
+								<div>
+								<label title="Colors that will be spread in a random way to your cloud content. Insert hex values without #, separated by coma. To use this function you have to empty the above <span style='color: #063;'>Tags</span> field and switch <span style='color: #063;'>Weight Mode</span> to <span style='color: #063;'>size</span> or <span style='color: #063;'>none</span>." style="margin-top: 10px; width: 342px;" for="<?=$this->get_field_id('multiple_colors'); ?>">
+									<span>Multiple Colors (hex, no #)</span>
+									<input style="width: 100%;"
+									class="widefat" id="<?=$this->get_field_id('multiple_colors'); ?>"
+									name="<?=$this->get_field_name('multiple_colors'); ?>" type="text"
+									value="<?php echo $multiple_colors; ?>" /> 
+								</label>
+							</div>
+							<div>
+								<label title="Tag background colors that will be spread in a random way to your cloud content. Insert hex values without #, separated by coma. To use this function type <span style='color: #063;'>tag</span> in the <span style='color: #063;'>Background</span> field above and switch <span style='color: #063;'>Weight Mode</span> to <span style='color: #063;'>size</span> or <span style='color: #063;'>none</span>." style="margin-top: 10px; width: 342px;" for="<?=$this->get_field_id('multiple_bg'); ?>">
+									<span>Multiple Backgrounds (hex, no #)</span>
+									<input style="width: 100%;"
+									class="widefat" id="<?=$this->get_field_id('multiple_bg'); ?>"
+									name="<?=$this->get_field_name('multiple_bg'); ?>" type="text"
+									value="<?php echo $multiple_bg; ?>" /> 
+								</label>
+							</div>
+							</div>
+
+						</label>		
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label><span>SIZES</span>
+							<div style="padding-top: 10px;">
+								<label title="Height of the tag text font" style="width: 25%;" for="<?=$this->get_field_id('text_height'); ?>">
+									<span>Tag Height</span>
+									<input
+									class="widefat" id="<?=$this->get_field_id('text_height'); ?>"
+									name="<?=$this->get_field_name('text_height'); ?>" type="text"
+									value="<?php echo $text_height; ?>" />px 
+								</label>
+								<label title="Amount of space around text and inside background" style="width: 25%; padding-bottom: 10px;" for="<?=$this->get_field_id('padding'); ?>">
+									<span>Padding</span>
+									<input
+									class="widefat" id="<?=$this->get_field_id('padding'); ?>"
+									name="<?=$this->get_field_name('padding'); ?>" type="text"
+									value="<?php echo $padding; ?>" />px 
+								</label>
+								<label title="Amount of tag shadow blurring" style="width: 25%; padding-bottom: 10px;" for="<?=$this->get_field_id('shadow_blur'); ?>">
+									<span>Shadow Blur</span>
+									<input
+									class="widefat" id="<?=$this->get_field_id('shadow_blur'); ?>"
+									name="<?=$this->get_field_name('shadow_blur'); ?>" type="text"
+									value="<?php echo $shadow_blur; ?>" />px 
+								</label>	
+								<label title="X and Y offset of the tag shadow" style="width: 25%; padding-bottom: 10px;" for="<?=$this->get_field_id('shadow_offset'); ?>">
+									<span>Shadow Offset</span>
+									<input
+									class="widefat" id="<?=$this->get_field_id('shadow_offset'); ?>"
+									name="<?=$this->get_field_name('shadow_offset'); ?>" type="text"
+									value="<?php echo $shadow_offset; ?>" />px, px 
+								</label>
+							</div>
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom: 1px solid #fff;">
+						<label title="Radius for rounded corners of background" for="<?=$this->get_field_id('bg_radius'); ?>" style="width: 25%; margin-bottom: 10px;">
+							<span><br>Bg Radius</span>
+							<input class="widefat" id="<?=$this->get_field_id('bg_radius'); ?>"
+							name="<?=$this->get_field_name('bg_radius'); ?>" type="text"
+							value="<?php echo $bg_radius; ?>" />px 
+						</label>
+						<label title="Thickness of tag background outline in pixels, 0 for no outline." for="<?=$this->get_field_id('bg_outline_thickness'); ?>" style="width: 25%; margin-bottom: 10px;">
+							<span>Bg Outline Thickness</span>
+							<input
+							class="widefat" id="<?=$this->get_field_id('bg_outline_thickness'); ?>"
+							name="<?=$this->get_field_name('bg_outline_thickness'); ?>" type="text"
+							value="<?php echo $bg_outline_thickness; ?>" />px 
+						</label>
+						<label title="Radius for rounded corners on outline box" style="width: 25%; margin-bottom: 10px" for="<?=$this->get_field_id('outline_radius'); ?>">
+							<span>Outline<br>Radius</span>
+							<br>
+							<input
+							class="widefat" id="<?=$this->get_field_id('outline_radius'); ?>"
+							name="<?=$this->get_field_name('outline_radius'); ?>" type="text"
+							value="<?php echo $outline_radius; ?>" />px 
+						</label>
+						<label title="Thickness of outline" style="width: 25%; margin-bottom: 10px;" for="<?=$this->get_field_id('outline_thickness'); ?>">
+							<span>Outline Thickness</span>
+							<input class="widefat" id="<?=$this->get_field_id('outline_thickness'); ?>"
+							name="<?=$this->get_field_name('outline_thickness'); ?>" type="text"
+							value="<?php echo $outline_thickness; ?>" />px 
+						</label>	
+						<label title="Number of pixels to increase size of tag by for the &#34;size&#34; outline method. Negative values are supported for decreasing the size." for="<?=$this->get_field_id('outline_increase'); ?>" style="width: 86px; margin-bottom: 10px;">
+							<span>Outline Increase</span>
+							<input
+							class="widefat" id="<?=$this->get_field_id('outline_increase'); ?>"
+							name="<?=$this->get_field_name('outline_increase'); ?>" type="text"
+							value="<?php echo $outline_increase; ?>" />px
+						</label>
+						<label title="Distance of outline from text, in pixels. This also increases the size of the active area around the tag." for="<?=$this->get_field_id('outline_offset'); ?>" style="width: 86px; margin-bottom: 10px;">
+							<span>Outline<br>Offset</span>
+							<br>
+							<input
+							class="widefat" id="<?=$this->get_field_id('outline_offset'); ?>"
+							name="<?=$this->get_field_name('outline_offset'); ?>" type="text"
+							value="<?php echo $outline_offset; ?>" />px
+						</label>		
+						<label title="Maximal font size when weighted sizing is enabled." for="<?=$this->get_field_id('weight_size_max'); ?>" style=" width: 86px; margin-bottom: 10px;">
+							<span>Weight<br>Size Max</span>
+							<br>
+							<input
+							class="widefat" id="<?=$this->get_field_id('weight_size_max'); ?>"
+							name="<?=$this->get_field_name('weight_size_max'); ?>" type="text"
+							value="<?php echo $weight_size_max; ?>" />px
+						</label>
+						<label title="Minimal font size when weighted sizing is enabled." for="<?=$this->get_field_id('weight_size_min'); ?>" style="margin-bottom: 10px; width: 80px; ">
+							<span>Weight<br>Size Min</span>
+							<br>
+							<input
+							class="widefat" id="<?=$this->get_field_id('weight_size_min'); ?>"
+							name="<?=$this->get_field_name('weight_size_min'); ?>" type="text"
+							value="<?php echo $weight_size_min; ?>" />px
+						</label>	
+						<label title="If greater than 0, breaks the tag into multiple lines at word boundaries when the line would be longer than this value. Lines are automatically broken at line break tags." for="<?=$this->get_field_id('split_width'); ?>" style="width: 25%; margin-bottom: 5px;">
+							<span>Split Width</span>
+							<input
+							class="widefat" id="<?=$this->get_field_id('split_width'); ?>"
+							name="<?=$this->get_field_name('split_width'); ?>" type="text"
+							value="<?php echo $split_width; ?>" />px
+						</label>
+					</td>
+				</tr>					
+				<tr>
+					<td style="border-bottom: 1px solid #fff;">
+						<label style="padding-bottom: 5px;"><span>FONTS</span>	
+							<div style="position: relative; top: 10px;">
+								<label title="Font family for the tag text - empty string to use the font of the original link." style="width: 100px; margin-right: 5px;" for="<?=$this->get_field_id('text_font'); ?>">
+									<span>Font</span>
+									<input style="width: 100px;"
+									class="widefat" id="<?=$this->get_field_id('text_font'); ?>"
+									name="<?=$this->get_field_name('text_font'); ?>" type="text"
+									value="<?php echo $text_font; ?>" /> 
+								</label>
+							</div>
+							<p style="margin: 0; padding: 0 5px; font-size: 12px;">The plugin is connected to Google Font Library, so besides <a title="Find what fonts are web safe." style="color: #1e8cbe;" href="http://www.w3schools.com/cssref/css_websafe_fonts.asp" target="_blank">Web Safe Fonts</a> you can use the full diversity of <a title="Find a Google Font Family." style="color: #1e8cbe;" href="http://www.google.com/fonts/" target="_blank">Google Fonts.</a>
+							</p>
+							<div>
+								<label title="Fonts, separated by coma, to use in a random way on your cloud content. To apply this function empty the above <span style='color: #063;'>Font</span> field." style="margin-top: 10px; width: 342px;" for="<?=$this->get_field_id('multiple_fonts'); ?>">
+									<span>Multiple Fonts</span>
+									<input style="width: 100%;"
+									class="widefat" id="<?=$this->get_field_id('multiple_fonts'); ?>"
+									name="<?=$this->get_field_name('multiple_fonts'); ?>" type="text"
+									value="<?php echo $multiple_fonts; ?>" /> 
+								</label>
+							</div>
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label style="padding-bottom: 5px;"><span>MISCELANEOUS</span>
+							<div style="padding-top: 10px;">
+								<label title="Minimal brightness (opacity) of tags at back of cloud (0.0-1.0)." for="<?=$this->get_field_id('min_brightness'); ?>" style="width: 115px;">
+									<span>Min Brightness</span>
+									<input
+									class="widefat" id="<?=$this->get_field_id('min_brightness'); ?>"
+									name="<?=$this->get_field_name('min_brightness'); ?>" type="text"
+									value="<?php echo $min_brightness; ?>" />
+								</label>
+								<label title="Maximal brightness (opacity) of tags at front of cloud (0.0-1.0)." for="<?=$this->get_field_id('max_brightness'); ?>" style="width: 115px;">
+									<span>Max Brightness</span>
+									<input
+									class="widefat" id="<?=$this->get_field_id('max_brightness'); ?>"
+									name="<?=$this->get_field_name('max_brightness'); ?>" type="text"
+									value="<?php echo $max_brightness; ?>" />
+								</label>					
+								<label title="Amount to scale images by. The default of 1 uses the size they appear on the page. For no scaling (use the actual image size) leave empty." style="width: 90px;" for="<?=$this->get_field_id('image_scale'); ?>">
+									<span>Image Scale</span>
+									<input
+									class="widefat" id="<?=$this->get_field_id('image_scale'); ?>"
+									name="<?=$this->get_field_name('image_scale'); ?>" type="text"
+									value="<?php echo $image_scale; ?>" /> 
+								</label>
+							</div>
+						</label>
+					</td>
+				</tr>
+			</tbody>
+		</table>		
 	</div>
 	<div id="fragment-3">
 		<table>  
@@ -881,7 +968,7 @@
 								name="<?=$this->get_field_name('interval'); ?>" type="text"
 								value="<?php echo $interval; ?>" />msec 
 							</label>
-							<label title="If set to a number, the selected tag will move to the front in this many milliseconds before activating. Defaults to null." style="width: 110px; margin-bottom: 10px;" for="<?=$this->get_field_id('click_to_front'); ?>">
+							<label title="If set to a number, the selected tag will move to the front in this many milliseconds before activating. By default the field is empty." style="width: 110px; margin-bottom: 10px;" for="<?=$this->get_field_id('click_to_front'); ?>">
 								<span>Click to Front Time</span>
 								<br>
 								<input
@@ -1119,33 +1206,36 @@
 		</table>
 	</div>
     <div id="fragment-4">
-		<table style="margin: 0 1px 10px;">
-			<thead>
-				<tr>
-					<th>TIPS
-					</th>
-				</tr>
-			</thead>
+		<table style="margin: 0 1px 1px;">
 			<tbody>
 				<tr>
-					<td style="padding: 0 5px;">
-						<?php include 'tips.html'; ?>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-				<table style="margin: 0 1px 1px;">
-			<thead>
-				<tr>
-					<th>
-						<a name="how-to-1"></a>HOW TO
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td style="padding: 0 5px;">
-						<?php include 'how.to.html'; ?>
+					<td>	
+						<div id="accordion">
+							<h3>General Tips</h3>
+								<div>
+									<?php include 'general.tips.html'; ?> 
+								</div>
+								<h3>Cloud Content Tips</h3>
+								<div>
+									<?php include 'cloud.content.tips.html'; ?>
+								</div>
+							<h3>Coloring Tips</h3>
+								<div>
+									<?php include 'coloring.tips.html'; ?>
+								</div>
+							<h3>Sizing Tips</h3>
+								<div>
+									<?php include 'sizing.tips.html'; ?>
+								</div>
+							<h3>Speed Tips</h3>
+								<div>
+									<?php include 'speed.tips.html'; ?>
+								</div>
+							<h3>How to... Tips</h3>
+								<div>
+									<?php include 'how.to.tips.html'; ?>
+								</div>
+						</div>
 					</td>
 				</tr>
 			</tbody>

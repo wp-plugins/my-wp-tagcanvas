@@ -2,8 +2,8 @@
 /*
 Plugin Name: 3D WP Tag Cloud
 Plugin URI: http://peter.bg/archives/7373
-Description: This plugin creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. In addition to Post Tags and Post Categories now clouds may rotate Recent Posts, External Links and Menu items. Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives the option to put images and/or text in the center of the cloud. The Number of tags in the cloud is adjustable. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
-Version: 2.0.1
+Description: This plugin creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Now clouds may rotate Pages, Recent Posts, External Links, Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content.  Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives the option to put images and/or text in the center of the cloud. The Number of tags in the cloud is adjustable. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
+Version: 2.1
 Author: Peter Petrov
 Author URI: http://peter.bg
 Update Server: http://peter.bg/
@@ -43,6 +43,12 @@ class wpTagCanvasWidget extends WP_Widget {
 		$rp_category_id = attribute_escape($instance['rp_category_id']);
 		$recent_posts = attribute_escape($instance['recent_posts']);
 		$menu = attribute_escape($instance['menu']);
+		$multiple_fonts = attribute_escape($instance['multiple_fonts']);		
+		$multiple_colors = attribute_escape($instance['multiple_colors']);	
+		$multiple_bg = attribute_escape($instance['multiple_bg']);
+		$archives_limit = attribute_escape($instance['archives_limit']);	
+		$authors_limit = attribute_escape($instance['authors_limit']);		
+		$exclude_admin = attribute_escape($instance['exclude_admin']);	
 		
 		$active_cursor = attribute_escape($instance['active_cursor']);	
 		$animation_timing = attribute_escape($instance['animation_timing']);		
@@ -103,9 +109,10 @@ class wpTagCanvasWidget extends WP_Widget {
 		$tooltip_class = attribute_escape($instance['tooltip_class']);
 		$tooltip_delay = attribute_escape($instance['tooltip_delay']);
 		$weight_from = attribute_escape($instance['weight_from']);
-		$weight_gradient = attribute_escape($instance['weight_gradient']);
-			$wcolor_1=sprintf("%06x",((base_convert($text_color,16,10)-base_convert($weight_gradient,16,10))/3)+base_convert($weight_gradient,16,10));
-			$wcolor_2=sprintf("%06x",((base_convert($text_color,16,10)-base_convert($weight_gradient,16,10))*2/3)+base_convert($weight_gradient,16,10));
+		$weight_gradient_1 = attribute_escape($instance['weight_gradient_1']);
+		$weight_gradient_2 = attribute_escape($instance['weight_gradient_2']);
+		$weight_gradient_3 = attribute_escape($instance['weight_gradient_3']);
+		$weight_gradient_4 = attribute_escape($instance['weight_gradient_4']);
 		$weight_mode = attribute_escape($instance['weight_mode']);
 		$weight_size = attribute_escape($instance['weight_size']);
 		$weight_size_max = attribute_escape($instance['weight_size_max']);
@@ -127,9 +134,9 @@ class wpTagCanvasWidget extends WP_Widget {
 		    echo $before_title . $title . $after_title;
 		}
 		?>
-            <div id="tag_html5_<?= $inst_id; ?>" width="<?= $width;?>"
-            	height="<?= $height;?>" hidden>
-		<?php 
+        <div id="tag_html5_<?= $inst_id; ?>" width="<?= $width;?>"
+        height="<?= $height;?>" hidden>
+			<?php 
 			if( $taxonomy == "both" ){ $args = array ('number' => $tags, 'taxonomy' => array('post_tag','category')); wp_tag_cloud($args);}
 			else { if( $taxonomy == "links" ) {$args = array ('category' => $links_category_id, 'hide_invisible' => 0, 'limit' => $links, 'categorize' => 0, 'title_li' => 0, 'before' => '', 'after' => ''); wp_list_bookmarks($args);}
 				else { if ($taxonomy == "menu" ) {$args = array ('menu' => $menu); wp_nav_menu($args);}
@@ -145,13 +152,17 @@ class wpTagCanvasWidget extends WP_Widget {
 									else echo '<a href="' . get_permalink($recent["ID"]) . '" title="Look '.esc_attr($recent["post_title"]).'" >' . $recent["post_title"].'</a> ';
 								};
 							} 
-						else {$args = array ('number' => $tags, 'taxonomy' => $taxonomy); wp_tag_cloud($args);}
+						else { if ($taxonomy == "archives" ) { $args = array ('type' => 'monthly', 'limit' => $archives_limit, 'format' => 'custom', 'before' => '<span>', 'after' => '</span>', 'show_post_count' => true); wp_get_archives( $args ); }
+							else { if ($taxonomy == "authors" ) { $args = array ('number' => $authors_limit, 'optioncount' => true, 'exclude_admin' => false, 'show_fullname' => true, 'hide_empty' => false, 'style' => 'none' );  wp_list_authors( $args );}
+								else { if ($taxonomy == "pages" ) { $args = array ('show_home' => true); wp_page_menu( $args);}
+									else {$args = array ('number' => $tags, 'taxonomy' => $taxonomy); wp_tag_cloud($args);}
+									}
+								}
+							}
 						}
-				} 
+					}	 
 				}
-		?>
-
-				
+			?>		
         </div>
         <canvas width="<?= $width;?>" height="<?= $height;?>" id="tag_canvas_<?= $inst_id; ?>"></canvas>
 			
@@ -159,163 +170,173 @@ class wpTagCanvasWidget extends WP_Widget {
 			WebFont.load({google: {families: ['<? echo $text_font; ?>']}})
 		
 		    $(document).ready(function(){
-					
+				
+
+				var any_type_tags = $('#tag_html5_<?= $inst_id; ?> a');		
+				var test = $('#tag_html5_<?= $inst_id; ?>');
 				var taxonomy = '<?= $taxonomy; ?>';
 				var wm = '<?= $weight_mode; ?>';
-				if((taxonomy=="links")&(wm!='none')){
-					var links= $('#tag_html5_<?= $inst_id; ?> a');							
+				if((taxonomy=="links")&&(wm!='none')){
 					var bigest = <?= $weight_size; ?>*3;
-					var increment = (bigest-3)/links.length;
-					for (var i = 0; i < links.length; i++) { 
+					var increment = (bigest-3)/any_type_tags.length;
+					for (var i = 0; i < any_type_tags.length; i++) { 
 						var fsize = Math.round(bigest-increment*i);
-						$('#tag_html5_<?= $inst_id; ?> a').eq(i).css('font-size',fsize+'px');
+						$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-size':fsize+'px'});
 					}
 				}
-					
-				var active_cursor = '<?= $active_cursor; ?>';			
-				var animation_timing = '<?= $animation_timing; ?>';
-				var bg_color = '<?= $bg_color; ?>';			
-				if(bg_color!=''){bg_color = '#'+bg_color;};
-				var bg_outline = '<?= $bg_outline; ?>';
-				if(bg_outline!=''){bg_outline = '#'+bg_outline;};
-				var bg_outline_thickness = <?= $bg_outline_thickness; ?>;
-				var bg_radius = <?= $bg_radius; ?>;					
-				var center_function = '<?= $center_function; ?>';
-				var click_to_front = <?= $click_to_front; ?>;
-				var deceleration = <?= $deceleration; ?>;
-				var depth = <?= $depth; ?>;
-				var drag_ctrl = <?= $drag_ctrl; ?>;
-				var drag_threshold = <?= $drag_threshold; ?>;	
-				var fadein = <?= $fadein; ?>;
-				var freeze_active = <?= $freeze_active; ?>;
-				var freeze_decel = <?= $freeze_decel; ?>;
-				var front_select = <?= $front_select; ?>;
-				var hide_tags = <?= $hide_tags; ?>;		
-				var image_scale = <?= $image_scale; ?>;	
-				var initial = <?= $initial; ?>;					
-				var interval = <?= $interval; ?>;
-				var lock = '<?= $lock; ?>';
-				var max_brightness = <?= $max_brightness; ?>;
-				var max_speed = <?= $max_speed; ?>;
-				var min_brightness = <?= $min_brightness; ?>;
-				var min_speed = <?= $min_speed; ?>;					
-				var no_mouse = <?= $no_mouse; ?>;
-				var no_select = <?= $no_select; ?>;
-				var offset_x = <?= $offset_x; ?>;
-				var offset_y = <?= $offset_y; ?>;	
-				var outline_color = '#<?= $outline_color; ?>';	
-				var outline_increase = <?= $outline_increase; ?>;	
-				var outline_method = '<?= $outline_method; ?>';	
-				var outline_offset= <?= $outline_offset; ?>;
-				var outline_radius = <?= $outline_radius; ?>;		
-				var outline_thickness = <?= $outline_thickness; ?>;
-				var padding = <?= $padding; ?>;		
-				var pulsate_time = <?= $pulsate_time; ?>;
-				var pulsate_to= <?= $pulsate_to; ?>;		
-				var radius_x = <?= $radius_x; ?>;			
-				var radius_y = <?= $radius_y; ?>;			
-				var radius_z = <?= $radius_z; ?>;
-				var reverse = <?= $reverse; ?>;		
-				var shadow = '#<?= $shadow; ?>';			
-				var shadow_blur = <?= $shadow_blur; ?>;
-				var shadow_offset = <?= $shadow_offset; ?>;					
-				var shape = '<?= $shape; ?>';						
-				var shuffle_tags = <?= $shuffle_tags; ?>;	
-				var split_width = <?= $split_width; ?>;
-				var stretch_x = <?= $stretch_x; ?>;
-				var stretch_y = <?= $stretch_y; ?>;
-				var text_color = '#<?= $text_color; ?>';	
-				var text_font = '<?= $text_font; ?>';	
-				var text_height = <?= $text_height; ?>;			
-				var text_optimisation = <?= $text_optimisation; ?>;					
-				var text_scale= <?= $text_scale; ?>;		
-				var tooltip = '<?= $tooltip; ?>';	
-				var tooltip_class = '<?= $tooltip_class; ?>';	
-				var tooltip_delay = <?= $tooltip_delay; ?>;
-				var wcolor = '#<?= $weight_gradient; ?>';		
-				var weight_from = '<?= $weight_from; ?>';					
-			    var weight_gradient = {0:'#<?= $weight_gradient; ?>', 0.33:'#<?= $wcolor_2; ?>',0.66:'#<?= $wcolor_1; ?>', 1:'#<?= $text_color; ?>'};									
-				var weight_mode = '<?= $weight_mode; ?>';
-				var weight_size = <?= $weight_size; ?>;
-				var weight_size_max = <?= $weight_size_max; ?>;			
-				var weight_size_min = <?= $weight_size_min; ?>;					
-				var wheel_zoom = <?= $wheel_zoom; ?>;
-				var zoom = <?= $zoom; ?>;
-				var zoom_max = <?= $zoom_max; ?>;				
-				var zoom_min = <?= $zoom_min; ?>;			
-				var zoom_step = <?= $zoom_step; ?>;
 
-				TagCanvas.activeCursor = active_cursor; 					
-				TagCanvas.animTiming = animation_timing;
-				TagCanvas.bgColour = bg_color; 
-				TagCanvas.bgOutline = bg_outline;
-				TagCanvas.bgOutlineThickness = bg_outline_thickness;		
-				TagCanvas.bgRadius = bg_radius;		
-				TagCanvas.clickToFront = click_to_front;
-				TagCanvas.decel = deceleration; 					
-				TagCanvas.depth = depth;
-				TagCanvas.dragControl = drag_ctrl;	
-				TagCanvas.dragThreshold = drag_threshold;
-				TagCanvas.fadeIn = fadein;
-				TagCanvas.freezeActive = freeze_active;
-				TagCanvas.freezeDecel = freeze_decel;		
-				TagCanvas.frontSelect = front_select;
-				TagCanvas.hideTags = hide_tags; 
-				TagCanvas.imageScale = image_scale;				
-				TagCanvas.initial = initial; 					
-				TagCanvas.interval = interval;	
-				TagCanvas.lock = lock; 
-				TagCanvas.maxBrightness = max_brightness;	
-				TagCanvas.maxSpeed = max_speed; 
-				TagCanvas.minBrightness = min_brightness;
-				TagCanvas.minSpeed = min_speed;	
-				TagCanvas.noMouse = no_mouse;
-				TagCanvas.noSelect = no_select;		
-				TagCanvas.offsetX = offset_x;
-				TagCanvas.offsetY = offset_y;		
-				TagCanvas.outlineColour = outline_color; 					
-				TagCanvas.outlineIncrease = outline_increase;		
-				TagCanvas.outlineMethod = outline_method;					
-				TagCanvas.outlineOffset = outline_offset;	
-				TagCanvas.outlineRadius = outline_radius;					
-				TagCanvas.outlineThickness = outline_thickness;	
-				TagCanvas.padding = padding;
-				TagCanvas.pulsateTime = pulsate_time;		
-				TagCanvas.pulsateTo = pulsate_to;
-				TagCanvas.radiusX = radius_x;
-				TagCanvas.radiusY = radius_y;
-				TagCanvas.radiusZ = radius_z;		
-				TagCanvas.reverse = reverse;			
-				TagCanvas.shadow = shadow;
-				TagCanvas.shadowBlur = shadow_blur;		
-				TagCanvas.shadowOffset = shadow_offset;	
-				TagCanvas.shape = shape;
-				TagCanvas.shuffleTags = shuffle_tags;		
-				TagCanvas.splitWidth = split_width;
-				TagCanvas.stretchX = stretch_x;
-				TagCanvas.stretchY = stretch_y;					
-				TagCanvas.textColour = text_color;
-				TagCanvas.textFont = text_font;
-				TagCanvas.textHeight = text_height;
-				TagCanvas.tooltip = tooltip;
-				TagCanvas.tooltipClass = tooltip_class;
-				TagCanvas.tooltipDelay = tooltip_delay;
-				TagCanvas.txtOpt = text_optimisation;
-				TagCanvas.txtScale = text_scale;
+				if(taxonomy=="archives"){
+					var link_span = $('#tag_html5_<?= $inst_id; ?> span');
+					for (var i = 0; i < link_span.length; i++) { 
+						var text_s = $('#tag_html5_<?= $inst_id; ?> span').eq(i).text();
+						var text_a = $('#tag_html5_<?= $inst_id; ?> span a').eq(i).text();
+						var weight_value = text_s.substring(text_a.length+2,text_s.length-1);
+						$('#tag_html5_<?= $inst_id; ?> span a').eq(i).text(text_s);
+						$('#tag_html5_<?= $inst_id; ?> span a').eq(i).css({'font-size': weight_value+'px'});						
+					}
+					var clear_links = $('#tag_html5_<?= $inst_id; ?> span a').detach();
+					$('#tag_html5_<?= $inst_id; ?> span').remove();
+					$(clear_links).appendTo('#tag_html5_<?= $inst_id; ?>');
+				}
+
+				if(taxonomy=="authors"){
+					var text_a = $('#tag_html5_<?= $inst_id; ?> a');
+					var div_full_text =  $('#tag_html5_<?= $inst_id; ?>').text();
+					var div_clear_text = div_full_text.replace(',','');	
+					var authors_array = div_clear_text.split(')');					
+					for (var i = 0; i < text_a.length; i++) { 
+						authors_array[i]=authors_array[i].trim();
+						var weight_val = authors_array[i].substring(authors_array[i].lastIndexOf('(')+1, authors_array[i].length);		
+						$('#tag_html5_<?= $inst_id; ?> a').eq(i).text(authors_array[i]+')');
+						$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-size': weight_val+'px'});	
+					}
+					var clear_links = $('#tag_html5_<?= $inst_id; ?> a').detach();
+					$('#tag_html5_<?= $inst_id; ?>').text('');
+					$(clear_links).appendTo('#tag_html5_<?= $inst_id; ?>');					
+				}				
+				
+				var multiple_fonts = '<?= $multiple_fonts; ?>';
+				if(multiple_fonts!=''){
+					var mf_array = multiple_fonts.split(',');
+						for (var i = 0; i < any_type_tags.length; i++) { 
+						$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-family':_.shuffle(mf_array)[0]});
+					}
+				}
+				
+				var multiple_colors = '<?= $multiple_colors; ?>';
+				multiple_colors = multiple_colors.replace(/ /gi, '');
+				if(multiple_colors!=''){
+					var mc_array = multiple_colors.split(',');
+					for (var i = 0; i < mc_array.length; i++) {
+						mc_array[i] = '#'+ mc_array[i];
+					}
+					for (var i = 0; i < any_type_tags.length; i++) { 
+						$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'color': _.shuffle(mc_array)[0]});
+					}
+				}
+				
+				var multiple_bg = '<?= $multiple_bg; ?>';
+				multiple_bg = multiple_bg.replace(/ /gi, '');
+				if(multiple_bg!=''){
+					var mb_array = multiple_bg.split(',');
+					for (var i = 0; i < mb_array.length; i++) {
+						mb_array[i] = '#'+ mb_array[i];
+					}
+					for (var i = 0; i < any_type_tags.length; i++) { 
+						$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'background-color': _.shuffle(mb_array)[0]});
+					}
+				}
+	
+				TagCanvas.activeCursor = '<?= $active_cursor; ?>';						
+				TagCanvas.animTiming = '<?= $animation_timing; ?>';
+				var bg_color = '<?= $bg_color; ?>';			
+				if((bg_color!='')&&(bg_color!='null')&&(bg_color!='tag')){bg_color = '#'+bg_color;};
+				if((bg_color=='')||(bg_color=='null')) {TagCanvas.bgColour = null;}	else {TagCanvas.bgColour = bg_color;};
+				var bg_outline = '<?= $bg_outline; ?>';
+				if((bg_outline!='')&&(bg_outline!='null')&&(bg_outline!='tag')){bg_outline = '#'+bg_outline;};
+				if((bg_outline=='')||(bg_outline=='null')) {TagCanvas.bgOutline = null;} else {TagCanvas.bgOutline = bg_outline;};
+				TagCanvas.bgOutlineThickness = <?= $bg_outline_thickness; ?>;	
+				TagCanvas.bgRadius = <?= $bg_radius; ?>;
+				var click_to_front = '<?= $click_to_front; ?>';				
+				if((click_to_front == '')||(click_to_front == 'null')) {TagCanvas.clickToFront = null;}	
+				else {TagCanvas.clickToFront = parseInt(click_to_front);};
+				TagCanvas.decel = <?= $deceleration; ?>;					
+				TagCanvas.depth = <?= $depth; ?>;
+				TagCanvas.dragControl = <?= $drag_ctrl; ?>;
+				TagCanvas.dragThreshold = <?= $drag_threshold; ?>;	
+				TagCanvas.fadeIn = <?= $fadein; ?>;
+				TagCanvas.freezeActive = <?= $freeze_active; ?>;
+				TagCanvas.freezeDecel = <?= $freeze_decel; ?>;	
+				TagCanvas.frontSelect = <?= $front_select; ?>;
+				TagCanvas.hideTags = <?= $hide_tags; ?>;		
+				TagCanvas.imageScale = <?= $image_scale; ?>;				
+				TagCanvas.initial = <?= $initial; ?>;							
+				TagCanvas.interval = <?= $interval; ?>;
+				TagCanvas.lock = '<?= $lock; ?>';
+				TagCanvas.maxBrightness = <?= $max_brightness; ?>;
+				TagCanvas.maxSpeed = <?= $max_speed; ?>;
+				TagCanvas.minBrightness = <?= $min_brightness; ?>;
+				TagCanvas.minSpeed = <?= $min_speed; ?>;	
+				TagCanvas.noMouse = <?= $no_mouse; ?>;
+				TagCanvas.noSelect = <?= $no_select; ?>;	
+				TagCanvas.offsetX = <?= $offset_x; ?>;
+				TagCanvas.offsetY = <?= $offset_y; ?>;					
+				TagCanvas.outlineColour = '#<?= $outline_color; ?>';					
+				TagCanvas.outlineIncrease = <?= $outline_increase; ?>;		
+				TagCanvas.outlineMethod = '<?= $outline_method; ?>';					
+				TagCanvas.outlineOffset = <?= $outline_offset; ?>;
+				TagCanvas.outlineRadius = <?= $outline_radius; ?>;						
+				TagCanvas.outlineThickness = <?= $outline_thickness; ?>;	
+				TagCanvas.padding = <?= $padding; ?>;	
+				TagCanvas.pulsateTime = <?= $pulsate_time; ?>;		
+				TagCanvas.pulsateTo = <?= $pulsate_to; ?>;
+				TagCanvas.radiusX = <?= $radius_x; ?>;	
+				TagCanvas.radiusY = <?= $radius_y; ?>;	
+				TagCanvas.radiusZ = <?= $radius_z; ?>;	
+				TagCanvas.reverse = <?= $reverse; ?>;	
+				TagCanvas.shadow = '#<?= $shadow; ?>';	
+				TagCanvas.shadowBlur = <?= $shadow_blur; ?>;
+				TagCanvas.shadowOffset = <?= $shadow_offset; ?>;	
+				TagCanvas.shape = '<?= $shape; ?>';	
+				TagCanvas.shuffleTags = <?= $shuffle_tags; ?>;		
+				TagCanvas.splitWidth = <?= $split_width; ?>;
+				TagCanvas.stretchX = <?= $stretch_x; ?>;
+				TagCanvas.stretchY = <?= $stretch_y; ?>;
+				var text_color = '#<?= $text_color; ?>';
+				if(text_color=='#') {TagCanvas.textColour = null;}
+				else {TagCanvas.textColour = text_color;};
+				TagCanvas.textFont = '<?= $text_font; ?>';	
+				TagCanvas.textHeight = <?= $text_height; ?>;	
+				TagCanvas.tooltip = '<?= $tooltip; ?>';
+				TagCanvas.tooltipClass = '<?= $tooltip_class; ?>';	
+				TagCanvas.tooltipDelay = <?= $tooltip_delay; ?>;
+				TagCanvas.txtOpt = <?= $text_optimisation; ?>;	
+				TagCanvas.txtScale = <?= $text_scale; ?>;
+				var weight_mode = '<?= $weight_mode; ?>';
 				if((weight_mode=="size")||(weight_mode=="colour")||(weight_mode=="both")||(weight_mode=="bgcolour")||(weight_mode=="bgoutline")){
 					TagCanvas.weight = true; 
-					TagCanvas.weightFrom = weight_from;						
-					TagCanvas.weightGradient = weight_gradient;
+					TagCanvas.weightFrom = '<?= $weight_from; ?>';	
+					var weight_gradient_1 = '<?= $weight_gradient_1; ?>';
+					var weight_gradient_2 = '<?= $weight_gradient_2; ?>';
+					var weight_gradient_3 = '<?= $weight_gradient_3; ?>';
+					var weight_gradient_4 = '<?= $weight_gradient_4; ?>';
+					if((weight_gradient_1 == '')||(weight_gradient_2 == '')||(weight_gradient_3 == '')||(weight_gradient_4 == '')){}
+					else {var weight_gradient = {0:'#<?= $weight_gradient_1; ?>', 0.33:'#<?= $weight_gradient_2; ?>', 0.67:'#<?= $weight_gradient_3; ?>', 1:'#<?= $weight_gradient_4; ?>'};			
+					TagCanvas.weightGradient = weight_gradient;};
 					TagCanvas.weightMode = weight_mode;
-					TagCanvas.weightSize = weight_size;
-					TagCanvas.weightSizeMax = weight_size_max;
-					TagCanvas.weightSizeMin = weight_size_min;
+					TagCanvas.weightSize = <?= $weight_size; ?>;
+					var weight_size_max = '<?= $weight_size_max; ?>';		
+					if((weight_size_max=='')||(weight_size_max=='null')) {TagCanvas.weightSizeMax = null;} 
+					else {TagCanvas.weightSizeMax = parseInt(weight_size_max);};
+					var weight_size_min = '<?= $weight_size_min; ?>';		
+					if((weight_size_min=='')||(weight_size_min=='null')) {TagCanvas.weightSizeMin = null;} 
+					else {TagCanvas.weightSizeMin = parseInt(weight_size_min);};					
 				}				
-				TagCanvas.wheelZoom = wheel_zoom;	
-				TagCanvas.zoom = zoom;					
-				TagCanvas.zoomMax = zoom_max;
-				TagCanvas.zoomMin = zoom_min;
-				TagCanvas.zoomStep = zoom_step;	
+				TagCanvas.wheelZoom = <?= $wheel_zoom; ?>;
+				TagCanvas.zoom = <?= $zoom; ?>;				
+				TagCanvas.zoomMax = <?= $zoom_max; ?>;	
+				TagCanvas.zoomMin = <?= $zoom_min; ?>;
+				TagCanvas.zoomStep = <?= $zoom_step; ?>;
 
 				TagCanvas.Start('tag_canvas_<?=$inst_id; ?>','tag_html5_<?=$inst_id; ?>', { centreFunc: CF_<?php echo $center_function; ?> });
 			});
@@ -338,7 +359,13 @@ class wpTagCanvasWidget extends WP_Widget {
 		$tag_option['rp_category_id'] =strip_tags(stripslashes($new_instance["rp_category_id"]));		
 		$tag_option['recent_posts'] =strip_tags(stripslashes($new_instance["recent_posts"]));
 		$tag_option['menu'] =strip_tags(stripslashes($new_instance["menu"]));
-
+		$tag_option['multiple_fonts'] =strip_tags(stripslashes($new_instance["multiple_fonts"]));
+		$tag_option['multiple_colors'] =strip_tags(stripslashes($new_instance["multiple_colors"]));
+		$tag_option['multiple_bg'] =strip_tags(stripslashes($new_instance["multiple_bg"]));		
+		$tag_option['archives_limit'] =strip_tags(stripslashes($new_instance["archives_limit"]));
+		$tag_option['authors_limit'] =strip_tags(stripslashes($new_instance["authors_limit"]));	
+		$tag_option['exclude_admin'] =strip_tags(stripslashes($new_instance["exclude_admin"]));	
+		
 		$tag_option['active_cursor'] =strip_tags(stripslashes($new_instance["active_cursor"]));		
 		$tag_option['animation_timing'] =strip_tags(stripslashes($new_instance["animation_timing"]));		
 		$tag_option['bg_color'] =strip_tags(stripslashes($new_instance["bg_color"]));
@@ -398,7 +425,10 @@ class wpTagCanvasWidget extends WP_Widget {
 		$tag_option['tooltip_class'] =strip_tags(stripslashes($new_instance["tooltip_class"]));
 		$tag_option['tooltip_delay'] =strip_tags(stripslashes($new_instance["tooltip_delay"]));
 		$tag_option['weight_from'] =strip_tags(stripslashes($new_instance["weight_from"]));
-		$tag_option['weight_gradient'] =strip_tags(stripslashes($new_instance["weight_gradient"]));		
+		$tag_option['weight_gradient_1'] =strip_tags(stripslashes($new_instance["weight_gradient_1"]));
+		$tag_option['weight_gradient_2'] =strip_tags(stripslashes($new_instance["weight_gradient_2"]));		
+		$tag_option['weight_gradient_3'] =strip_tags(stripslashes($new_instance["weight_gradient_3"]));	
+		$tag_option['weight_gradient_4'] =strip_tags(stripslashes($new_instance["weight_gradient_4"]));			
 		$tag_option['weight_mode'] =strip_tags(stripslashes($new_instance["weight_mode"]));
 		$tag_option['weight_size'] =strip_tags(stripslashes($new_instance["weight_size"]));
 		$tag_option['weight_size_max'] =strip_tags(stripslashes($new_instance["weight_size_max"]));
@@ -426,7 +456,13 @@ class wpTagCanvasWidget extends WP_Widget {
 			'recent_posts' => '10',
 			'rp_category_id' => '',
 			'menu' => '',
-
+			'multiple_fonts' => '',
+			'multiple_colors' => '',
+			'multiple_bg' => '',
+			'archives_limit' => '',
+			'authors_limit' => '',		
+			'exclude_admin' => 'true',					
+			
 			'active_cursor' => 'pointer',
 			'animation_timing' => 'Smooth',
 			'bg_color' => '',
@@ -434,12 +470,12 @@ class wpTagCanvasWidget extends WP_Widget {
 			'bg_outline_thickness' => '0',
 			'bg_radius' => '10',
 			'center_function' => '1',
-			'click_to_front' => 'null',
+			'click_to_front' => '',
 			'deceleration' => '0.98',
 			'depth' => '0.5',
 			'drag_ctrl' => 'false',
 			'drag_threshold' => '4',
-			'fadein' => '6000',
+			'fadein' => '5000',
 			'freeze_active' => 'false',
 			'freeze_decel' => 'false',
 			'front_select' => 'false',
@@ -486,17 +522,19 @@ class wpTagCanvasWidget extends WP_Widget {
 			'text_optimisation' => 'true',
 			'text_scale' => '2',
 			'weight_from' => '',
-			'weight_gradient' => 'cccccc',
+			'weight_gradient_1' => 'f00',
+			'weight_gradient_2' => 'ff0',
+			'weight_gradient_3' => '0f0',
+			'weight_gradient_4' => '00f',
 			'weight_mode' => 'both',
 			'weight_size' => '1.0',
-			'weight_size_max' => 'null',
-			'weight_size_min' => 'null',
+			'weight_size_max' => '',
+			'weight_size_min' => '',
 			'wheel_zoom' => 'true',
 			'zoom' => '1.0',
 			'zoom_max' => '3.0',
 			'zoom_min' => '0.3',
 			'zoom_step' => '0.05',
-
         ));
 		
 		$tooltip_status = attribute_escape($instance['tooltip_status']);
@@ -510,6 +548,12 @@ class wpTagCanvasWidget extends WP_Widget {
 		$recent_posts = attribute_escape($instance['recent_posts']);
 		$rp_category_id = attribute_escape($instance['rp_category_id']);
 		$menu = attribute_escape($instance['menu']);
+		$multiple_fonts = attribute_escape($instance['multiple_fonts']);
+		$multiple_colors = attribute_escape($instance['multiple_colors']);
+		$multiple_bg = attribute_escape($instance['multiple_bg']);
+		$archives_limit = attribute_escape($instance['archives_limit']);
+		$authors_limit = attribute_escape($instance['authors_limit']);		
+		$exclude_admin = attribute_escape($instance['exclude_admin']);	
 		
 		$active_cursor = attribute_escape($instance['active_cursor']);		
 		$animation_timing = attribute_escape($instance['animation_timing']);
@@ -570,7 +614,10 @@ class wpTagCanvasWidget extends WP_Widget {
 		$tooltip_class = attribute_escape($instance['tooltip_class']);
 		$tooltip_delay = attribute_escape($instance['tooltip_delay']);
 		$weight_from = attribute_escape($instance['weight_from']);	
-		$weight_gradient = attribute_escape($instance['weight_gradient']);
+		$weight_gradient_1 = attribute_escape($instance['weight_gradient_1']);
+		$weight_gradient_2 = attribute_escape($instance['weight_gradient_2']);
+		$weight_gradient_3 = attribute_escape($instance['weight_gradient_3']);
+		$weight_gradient_4 = attribute_escape($instance['weight_gradient_4']);
 		$weight_mode = attribute_escape($instance['weight_mode']);
 		$weight_size = attribute_escape($instance['weight_size']);
 		$weight_size_max = attribute_escape($instance['weight_size_max']);
@@ -586,9 +633,9 @@ class wpTagCanvasWidget extends WP_Widget {
  ?>
 
 		<script type="text/javascript">
-			$( "#tabs" ).tabs({show: { effect: "blind", duration: 800 }, hide:{effect: "blind", duration: 350}});
+			$( "#tabs" ).tabs({show: { effect: "slide", duration: 500 }, hide:{effect: "slide", duration: 250}});
 
-			<?php if( $tooltip_status == "on" ){ echo "$( document ).tooltip( {show: {effect: 'fade', duration: 300}, hide: {effect: 'fade', duration: 100}, tooltipClass: 'custom-tooltip-styling'});";} 
+			<?php if( $tooltip_status == "on" ){ echo "$( document ).tooltip( {show: {effect: 'fade', duration: 300}, hide: {effect: 'fade', duration: 80}, tooltipClass: 'custom-tooltip-styling'});";} 
 				else { echo "$( document ).tooltip( {show: {effect: 'fade', duration: 300}, hide: {effect: 'fade', duration: 80}, tooltipClass: 'custom-tooltip-styling', position: { my: 'left-300 top',  at: 'left bottom',  of: 'body'}});";}
 			?>
 		</script>

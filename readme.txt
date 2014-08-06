@@ -13,7 +13,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 
 == Description ==
 
-This plugin creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. In addition to Post Tags and Post Categories now clouds may rotate Recent Posts, External Links and Menu items. Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives the option to put images and/or text in the center of the cloud. The Number of tags in the cloud is adjustable. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
+Description: This plugin creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Now clouds may rotate Pages, Recent Posts, External Links, Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content.  Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives the option to put images and/or text in the center of the cloud. The Number of tags in the cloud is adjustable. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
 
 == Installation ==
 
@@ -31,6 +31,18 @@ This plugin creates multiple instances widget that draws and animates a HTML5 ca
 
 
 == Changelog ==
+
+= 2.1 =
+1. New types of Cloud Content added: 
+	Archives (monthly, limit option), 
+	Authors (incl/excl Admins, limit option) and 
+	Pages;
+2. New Option added: Multiple Colors. Now tags in the cloud may be motley;
+3. New Option added: Multiple Backgrounds. Now tag's backgrounds may be pied;
+4. New Option added: Multiple Fonts. Now Cloud Tags may be with different fonts;
+5. Redesigned Gradient Colors option: Previous automatic one was not able to give clearly distinguishable colors. Now gradient depends on user's wish;
+6. Redesigned Help Section for better convenience in use;
+7. Fixed a bug in tags coloring.
 
 = 2.0.1 =
 During upload of v. 2.0 some files were missed.
