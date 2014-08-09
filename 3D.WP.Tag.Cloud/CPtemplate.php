@@ -80,7 +80,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="2" style="border-bottom: 1px solid #fff; padding-bottom: 5px;">
+					<td colspan="2" style="border-bottom: 1px solid #aaa; padding-bottom: 5px;">
 						<div title="The shape of the cloud">
 							<span>Shape</span>
 						</div>
@@ -108,7 +108,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 111px; border-bottom: 1px solid #fff; padding: 0 5px 5px 0;">
+					<td style="width: 111px; border-bottom: 1px solid #aaa; padding: 0 5px 5px 0;">
 						<label for="<?=$this->get_field_id('taxonomy'); ?>">
 							<span>Content</span>
 							<div>
@@ -162,7 +162,7 @@
 							</div>
 						</label>
 					</td >
-					<td style="border-bottom: 1px solid #fff; vertical-align: top;">
+					<td style="border-bottom: 1px solid #aaa; vertical-align: top;">
 						<div>
 							<label title="Comma separated list of Posts Category IDs to be displayed. If none is specified, the most recent posts from all Categories are shown." for="<?=$this->get_field_id('rp_category_id'); ?>" style="width: 120px; margin: 0 5px 0 0; line-height: 13px;">
 								<span>Posts&#039; Categories</span> 
@@ -239,7 +239,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td style="border-right: 1px solid #fff; padding-bottom: 2px;";>
+					<td style="border-right: 1px solid #aaa; padding-bottom: 2px;";>
 						<label for="<?=$this->get_field_id('outline_method'); ?>" title="Type of highlight to use">
 							<span>Outline Method</span>
 							<div>
@@ -340,7 +340,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="3" style="border-bottom: 1px solid #fff; padding-bottom: 5px;">
+					<td colspan="3" style="border-bottom: 1px solid #aaa; padding-bottom: 5px;">
 						<div title="The CSS cursor type to use when the mouse is over a tag." style="font-weight: bold;">Cursor</div>
 						<div style="float: left; margin-right: 16px;">
 							<input title="The UA determines the cursor to display based on the current context." class="radio" id="<?=$this->get_field_id('active_cursor'); ?>"
@@ -451,7 +451,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="border-top: 1px solid #fff;">
+					<td colspan="3" style="border-top: 1px solid #aaa;">
 						<label style="float: none;" for="<?=$this->get_field_id('shape'); ?>"><span style="font-weight: bold;">Center Function</span> (Fill up empty functions <a href="' . site_url('/wp-admin/plugin-editor.php?file=my-wp-tagcanvas%2FCF.js&plugin=my-wp-tagcanvas%2FMy-WP-TagCanvas.php' , __FILE__ ) . '" target="_blank" title="CF.js in plugin&#39;s Editor" style="color: #1e8cbe; font-weight: bold!important;">here</a>).
 						</label>
 						<div id="func" title="Choose a Center Function. Initially they are empty. If you want to use this option you have to fill up functions with your content in advance. The widget comes with one made for demonstration only.">
@@ -503,7 +503,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="padding-bottom: 5px; border-top: 1px solid #fff;">
+					<td colspan="3" style="padding-bottom: 5px; border-top: 1px solid #aaa;">
 						<label title="Initial size of cloud from centre to sides." for="<?=$this->get_field_id('radius_x'); ?>" style="width: 86px;">
 							<span>Radius X</span> 
 							<input
@@ -577,7 +577,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td style="border-bottom: 1px solid #fff; padding-bottom: 5px;">
+					<td style="border-bottom: 1px solid #aaa; padding-bottom: 5px;">
 						<label><span style="padding-bottom: 5px;">COLORS</span>
 							<div style="padding-top: 10px;">
 								<label title="Colour of the tag text - empty string to use the colour of the original link" for="<?=$this->get_field_id('text_color'); ?>">
@@ -622,7 +622,7 @@
 								</label>
 								<div>	
 									<label title="The colour gradient applied for colouring tags when using a <span style='color: #063;'>Weight Mode</span> of <span style='color: #063;'>colour</span> or <span style='color: #063;'>both</span>. Start with the colour for the &#34;heaviest&#34; tag at 0, and ending at 1 with the least weighty tag colour." for="<?=$this->get_field_id('weight_gradient_1'); ?>" style="padding-top: 10px;">
-										<span>Gradient<br>Color 1</span>
+										<span>Gradient<br>Color: 0</span>
 										<br>
 										#<input style="width: 55px; margin: 0 5px 0 0;" 
 										class="widefat" id="<?=$this->get_field_id('weight_gradient_1'); ?>"
@@ -630,7 +630,7 @@
 										value="<?php echo $weight_gradient_1 ?>" /> 
 									</label>
 									<label title="The colour gradient applied for colouring tags when using a <span style='color: #063;'>Weight Mode</span> of <span style='color: #063;'>colour</span> or <span style='color: #063;'>both</span>. Start with the colour for the &#34;heaviest&#34; tag at 0, and ending at 1 with the least weighty tag colour." for="<?=$this->get_field_id('weight_gradient_2'); ?>" style="padding-top: 10px;">
-										<span>Gradient<br>Color 2</span>
+										<span>Gradient<br>Color: 0.33</span>
 										<br>
 										#<input style="width: 55px; margin: 0 5px 0 0;" 
 										class="widefat" id="<?=$this->get_field_id('weight_gradient_2'); ?>"
@@ -638,7 +638,7 @@
 										value="<?php echo $weight_gradient_2 ?>" /> 
 									</label>
 									<label title="The colour gradient applied for colouring tags when using a <span style='color: #063;'>Weight Mode</span> of <span style='color: #063;'>colour</span> or <span style='color: #063;'>both</span>. Start with the colour for the &#34;heaviest&#34; tag at 0, and ending at 1 with the least weighty tag colour." for="<?=$this->get_field_id('weight_gradient_3'); ?>" style="padding-top: 10px;">
-										<span>Gradient<br>Color 3</span>
+										<span>Gradient<br>Color: 0.67</span>
 										<br>
 										#<input style="width: 55px; margin: 0 5px 0 0;" 
 										class="widefat" id="<?=$this->get_field_id('weight_gradient_3'); ?>"
@@ -646,7 +646,7 @@
 										value="<?php echo $weight_gradient_3 ?>" /> 
 									</label>
 									<label title="The colour gradient applied for colouring tags when using a <span style='color: #063;'>Weight Mode</span> of <span style='color: #063;'>colour</span> or <span style='color: #063;'>both</span>. Start with the colour for the &#34;heaviest&#34; tag at 0, and ending at 1 with the least weighty tag colour." for="<?=$this->get_field_id('weight_gradient_4'); ?>" style="padding-top: 10px;">
-										<span>Gradient<br>Color 4</span>
+										<span>Gradient<br>Color: 1</span>
 										<br>
 										#<input style="width: 55px; margin: 0;" 
 										class="widefat" id="<?=$this->get_field_id('weight_gradient_4'); ?>"
@@ -717,7 +717,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td style="border-bottom: 1px solid #fff;">
+					<td style="border-bottom: 1px solid #aaa;">
 						<label title="Radius for rounded corners of background" for="<?=$this->get_field_id('bg_radius'); ?>" style="width: 25%; margin-bottom: 10px;">
 							<span><br>Bg Radius</span>
 							<input class="widefat" id="<?=$this->get_field_id('bg_radius'); ?>"
@@ -786,21 +786,80 @@
 					</td>
 				</tr>					
 				<tr>
-					<td style="border-bottom: 1px solid #fff;">
+					<td style="border-bottom: 1px solid #aaa;">
 						<label style="padding-bottom: 5px;"><span>FONTS</span>	
+							<p style="margin: 0; padding: 0 5px; font-size: 12px;">The plugin is connected to Google Font Library, so besides <a title="Find what is Web Safe Font." style="color: #1e8cbe;" href="http://www.w3schools.com/cssref/css_websafe_fonts.asp" target="_blank">Web Safe Fonts</a> you can use the full diversity of <a title="Find a Google Font Family." style="color: #1e8cbe;" href="http://www.google.com/fonts/" target="_blank">Google Fonts.</a>
+							</p>
 							<div style="position: relative; top: 10px;">
-								<label title="Font family for the tag text - empty string to use the font of the original link." style="width: 100px; margin-right: 5px;" for="<?=$this->get_field_id('text_font'); ?>">
-									<span>Font</span>
-									<input style="width: 100px;"
-									class="widefat" id="<?=$this->get_field_id('text_font'); ?>"
-									name="<?=$this->get_field_name('text_font'); ?>" type="text"
-									value="<?php echo $text_font; ?>" /> 
+								<label title="Web Safe Font family for the tag text." style="float: left; width: 174px; margin-right: 5px;" for="<?=$this->get_field_id('text_font'); ?>">
+									<span>Web Safe Font</span>
+									<select class="widefat" id="<?=$this->get_field_id('text_font'); ?>" name="<?=$this->get_field_name('text_font'); ?>">
+										<option value="" <?php if( $text_font == "" ){ echo ' selected'; } ?>>Font of the original link</option>
+										<option style="background-color: #ddd;" title="Generic Font Family" value="Sans Serif" <?php if( $text_font == "Sans Serif" ){ echo ' selected'; } ?>>SANS SERIF</option>
+										<option value="Arial" <?php if( $text_font == "Arial" ){ echo ' selected'; } ?>>Arial</option>
+										<option	value="Arial Black" <?php if( $text_font == "Arial Black" ){ echo ' selected'; } ?>>Arial Black</option>
+										<option	value="Arial Narrow" <?php if( $text_font == "Arial Narrow" ){ echo ' selected'; } ?>>Arial Narrow</option>
+										<option	value="Avant Garde" <?php if( $text_font == "Avant Garde" ){ echo ' selected'; } ?>>Avant Garde</option>										
+										<option	value="Calibri" <?php if( $text_font == "Calibri" ){ echo ' selected'; } ?>>Calibri</option>										
+										<option	value="Candara" <?php if( $text_font == "Candara" ){ echo ' selected'; } ?>>Candara</option>										
+										<option	value="Century Gothic" <?php if( $text_font == "Century Gothic" ){ echo ' selected'; } ?>>Century Gothic</option>
+										<option	value="Comic Sans MS" <?php if( $text_font == "Comic Sans MS" ){ echo ' selected'; } ?>>Comic Sans MS</option>										
+										<option	value="Franklin Gothic Medium" <?php if( $text_font == "Franklin Gothic Medium" ){ echo ' selected'; } ?>>Franklin Gothic Medium</option>
+										<option	value="Futura" <?php if( $text_font == "Futura" ){ echo ' selected'; } ?>>Futura</option>
+										<option	value="Geneva" <?php if( $text_font == "Geneva" ){ echo ' selected'; } ?>>Geneva</option>
+										<option	value="Gill Sans" <?php if( $text_font == "Gill Sans" ){ echo ' selected'; } ?>>Gill Sans</option>
+										<option value="Helvetica" <?php if( $text_font == "Helvetica" ){ echo ' selected'; } ?>>Helvetica</option>
+										<option value="Impact" <?php if( $text_font == "Impact" ){ echo ' selected'; } ?>>Impact</option>
+										<option value="Lucida Grande" <?php if( $text_font == "Lucida Grande" ){ echo ' selected'; } ?>>Lucida Grande</option>
+										<option value="Lucida Sans Unicode" <?php if( $text_font == "Lucida Sans Unicode" ){ echo ' selected'; } ?>>Lucida Sans Unicode</option>												
+										<option value="Optima" <?php if( $text_font == "Optima" ){ echo ' selected'; } ?>>Optima</option>
+										<option value="Segoe UI" <?php if( $text_font == "Segoe UI" ){ echo ' selected'; } ?>>Segoe UI</option>
+										<option value="Tahoma" <?php if( $text_font == "Tahoma" ){ echo ' selected'; } ?>>Tahoma</option>
+										<option value="Trebuchet MS" <?php if( $text_font == "Trebuchet MS" ){ echo ' selected'; } ?>>Trebuchet MS</option>
+										<option value="Verdana" <?php if( $text_font == "Verdana" ){ echo ' selected'; } ?>>Verdana</option>
+										<option style="background-color: #ddd;" title="Generic Font Family" value="Serif" <?php if( $text_font == "Serif" ){ echo ' selected'; } ?>>SERIF</option>										
+										<option	value="Baskerville" <?php if( $text_font == "Baskerville" ){ echo ' selected'; } ?>>Baskerville</option>
+										<option	value="Big Caslon" <?php if( $text_font == "Big Caslon" ){ echo ' selected'; } ?>>Big Caslon</option>
+										<option	value="Bodoni MT" <?php if( $text_font == "Bodoni MT" ){ echo ' selected'; } ?>>Bodoni MT</option>
+										<option	value="Book Antiqua" <?php if( $text_font == "Book Antiqua" ){ echo ' selected'; } ?>>Book Antiqua</option>
+										<option	value="Calisto MT" <?php if( $text_font == "Calisto MT" ){ echo ' selected'; } ?>>Calisto MT</option>
+										<option	value="Cambria" <?php if( $text_font == "Cambria" ){ echo ' selected'; } ?>>Cambria</option>
+										<option	value="Didot" <?php if( $text_font == "Didot" ){ echo ' selected'; } ?>>Didot</option>
+										<option	value="Garamond" <?php if( $text_font == "Garamond" ){ echo ' selected'; } ?>>Garamond</option>
+										<option	value="Georgia" <?php if( $text_font == "Georgia" ){ echo ' selected'; } ?>>Georgia</option>
+										<option	value="Goudy Old Style" <?php if( $text_font == "Goudy Old Style" ){ echo ' selected'; } ?>>Goudy Old Style</option>
+										<option	value="Hoefler Text" <?php if( $text_font == "Hoefler Text" ){ echo ' selected'; } ?>>Hoefler Text</option>
+										<option	value="Lucida Bright" <?php if( $text_font == "Lucida Bright" ){ echo ' selected'; } ?>>Lucida Bright</option>
+										<option	value="Palatino" <?php if( $text_font == "Palatino" ){ echo ' selected'; } ?>>Palatino</option>
+										<option	value="Palatino Linotype" <?php if( $text_font == "Palatino Linotype" ){ echo ' selected'; } ?>>Palatino Linotype</option>										
+										<option	value="Perpetua" <?php if( $text_font == "Perpetua" ){ echo ' selected'; } ?>>Perpetua</option>
+										<option	value="Rockwell" <?php if( $text_font == "Rockwell" ){ echo ' selected'; } ?>>Rockwell</option>
+										<option	value="Rockwell Extra Bold" <?php if( $text_font == "Rockwell Extra Bold" ){ echo ' selected'; } ?>>Rockwell Extra Bold</option>
+										<option	value="Times New Roman" <?php if( $text_font == "Times New Roman" ){ echo ' selected'; } ?>>Times New Roman</option>
+										<option style="background-color: #ddd;" title="Generic Font Family" value="Monospaced" <?php if( $text_font == "Monospaced" ){ echo ' selected'; } ?>>MONOSPACED</option>
+										<option value="Andale Mono" <?php if( $text_font == "Andale Mono" ){ echo ' selected'; } ?>>Andale Mono</option>
+										<option value="Consolas" <?php if( $text_font == "Consolas" ){ echo ' selected'; } ?>>Consolas</option>
+										<option value="Courier New" <?php if( $text_font == "Courier New" ){ echo ' selected'; } ?>>Courier New</option>
+										<option	value="Lucida Console" <?php if( $text_font == "Lucida Console" ){ echo ' selected'; } ?>>Lucida Console</option>
+										<option	value="Lucida Sans Typewriter" <?php if( $text_font == "Lucida Sans Typewriter" ){ echo ' selected'; } ?>>Lucida Sans Typewriter</option>
+										<option	value="Monaco" <?php if( $text_font == "Monaco" ){ echo ' selected'; } ?>>Monaco</option>
+										<option style="background-color: #ddd;" title="Generic Font Family" value="Fantasy" <?php if( $text_font == "Fantasy" ){ echo ' selected'; } ?>>FANTASY</option>
+										<option value="Copperplate" <?php if( $text_font == "Copperplate" ){ echo ' selected'; } ?>>Copperplate</option>
+										<option value="Papyrus" <?php if( $text_font == "Papyrus" ){ echo ' selected'; } ?>>Papyrus</option>
+										<option style="background-color: #ddd;" title="Generic Font Family" value="Script" <?php if( $text_font == "Script" ){ echo ' selected'; } ?>>SCRIPT</option>
+										<option value="Brush Script MT" <?php if( $text_font == "Brush Script MT" ){ echo ' selected'; } ?>>Brush Script MT</option>		
+									</select>
+								</label>
+								<label title="Uses a Google Font for Cloud Tags. If filled up this option overrides <span style='color: #063;'>Web Safe Font</span>." for="<?=$this->get_field_id('google_font'); ?>" style="width: 163px; margin-bottom: 5px;">
+									<span>Google Font</span>
+									<input style="width: 163px;"
+									class="widefat" id="<?=$this->get_field_id('google_font'); ?>"
+									name="<?=$this->get_field_name('google_font'); ?>" type="text"
+									value="<?php echo $google_font; ?>" /> 
 								</label>
 							</div>
-							<p style="margin: 0; padding: 0 5px; font-size: 12px;">The plugin is connected to Google Font Library, so besides <a title="Find what fonts are web safe." style="color: #1e8cbe;" href="http://www.w3schools.com/cssref/css_websafe_fonts.asp" target="_blank">Web Safe Fonts</a> you can use the full diversity of <a title="Find a Google Font Family." style="color: #1e8cbe;" href="http://www.google.com/fonts/" target="_blank">Google Fonts.</a>
-							</p>
 							<div>
-								<label title="Fonts, separated by coma, to use in a random way on your cloud content. To apply this function empty the above <span style='color: #063;'>Font</span> field." style="margin-top: 10px; width: 342px;" for="<?=$this->get_field_id('multiple_fonts'); ?>">
+								<label title="Fonts, separated by coma, to use in a random way on your Cloud <span style='color: #063;'>Content</span>. To apply this function:<br> 1. Choose <span style='color: #063;'>Font of the original link</span> for <span style='color: #063;'>Web Safe Font</span> and<br>2. Empty <span style='color: #063;'>Google Font</span> field." style="margin-top: 10px; width: 342px;" for="<?=$this->get_field_id('multiple_fonts'); ?>">
 									<span>Multiple Fonts</span>
 									<input style="width: 100%;"
 									class="widefat" id="<?=$this->get_field_id('multiple_fonts'); ?>"

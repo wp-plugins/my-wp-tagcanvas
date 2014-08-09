@@ -3,7 +3,7 @@
 Plugin Name: 3D WP Tag Cloud
 Plugin URI: http://peter.bg/archives/7373
 Description: This plugin creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Now clouds may rotate Pages, Recent Posts, External Links, Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content.  Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives the option to put images and/or text in the center of the cloud. The Number of tags in the cloud is adjustable. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
-Version: 2.1.1
+Version: 2.2
 Author: Peter Petrov
 Author URI: http://peter.bg
 Update Server: http://peter.bg/
@@ -51,6 +51,7 @@ class wpTagCanvasWidget extends WP_Widget {
 		$archives_limit = attribute_escape($instance['archives_limit']);	
 		$authors_limit = attribute_escape($instance['authors_limit']);		
 		$exclude_admin = attribute_escape($instance['exclude_admin']);	
+		$google_font = attribute_escape($instance['google_font']);	
 		
 		$active_cursor = attribute_escape($instance['active_cursor']);	
 		$animation_timing = attribute_escape($instance['animation_timing']);		
@@ -169,7 +170,7 @@ class wpTagCanvasWidget extends WP_Widget {
         <canvas width="<?= $width;?>" height="<?= $height;?>" id="tag_canvas_<?= $inst_id; ?>"></canvas>
 			
     	<script type="text/javascript">
-			WebFont.load({google: {families: ['<? echo $text_font; ?>']}})
+			if("<?= $google_font; ?>"!=""){WebFont.load({google: {families: ['<? echo $google_font; ?>']}})}
 		
 		    $(document).ready(function(){
 				
@@ -307,7 +308,10 @@ class wpTagCanvasWidget extends WP_Widget {
 				var text_color = '#<?= $text_color; ?>';
 				if(text_color=='#') {TagCanvas.textColour = null;}
 				else {TagCanvas.textColour = text_color;};
-				TagCanvas.textFont = '<?= $text_font; ?>';	
+				var text_font = '<?= $text_font; ?>';
+				var google_font = '<?= $google_font; ?>';
+				if(google_font!="") {text_font = google_font};
+				TagCanvas.textFont = text_font;	
 				TagCanvas.textHeight = <?= $text_height; ?>;	
 				TagCanvas.tooltip = '<?= $tooltip; ?>';
 				TagCanvas.tooltipClass = '<?= $tooltip_class; ?>';	
@@ -367,6 +371,7 @@ class wpTagCanvasWidget extends WP_Widget {
 		$tag_option['archives_limit'] =strip_tags(stripslashes($new_instance["archives_limit"]));
 		$tag_option['authors_limit'] =strip_tags(stripslashes($new_instance["authors_limit"]));	
 		$tag_option['exclude_admin'] =strip_tags(stripslashes($new_instance["exclude_admin"]));	
+		$tag_option['google_font'] =strip_tags(stripslashes($new_instance["google_font"]));	
 		
 		$tag_option['active_cursor'] =strip_tags(stripslashes($new_instance["active_cursor"]));		
 		$tag_option['animation_timing'] =strip_tags(stripslashes($new_instance["animation_timing"]));		
@@ -463,7 +468,8 @@ class wpTagCanvasWidget extends WP_Widget {
 			'multiple_bg' => '',
 			'archives_limit' => '',
 			'authors_limit' => '',		
-			'exclude_admin' => 'true',					
+			'exclude_admin' => 'true',	
+			'google_font' => '',				
 			
 			'active_cursor' => 'pointer',
 			'animation_timing' => 'Smooth',
@@ -556,6 +562,7 @@ class wpTagCanvasWidget extends WP_Widget {
 		$archives_limit = attribute_escape($instance['archives_limit']);
 		$authors_limit = attribute_escape($instance['authors_limit']);		
 		$exclude_admin = attribute_escape($instance['exclude_admin']);	
+		$google_font = attribute_escape($instance['google_font']);	
 		
 		$active_cursor = attribute_escape($instance['active_cursor']);		
 		$animation_timing = attribute_escape($instance['animation_timing']);

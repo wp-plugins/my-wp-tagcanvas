@@ -199,3 +199,14 @@ th {
 	font-weight: bold;
 	background-color: #bbb!important
 }
+select {
+	padding: 2px!important;
+	line-height: 21px!important;
+	height: 21px!important;
+	margin: 0!important; 
+}
+option {
+	padding: 2px!important;
+	line-height: 21px!important;
+	margin: 0!important; 
+}

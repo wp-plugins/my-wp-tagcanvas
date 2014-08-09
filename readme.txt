@@ -13,7 +13,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 
 == Description ==
 
-Description: This plugin creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Now clouds may rotate Pages, Recent Posts, External Links, Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content.  Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives the option to put images and/or text in the center of the cloud. The Number of tags in the cloud is adjustable. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
+This plugin creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Now clouds may rotate Pages, Recent Posts, External Links, Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content.  Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives the option to put images and/or text in the center of the cloud. The Number of tags in the cloud is adjustable. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
 
 == Installation ==
 
@@ -32,8 +32,13 @@ Description: This plugin creates multiple instances widget that draws and animat
 
 == Changelog ==
 
-2.1.1
+= 2.2 =
+1. Changed the way Web Safe Fonts are inserted: Now user can choose Web Safe Font without typing its name. For Google Font there is a separate field.
+2. Fixed a bug in Google Font check.
+3. Improved Gradient Interface.
 
+
+= 2.1.1 =
 1. Fixed bug in multiple coloring.
 2. Improved help for Gradient Colors.
 3. Added tips in Help Section.
