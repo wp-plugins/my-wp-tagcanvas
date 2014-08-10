@@ -18,7 +18,7 @@
 		<li><a href="#fragment-2">Tag<br>Properties</a></li>
 		<li><a href="#fragment-3">Action<br>Settings</a></li>
 		<li><a href="#fragment-4">Help<br>&nbsp;</a></li>
-		<div style="font-size: 11px; font-weight: normal; padding: 7px 0 0;" for="<?=$this->get_field_id('tooltip_status'); ?>">Settings Tooltips<br>
+		<div style="font-size: 11px; font-weight: normal; padding: 8px 0;" for="<?=$this->get_field_id('tooltip_status'); ?>">Settings Tooltips<br>
 					
 						<input style="margin: 0;" title="Turns on Settings Tooltips." class="radio" id="<?=$this->get_field_id('tooltip_status'); ?>"
 						name="<?=$this->get_field_name('tooltip_status'); ?>" type="radio" value="on" 
@@ -111,29 +111,29 @@
 					<td style="width: 111px; border-bottom: 1px solid #aaa; padding: 0 5px 5px 0;">
 						<label for="<?=$this->get_field_id('taxonomy'); ?>">
 							<span>Content</span>
-							<div>
+							<div><div>
 								<input  class="radio" style="margin: 0 5px 0 1px;" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays most recent posts. Font Size weighting is provided for all <span style='font-weight: bold; color: #063;'>Weight Mode</span> options except for <span style='font-weight: bold; color: #063;'>none</span>. As older a post is, as smaller its title font is."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="recent_posts"
 								<?php if( $taxonomy == "recent_posts" ){ echo ' checked="checked"'; } ?>>recent posts
-								<span style="font-size: 18px; float: right; padding: 0 1px 0 0;">&#8594;</span>
+								<span style="font-size: 18px; line-height: 12px; float: right; padding: 0 1px 0 0;">&#8594;</span>
 								<br>
 							
 								<input  class="radio" style="margin: 15px 5px 15px 1px;" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays bookmarks found in the WP Admin Panel: <span style='font-weight: bold; color: #063;'>Links</span>. Font Size weighting is provided for all  <span style='font-weight: bold; color: #063;'>Weight Mode</span> options except for <span style='font-weight: bold; color: #063;'>none</span>. Font size of the Links is calculated in accordance with their position in the list: The last in it has the smallest font size."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="links"									
 								<?php if( $taxonomy == "links" ){ echo ' checked="checked"'; } ?>>links
-								<span style="font-size: 18px; float: right; padding: 12px 1px 0 0;">&#8594;</span>
+								<span style="font-size: 18px; line-height: 12px; float: right; padding: 12px 1px 0 0;">&#8594;</span>
 								<br>
 								
 								<input style="margin: 0 5px 0 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a navigation menu created via WP Admin Panel:  <span style='font-weight: bold; color: #063;'>Appearance</span> <span style='font-size: 18px;'>&#8594;</span>  <span style='font-weight: bold; color: #063;'>Menus</span>. <span style='font-weight: bold; color: #063;'>Weight Mode</span> is not applicable to this option."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="menu"
 								<?php if( $taxonomy == "menu" ){ echo ' checked="checked"'; } ?>>menu
-								<span style="font-size: 18px; float: right; padding: 0 1px 0 0;">&#8594;</span>
+								<span style="font-size: 18px; line-height: 12px; float: right; padding: 0 1px 0 0;">&#8594;</span>
 								<br>
-								
+								</div>
 								<div style="border: 1px dotted #aaa; border-radius: 5px; padding-right: 1px; display: block; margin: 14px 0">									
 									<input style="margin: 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of post tags."
 									name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="post_tag"
-									<?php if( $taxonomy == "post_tag" ){ echo ' checked="checked"'; } ?>>post tags<span style="font-size: 18px; float: right; padding-top: 1px;">&#8594;</span>
+									<?php if( $taxonomy == "post_tag" ){ echo ' checked="checked"'; } ?>>post tags<span style="font-size: 18px; float: right; line-height: 12px; padding-top: 1px;">&#8594;</span>
 									<br>
 								
 									<input style="margin: 15px 5px 15px 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of categories created in the WP Admin Panel: <span style='font-weight: bold; color: #063;'>Posts</span> <span style='font-size: 18px;'>&#8594;</span>  <span style='font-weight: bold; color: #063;'>Categories</span>."
@@ -149,12 +149,12 @@
 									<input style="margin: 0 5px 0 1px;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of archives."
 									name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="archives"
 									<?php if( $taxonomy == "archives" ){ echo ' checked="checked"'; } ?>>archives
-									<span style="font-size: 18px; float: right; padding: 0 1px 0 0;">&#8594;</span>
+									<span style="font-size: 18px; line-height: 12px; float: right; padding: 0 1px 0 0;">&#8594;</span>
 									<br>
 									<input style="margin: 15px 0 15px 1px;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of authors."
 									name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="authors"
 									<?php if( $taxonomy == "authors" ){ echo ' checked="checked"'; } ?>>authors
-									<span style="font-size: 18px; float: right; padding: 12px 1px 0 0;">&#8594;</span>
+									<span style="font-size: 18px; line-height: 12px;  float: right; padding: 12px 1px 0 0;">&#8594;</span>
 									<br>								
 									<input style="margin: 0 5px 0 1px;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of pages. <span style='font-weight: bold; color: #063;'>Weight Mode</span> is not applicable to this option."
 									name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="pages"
@@ -208,7 +208,7 @@
 							name="<?=$this->get_field_name('tags'); ?>" type="text"
 							value="<?php echo $tags; ?>" />
 						</label>
-						<label title="Number of archives to get. Empty (Default) for no limit." for="<?=$this->get_field_id('archives_limit'); ?>" style="width: 140px; line-height: 13px; margin-top: 58px;">
+						<label title="Number of archives to get. Empty (Default) for no limit." for="<?=$this->get_field_id('archives_limit'); ?>" style="width: 140px; line-height: 13px; margin-top: 48px;">
 							<span style="margin-right: 5px;">Number of Archives</span> 
 							<input
 							class="widefat" id="<?=$this->get_field_id('archives_limit'); ?>"
@@ -1045,7 +1045,7 @@
 								<span style="font-size: 10px; position: relative; left: -77px; top: 35px;">|</span>
 								<span style="font-size: 10px; position: relative; left: -83px; top: 44px;">|</span>
 								<span style="font-size: 10px; position: relative; left: -77px; top: 34px;">|</span>
-								<span style="font-size: 18px; position: relative; left: -80px; top: 26px;">&#8595;</span>
+								<span style="font-size: 18px; position: relative; left: -80px; top: 23px;">&#8595;</span>
 							</div>
 						</div>	
 					</td>

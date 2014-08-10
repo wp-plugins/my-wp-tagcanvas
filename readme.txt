@@ -32,8 +32,12 @@ This plugin creates multiple instances widget that draws and animates a HTML5 ca
 
 == Changelog ==
 
+= 2.2.2 =
+1. Fixed bug with Control Panel interface.
+2. Fixed a bug in Google Font check.
+
 = 2.2.1 =
-1. Fixed bug in Control Panel interface.
+1. Fixed bug with Control Panel interface.
 
 = 2.2 =
 1. Changed the way Web Safe Fonts are inserted: Now user can choose Web Safe Font without typing its name. For Google Font there is a separate field.
