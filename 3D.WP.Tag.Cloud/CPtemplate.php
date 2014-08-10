@@ -9,7 +9,7 @@
 	<style>.widget-inside {padding:0!important; border-radius: 4px;};</style>
 	<script type="text/javascript">
 		$(document).tooltip({content: function() {var element = $( this ); var html_text=element.attr('title'); return html_text;}, position: {  my: 'left top+20',  at: 'left bottom'}}); 
-		$(function() {$( "#accordion" ).accordion({heightStyle: "content", collapsible: true, active: false});});
+		$(function() {$( "#accordion" ).accordion({heightStyle: "content", collapsible: true, active: 0});});
 	</script>
 	
 <div id="tabs" style="-webkit-text-size-adjust: 100%; padding: 0; border: 0;">
