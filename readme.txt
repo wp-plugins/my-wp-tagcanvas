@@ -2,7 +2,7 @@
 Contributors: hityr5yr, bisko
 Tags: tag cloud, 3D, widget, HTML5, canvas, cloud, tags, links, recent posts, menu, images
 Requires at least: 2.9
-Tested up to: 3.9.1
+Tested up to: 3.9.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -19,18 +19,26 @@ This plugin creates multiple instances widget that draws and animates a HTML5 ca
 
 = Manual = 
 1. Make sure you are running WordPress version 2.9 or higher. 
-2. Download the zip file and extract the contents. 
+2. Download the zip file and extract the content. 
 3. Upload the '3D WP Tag Cloud' folder to your plugins directory (wp-content/plugins/). 
 4. Login to your WordPress Admin menu, 
-5. Add a widget through the 'Appearance > Widgets' section on your WordPress Dashboard.
+4. Go to 'Appearance' > 'Widgets' and make sure you have enabled accessibility mode in 'Screen Options' (right top corner).
+5. Add a widget instance of 3D WP Tag Cloud.
 
 = Automatic =
 1. Make sure you are running WordPress version 2.9 or higher.
 2. Use WordPress' built-in installer and activate the plugin.
-3. Add widget instances through the ‘Appearence > Widgets’ section on your WordPress Dashboard.
+3. Go to 'Appearance > Widgets' and make sure you have enabled accessibility mode in 'Screen Options' (right top corner).
+4. Add a widget instance of 3D WP Tag Cloud.
 
 
 == Changelog ==
+
+= 2.2.3 =
+1. Installation clarifications
+2. Code improvements.
+3. New tips added.
+
 
 = 2.2.2 =
 1. Fixed bug with Control Panel interface.

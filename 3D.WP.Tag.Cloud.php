@@ -3,7 +3,7 @@
 Plugin Name: 3D WP Tag Cloud
 Plugin URI: http://peter.bg/archives/7373
 Description: This plugin creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Now clouds may rotate Pages, Recent Posts, External Links, Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content.  Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives the option to put images and/or text in the center of the cloud. The Number of tags in the cloud is adjustable. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
-Version: 2.2.2
+Version: 2.2.3
 Author: Peter Petrov
 Author URI: http://peter.bg
 Update Server: http://peter.bg/
@@ -174,177 +174,179 @@ class wpTagCanvasWidget extends WP_Widget {
 			if(check_font!=""){WebFont.load({google: {families: ['<? echo $google_font; ?>']}})}
 		
 		    $(document).ready(function(){
+				setTimeout(function() {
 
-				var any_type_tags = $('#tag_html5_<?= $inst_id; ?> a');		
-				var test = $('#tag_html5_<?= $inst_id; ?>');
-				var taxonomy = '<?= $taxonomy; ?>';
-				var wm = '<?= $weight_mode; ?>';
-				if((taxonomy=="links")&&(wm!='none')){
-					var bigest = <?= $weight_size; ?>*3;
-					var increment = (bigest-3)/any_type_tags.length;
-					for (var i = 0; i < any_type_tags.length; i++) { 
-						var fsize = Math.round(bigest-increment*i);
-						$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-size':fsize+'px'});
-					}
-				}
-
-				if(taxonomy=="archives"){
-					var link_span = $('#tag_html5_<?= $inst_id; ?> span');
-					for (var i = 0; i < link_span.length; i++) { 
-						var text_s = $('#tag_html5_<?= $inst_id; ?> span').eq(i).text();
-						var text_a = $('#tag_html5_<?= $inst_id; ?> span a').eq(i).text();
-						var weight_value = text_s.substring(text_a.length+2,text_s.length-1);
-						$('#tag_html5_<?= $inst_id; ?> span a').eq(i).text(text_s);
-						$('#tag_html5_<?= $inst_id; ?> span a').eq(i).css({'font-size': weight_value+'px'});						
-					}
-					var clear_links = $('#tag_html5_<?= $inst_id; ?> span a').detach();
-					$('#tag_html5_<?= $inst_id; ?> span').remove();
-					$(clear_links).appendTo('#tag_html5_<?= $inst_id; ?>');
-				}
-
-				if(taxonomy=="authors"){
-					var text_a = $('#tag_html5_<?= $inst_id; ?> a');
-					var div_full_text =  $('#tag_html5_<?= $inst_id; ?>').text();
-					var div_clear_text = div_full_text.replace(',','');	
-					var authors_array = div_clear_text.split(')');					
-					for (var i = 0; i < text_a.length; i++) { 
-						authors_array[i]=authors_array[i].trim();
-						var weight_val = authors_array[i].substring(authors_array[i].lastIndexOf('(')+1, authors_array[i].length);		
-						$('#tag_html5_<?= $inst_id; ?> a').eq(i).text(authors_array[i]+')');
-						$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-size': weight_val+'px'});	
-					}
-					var clear_links = $('#tag_html5_<?= $inst_id; ?> a').detach();
-					$('#tag_html5_<?= $inst_id; ?>').text('');
-					$(clear_links).appendTo('#tag_html5_<?= $inst_id; ?>');					
-				}				
-				
-				var multiple_fonts = '<?= $multiple_fonts; ?>';
-				if(multiple_fonts!=''){
-					var mf_array = multiple_fonts.split(',');
+					var any_type_tags = $('#tag_html5_<?= $inst_id; ?> a');		
+					var test = $('#tag_html5_<?= $inst_id; ?>');
+					var taxonomy = '<?= $taxonomy; ?>';
+					var wm = '<?= $weight_mode; ?>';
+					if((taxonomy=="links")&&(wm!='none')){
+						var bigest = <?= $weight_size; ?>*3;
+						var increment = (bigest-3)/any_type_tags.length;
 						for (var i = 0; i < any_type_tags.length; i++) { 
-						$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-family':_.shuffle(mf_array)[0]});
+							var fsize = Math.round(bigest-increment*i);
+							$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-size':fsize+'px'});
+						}
 					}
-				}
-				
-				var multiple_colors = '<?= $multiple_colors; ?>';
-				multiple_colors = multiple_colors.replace(/ /gi, '');
-				if(multiple_colors!=''){
-					var mc_array = multiple_colors.split(',');
-					for (var i = 0; i < mc_array.length; i++) {
-						mc_array[i] = '#'+ mc_array[i];
-					}
-					for (var i = 0; i < any_type_tags.length; i++) { 
-						$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'color': _.shuffle(mc_array)[0]});
-					}
-				}
-				
-				var multiple_bg = '<?= $multiple_bg; ?>';
-				multiple_bg = multiple_bg.replace(/ /gi, '');
-				if(multiple_bg!=''){
-					var mb_array = multiple_bg.split(',');
-					for (var i = 0; i < mb_array.length; i++) {
-						mb_array[i] = '#'+ mb_array[i];
-					}
-					for (var i = 0; i < any_type_tags.length; i++) { 
-						$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'background-color': _.shuffle(mb_array)[0]});
-					}
-				}
-	
-				TagCanvas.activeCursor = '<?= $active_cursor; ?>';						
-				TagCanvas.animTiming = '<?= $animation_timing; ?>';
-				var bg_color = '<?= $bg_color; ?>';			
-				if((bg_color!='')&&(bg_color!='null')&&(bg_color!='tag')){bg_color = '#'+bg_color;};
-				if((bg_color=='')||(bg_color=='null')) {TagCanvas.bgColour = null;}	else {TagCanvas.bgColour = bg_color;};
-				var bg_outline = '<?= $bg_outline; ?>';
-				if((bg_outline!='')&&(bg_outline!='null')&&(bg_outline!='tag')){bg_outline = '#'+bg_outline;};
-				if((bg_outline=='')||(bg_outline=='null')) {TagCanvas.bgOutline = null;} else {TagCanvas.bgOutline = bg_outline;};
-				TagCanvas.bgOutlineThickness = <?= $bg_outline_thickness; ?>;	
-				TagCanvas.bgRadius = <?= $bg_radius; ?>;
-				var click_to_front = '<?= $click_to_front; ?>';				
-				if((click_to_front == '')||(click_to_front == 'null')) {TagCanvas.clickToFront = null;}	
-				else {TagCanvas.clickToFront = parseInt(click_to_front);};
-				TagCanvas.decel = <?= $deceleration; ?>;					
-				TagCanvas.depth = <?= $depth; ?>;
-				TagCanvas.dragControl = <?= $drag_ctrl; ?>;
-				TagCanvas.dragThreshold = <?= $drag_threshold; ?>;	
-				TagCanvas.fadeIn = <?= $fadein; ?>;
-				TagCanvas.freezeActive = <?= $freeze_active; ?>;
-				TagCanvas.freezeDecel = <?= $freeze_decel; ?>;	
-				TagCanvas.frontSelect = <?= $front_select; ?>;
-				TagCanvas.hideTags = <?= $hide_tags; ?>;		
-				TagCanvas.imageScale = <?= $image_scale; ?>;				
-				TagCanvas.initial = <?= $initial; ?>;							
-				TagCanvas.interval = <?= $interval; ?>;
-				TagCanvas.lock = '<?= $lock; ?>';
-				TagCanvas.maxBrightness = <?= $max_brightness; ?>;
-				TagCanvas.maxSpeed = <?= $max_speed; ?>;
-				TagCanvas.minBrightness = <?= $min_brightness; ?>;
-				TagCanvas.minSpeed = <?= $min_speed; ?>;	
-				TagCanvas.noMouse = <?= $no_mouse; ?>;
-				TagCanvas.noSelect = <?= $no_select; ?>;	
-				TagCanvas.offsetX = <?= $offset_x; ?>;
-				TagCanvas.offsetY = <?= $offset_y; ?>;					
-				TagCanvas.outlineColour = '#<?= $outline_color; ?>';					
-				TagCanvas.outlineIncrease = <?= $outline_increase; ?>;		
-				TagCanvas.outlineMethod = '<?= $outline_method; ?>';					
-				TagCanvas.outlineOffset = <?= $outline_offset; ?>;
-				TagCanvas.outlineRadius = <?= $outline_radius; ?>;						
-				TagCanvas.outlineThickness = <?= $outline_thickness; ?>;	
-				TagCanvas.padding = <?= $padding; ?>;	
-				TagCanvas.pulsateTime = <?= $pulsate_time; ?>;		
-				TagCanvas.pulsateTo = <?= $pulsate_to; ?>;
-				TagCanvas.radiusX = <?= $radius_x; ?>;	
-				TagCanvas.radiusY = <?= $radius_y; ?>;	
-				TagCanvas.radiusZ = <?= $radius_z; ?>;	
-				TagCanvas.reverse = <?= $reverse; ?>;	
-				TagCanvas.shadow = '#<?= $shadow; ?>';	
-				TagCanvas.shadowBlur = <?= $shadow_blur; ?>;
-				TagCanvas.shadowOffset = <?= $shadow_offset; ?>;	
-				TagCanvas.shape = '<?= $shape; ?>';	
-				TagCanvas.shuffleTags = <?= $shuffle_tags; ?>;		
-				TagCanvas.splitWidth = <?= $split_width; ?>;
-				TagCanvas.stretchX = <?= $stretch_x; ?>;
-				TagCanvas.stretchY = <?= $stretch_y; ?>;
-				var text_color = '#<?= $text_color; ?>';
-				if(text_color=='#') {TagCanvas.textColour = null;}
-				else {TagCanvas.textColour = text_color;};
-				var text_font = '<?= $text_font; ?>';
-				var google_font = '<?= $google_font; ?>';
-				if(google_font!="") {text_font = google_font};
-				TagCanvas.textFont = text_font;	
-				TagCanvas.textHeight = <?= $text_height; ?>;	
-				TagCanvas.tooltip = '<?= $tooltip; ?>';
-				TagCanvas.tooltipClass = '<?= $tooltip_class; ?>';	
-				TagCanvas.tooltipDelay = <?= $tooltip_delay; ?>;
-				TagCanvas.txtOpt = <?= $text_optimisation; ?>;	
-				TagCanvas.txtScale = <?= $text_scale; ?>;
-				var weight_mode = '<?= $weight_mode; ?>';
-				if((weight_mode=="size")||(weight_mode=="colour")||(weight_mode=="both")||(weight_mode=="bgcolour")||(weight_mode=="bgoutline")){
-					TagCanvas.weight = true; 
-					TagCanvas.weightFrom = '<?= $weight_from; ?>';	
-					var weight_gradient_1 = '<?= $weight_gradient_1; ?>';
-					var weight_gradient_2 = '<?= $weight_gradient_2; ?>';
-					var weight_gradient_3 = '<?= $weight_gradient_3; ?>';
-					var weight_gradient_4 = '<?= $weight_gradient_4; ?>';
-					if((weight_gradient_1 == '')||(weight_gradient_2 == '')||(weight_gradient_3 == '')||(weight_gradient_4 == '')){}
-					else {var weight_gradient = {0:'#<?= $weight_gradient_1; ?>', 0.33:'#<?= $weight_gradient_2; ?>', 0.67:'#<?= $weight_gradient_3; ?>', 1:'#<?= $weight_gradient_4; ?>'};			
-					TagCanvas.weightGradient = weight_gradient;};
-					TagCanvas.weightMode = weight_mode;
-					TagCanvas.weightSize = <?= $weight_size; ?>;
-					var weight_size_max = '<?= $weight_size_max; ?>';		
-					if((weight_size_max=='')||(weight_size_max=='null')) {TagCanvas.weightSizeMax = null;} 
-					else {TagCanvas.weightSizeMax = parseInt(weight_size_max);};
-					var weight_size_min = '<?= $weight_size_min; ?>';		
-					if((weight_size_min=='')||(weight_size_min=='null')) {TagCanvas.weightSizeMin = null;} 
-					else {TagCanvas.weightSizeMin = parseInt(weight_size_min);};					
-				}				
-				TagCanvas.wheelZoom = <?= $wheel_zoom; ?>;
-				TagCanvas.zoom = <?= $zoom; ?>;				
-				TagCanvas.zoomMax = <?= $zoom_max; ?>;	
-				TagCanvas.zoomMin = <?= $zoom_min; ?>;
-				TagCanvas.zoomStep = <?= $zoom_step; ?>;
 
-				TagCanvas.Start('tag_canvas_<?=$inst_id; ?>','tag_html5_<?=$inst_id; ?>', { centreFunc: CF_<?php echo $center_function; ?> });
+					if(taxonomy=="archives"){
+						var link_span = $('#tag_html5_<?= $inst_id; ?> span');
+						for (var i = 0; i < link_span.length; i++) { 
+							var text_s = $('#tag_html5_<?= $inst_id; ?> span').eq(i).text();
+							var text_a = $('#tag_html5_<?= $inst_id; ?> span a').eq(i).text();
+							var weight_value = text_s.substring(text_a.length+2,text_s.length-1);
+							$('#tag_html5_<?= $inst_id; ?> span a').eq(i).text(text_s);
+							$('#tag_html5_<?= $inst_id; ?> span a').eq(i).css({'font-size': weight_value+'px'});						
+						}
+						var clear_links = $('#tag_html5_<?= $inst_id; ?> span a').detach();
+						$('#tag_html5_<?= $inst_id; ?> span').remove();
+						$(clear_links).appendTo('#tag_html5_<?= $inst_id; ?>');
+					}
+
+					if(taxonomy=="authors"){
+						var text_a = $('#tag_html5_<?= $inst_id; ?> a');
+						var div_full_text =  $('#tag_html5_<?= $inst_id; ?>').text();
+						var div_clear_text = div_full_text.replace(',','');	
+						var authors_array = div_clear_text.split(')');					
+						for (var i = 0; i < text_a.length; i++) { 
+							authors_array[i]=authors_array[i].trim();
+							var weight_val = authors_array[i].substring(authors_array[i].lastIndexOf('(')+1, authors_array[i].length);		
+							$('#tag_html5_<?= $inst_id; ?> a').eq(i).text(authors_array[i]+')');
+							$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-size': weight_val+'px'});	
+						}
+						var clear_links = $('#tag_html5_<?= $inst_id; ?> a').detach();
+						$('#tag_html5_<?= $inst_id; ?>').text('');
+						$(clear_links).appendTo('#tag_html5_<?= $inst_id; ?>');					
+					}				
+				
+					var multiple_fonts = '<?= $multiple_fonts; ?>';
+					if(multiple_fonts!=''){
+						var mf_array = multiple_fonts.split(',');
+							for (var i = 0; i < any_type_tags.length; i++) { 
+							$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-family':_.shuffle(mf_array)[0]});
+						}
+					}
+				
+					var multiple_colors = '<?= $multiple_colors; ?>';
+					multiple_colors = multiple_colors.replace(/ /gi, '');
+					if(multiple_colors!=''){
+						var mc_array = multiple_colors.split(',');
+						for (var i = 0; i < mc_array.length; i++) {
+							mc_array[i] = '#'+ mc_array[i];
+						}
+						for (var i = 0; i < any_type_tags.length; i++) { 
+							$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'color': _.shuffle(mc_array)[0]});
+						}
+					}
+				
+					var multiple_bg = '<?= $multiple_bg; ?>';
+					multiple_bg = multiple_bg.replace(/ /gi, '');
+					if(multiple_bg!=''){
+						var mb_array = multiple_bg.split(',');
+						for (var i = 0; i < mb_array.length; i++) {
+							mb_array[i] = '#'+ mb_array[i];
+						}
+						for (var i = 0; i < any_type_tags.length; i++) { 
+							$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'background-color': _.shuffle(mb_array)[0]});
+						}
+					}
+	
+					TagCanvas.activeCursor = '<?= $active_cursor; ?>';						
+					TagCanvas.animTiming = '<?= $animation_timing; ?>';
+					var bg_color = '<?= $bg_color; ?>';			
+					if((bg_color!='')&&(bg_color!='null')&&(bg_color!='tag')){bg_color = '#'+bg_color;};
+					if((bg_color=='')||(bg_color=='null')) {TagCanvas.bgColour = null;}	else {TagCanvas.bgColour = bg_color;};
+					var bg_outline = '<?= $bg_outline; ?>';
+					if((bg_outline!='')&&(bg_outline!='null')&&(bg_outline!='tag')){bg_outline = '#'+bg_outline;};
+					if((bg_outline=='')||(bg_outline=='null')) {TagCanvas.bgOutline = null;} else {TagCanvas.bgOutline = bg_outline;};
+					TagCanvas.bgOutlineThickness = <?= $bg_outline_thickness; ?>;	
+					TagCanvas.bgRadius = <?= $bg_radius; ?>;
+					var click_to_front = '<?= $click_to_front; ?>';				
+					if((click_to_front == '')||(click_to_front == 'null')) {TagCanvas.clickToFront = null;}	
+					else {TagCanvas.clickToFront = parseInt(click_to_front);};
+					TagCanvas.decel = <?= $deceleration; ?>;					
+					TagCanvas.depth = <?= $depth; ?>;
+					TagCanvas.dragControl = <?= $drag_ctrl; ?>;
+					TagCanvas.dragThreshold = <?= $drag_threshold; ?>;	
+					TagCanvas.fadeIn = <?= $fadein; ?>;
+					TagCanvas.freezeActive = <?= $freeze_active; ?>;
+					TagCanvas.freezeDecel = <?= $freeze_decel; ?>;	
+					TagCanvas.frontSelect = <?= $front_select; ?>;
+					TagCanvas.hideTags = <?= $hide_tags; ?>;		
+					TagCanvas.imageScale = <?= $image_scale; ?>;				
+					TagCanvas.initial = <?= $initial; ?>;							
+					TagCanvas.interval = <?= $interval; ?>;
+					TagCanvas.lock = '<?= $lock; ?>';
+					TagCanvas.maxBrightness = <?= $max_brightness; ?>;
+					TagCanvas.maxSpeed = <?= $max_speed; ?>;
+					TagCanvas.minBrightness = <?= $min_brightness; ?>;
+					TagCanvas.minSpeed = <?= $min_speed; ?>;	
+					TagCanvas.noMouse = <?= $no_mouse; ?>;
+					TagCanvas.noSelect = <?= $no_select; ?>;	
+					TagCanvas.offsetX = <?= $offset_x; ?>;
+					TagCanvas.offsetY = <?= $offset_y; ?>;					
+					TagCanvas.outlineColour = '#<?= $outline_color; ?>';					
+					TagCanvas.outlineIncrease = <?= $outline_increase; ?>;		
+					TagCanvas.outlineMethod = '<?= $outline_method; ?>';					
+					TagCanvas.outlineOffset = <?= $outline_offset; ?>;
+					TagCanvas.outlineRadius = <?= $outline_radius; ?>;						
+					TagCanvas.outlineThickness = <?= $outline_thickness; ?>;	
+					TagCanvas.padding = <?= $padding; ?>;	
+					TagCanvas.pulsateTime = <?= $pulsate_time; ?>;		
+					TagCanvas.pulsateTo = <?= $pulsate_to; ?>;
+					TagCanvas.radiusX = <?= $radius_x; ?>;	
+					TagCanvas.radiusY = <?= $radius_y; ?>;	
+					TagCanvas.radiusZ = <?= $radius_z; ?>;	
+					TagCanvas.reverse = <?= $reverse; ?>;	
+					TagCanvas.shadow = '#<?= $shadow; ?>';	
+					TagCanvas.shadowBlur = <?= $shadow_blur; ?>;
+					TagCanvas.shadowOffset = <?= $shadow_offset; ?>;	
+					TagCanvas.shape = '<?= $shape; ?>';	
+					TagCanvas.shuffleTags = <?= $shuffle_tags; ?>;		
+					TagCanvas.splitWidth = <?= $split_width; ?>;
+					TagCanvas.stretchX = <?= $stretch_x; ?>;
+					TagCanvas.stretchY = <?= $stretch_y; ?>;
+					var text_color = '#<?= $text_color; ?>';
+					if(text_color=='#') {TagCanvas.textColour = null;}
+					else {TagCanvas.textColour = text_color;};
+					var text_font = '<?= $text_font; ?>';
+					var google_font = '<?= $google_font; ?>';
+					if(google_font!="") {text_font = google_font};
+					TagCanvas.textFont = text_font;	
+					TagCanvas.textHeight = <?= $text_height; ?>;	
+					TagCanvas.tooltip = '<?= $tooltip; ?>';
+					TagCanvas.tooltipClass = '<?= $tooltip_class; ?>';	
+					TagCanvas.tooltipDelay = <?= $tooltip_delay; ?>;
+					TagCanvas.txtOpt = <?= $text_optimisation; ?>;	
+					TagCanvas.txtScale = <?= $text_scale; ?>;
+					var weight_mode = '<?= $weight_mode; ?>';
+					if((weight_mode=="size")||(weight_mode=="colour")||(weight_mode=="both")||(weight_mode=="bgcolour")||(weight_mode=="bgoutline")){
+						TagCanvas.weight = true; 
+						TagCanvas.weightFrom = '<?= $weight_from; ?>';	
+						var weight_gradient_1 = '<?= $weight_gradient_1; ?>';
+						var weight_gradient_2 = '<?= $weight_gradient_2; ?>';
+						var weight_gradient_3 = '<?= $weight_gradient_3; ?>';
+						var weight_gradient_4 = '<?= $weight_gradient_4; ?>';
+						if((weight_gradient_1 == '')||(weight_gradient_2 == '')||(weight_gradient_3 == '')||(weight_gradient_4 == '')){}
+						else {var weight_gradient = {0:'#<?= $weight_gradient_1; ?>', 0.33:'#<?= $weight_gradient_2; ?>', 0.67:'#<?= $weight_gradient_3; ?>', 1:'#<?= $weight_gradient_4; ?>'};			
+						TagCanvas.weightGradient = weight_gradient;};
+						TagCanvas.weightMode = weight_mode;
+						TagCanvas.weightSize = <?= $weight_size; ?>;
+						var weight_size_max = '<?= $weight_size_max; ?>';		
+						if((weight_size_max=='')||(weight_size_max=='null')) {TagCanvas.weightSizeMax = null;} 
+						else {TagCanvas.weightSizeMax = parseInt(weight_size_max);};
+						var weight_size_min = '<?= $weight_size_min; ?>';		
+						if((weight_size_min=='')||(weight_size_min=='null')) {TagCanvas.weightSizeMin = null;} 
+						else {TagCanvas.weightSizeMin = parseInt(weight_size_min);};					
+					}				
+					TagCanvas.wheelZoom = <?= $wheel_zoom; ?>;
+					TagCanvas.zoom = <?= $zoom; ?>;				
+					TagCanvas.zoomMax = <?= $zoom_max; ?>;	
+					TagCanvas.zoomMin = <?= $zoom_min; ?>;
+					TagCanvas.zoomStep = <?= $zoom_step; ?>;
+
+					TagCanvas.Start('tag_canvas_<?=$inst_id; ?>','tag_html5_<?=$inst_id; ?>', { centreFunc: CF_<?php echo $center_function; ?> });
+				}, 500);
 			});
 		</script>
 		<?php
@@ -371,7 +373,7 @@ class wpTagCanvasWidget extends WP_Widget {
 		$tag_option['archives_limit'] =strip_tags(stripslashes($new_instance["archives_limit"]));
 		$tag_option['authors_limit'] =strip_tags(stripslashes($new_instance["authors_limit"]));	
 		$tag_option['exclude_admin'] =strip_tags(stripslashes($new_instance["exclude_admin"]));	
-		$tag_option['google_font'] =strip_tags(stripslashes($new_instance["google_font"]));	
+		$tag_option['google_font'] =strip_tags(stripslashes($new_instance["google_font"]));
 		
 		$tag_option['active_cursor'] =strip_tags(stripslashes($new_instance["active_cursor"]));		
 		$tag_option['animation_timing'] =strip_tags(stripslashes($new_instance["animation_timing"]));		
@@ -469,7 +471,7 @@ class wpTagCanvasWidget extends WP_Widget {
 			'archives_limit' => '',
 			'authors_limit' => '',		
 			'exclude_admin' => 'true',	
-			'google_font' => '',				
+			'google_font' => '',
 			
 			'active_cursor' => 'pointer',
 			'animation_timing' => 'Smooth',
@@ -562,7 +564,7 @@ class wpTagCanvasWidget extends WP_Widget {
 		$archives_limit = attribute_escape($instance['archives_limit']);
 		$authors_limit = attribute_escape($instance['authors_limit']);		
 		$exclude_admin = attribute_escape($instance['exclude_admin']);	
-		$google_font = attribute_escape($instance['google_font']);	
+		$google_font = attribute_escape($instance['google_font']);			
 		
 		$active_cursor = attribute_escape($instance['active_cursor']);		
 		$animation_timing = attribute_escape($instance['animation_timing']);
