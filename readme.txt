@@ -34,6 +34,11 @@ This plugin creates multiple instances widget that draws and animates a HTML5 ca
 
 == Changelog ==
 
+= 2.3 =
+1. Resolved problem with conflict between different js libraries used by customers: Due to such conflict some customers were not able to create 3D Tag Clouds.
+2. Changed the way Central Function section was functioning: Till now the new versions used to delete already created functions, because they were kept in a plugin's file. Now customers put their functions away from the plugin. 
+
+
 = 2.2.3 =
 1. Installation clarifications
 2. Code improvements.

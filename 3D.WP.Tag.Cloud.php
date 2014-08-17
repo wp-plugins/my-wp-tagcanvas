@@ -3,7 +3,7 @@
 Plugin Name: 3D WP Tag Cloud
 Plugin URI: http://peter.bg/archives/7373
 Description: This plugin creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Now clouds may rotate Pages, Recent Posts, External Links, Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content.  Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives the option to put images and/or text in the center of the cloud. The Number of tags in the cloud is adjustable. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
-Version: 2.2.3
+Version: 2.3
 Author: Peter Petrov
 Author URI: http://peter.bg
 Update Server: http://peter.bg/
@@ -22,16 +22,13 @@ class wpTagCanvasWidget extends WP_Widget {
     function widget($args, $instance) {  
         extract($args);
 
-
         $inst_id = mt_rand(0,999999);
         
-        wp_register_script('jq-tagcloud', plugin_dir_url( __FILE__ ) . '3D.WP.Tag.Cloud/jquery.tagcanvas.js', array('jquery'), '1.0',true);
+        wp_register_script('jq-tagcloud', plugin_dir_url( __FILE__ ) . 'js/jquery.tagcanvas.js', array('jquery'), '1.0',true);
         wp_enqueue_script('jq-tagcloud');
-		wp_register_script('jq-CF', plugin_dir_url( __FILE__ ) . '3D.WP.Tag.Cloud/CF.js', array('jquery'), '1.0',true);
-        wp_enqueue_script('jq-CF');
-		wp_register_script('jq-demo', plugin_dir_url( __FILE__ ) . '3D.WP.Tag.Cloud/demo.js', array('jquery'), '1.0',true);
+		wp_register_script('jq-demo', plugin_dir_url( __FILE__ ) . 'js/demo.js', array('jquery'), '1.0',true);
         wp_enqueue_script('jq-demo');
-		wp_register_script('jq-underscore', plugin_dir_url( __FILE__ ) . '3D.WP.Tag.Cloud/underscore-min.js', array('jquery'), '1.0',true);
+		wp_register_script('jq-underscore', plugin_dir_url( __FILE__ ) . 'js/underscore-min.js', array('jquery'), '1.0',true);
         wp_enqueue_script('jq-underscore');
 		
 		$tooltip_status = attribute_escape($instance['tooltip_status']);		
@@ -52,6 +49,8 @@ class wpTagCanvasWidget extends WP_Widget {
 		$authors_limit = attribute_escape($instance['authors_limit']);		
 		$exclude_admin = attribute_escape($instance['exclude_admin']);	
 		$google_font = attribute_escape($instance['google_font']);	
+		$cf_url = attribute_escape($instance['cf_url']);
+		$cf_name = attribute_escape($instance['cf_name']);		
 		
 		$active_cursor = attribute_escape($instance['active_cursor']);	
 		$animation_timing = attribute_escape($instance['animation_timing']);		
@@ -59,7 +58,6 @@ class wpTagCanvasWidget extends WP_Widget {
 		$bg_outline = attribute_escape($instance['bg_outline']);	
 		$bg_outline_thickness = attribute_escape($instance['bg_outline_thickness']);
 		$bg_radius = attribute_escape($instance['bg_radius']);
-		$center_function = attribute_escape($instance['center_function']);	
 		$click_to_front = attribute_escape($instance['click_to_front']);
 		$deceleration = attribute_escape($instance['deceleration']);		
 		$depth = attribute_escape($instance['depth']);
@@ -131,6 +129,7 @@ class wpTagCanvasWidget extends WP_Widget {
     	?>
 
 		<script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+		<script type="text/javascript" src="<?= $cf_url; ?>"></script>
 		
         <?php		
 		if( $title ) {
@@ -172,12 +171,13 @@ class wpTagCanvasWidget extends WP_Widget {
     	<script type="text/javascript">
 			var check_font = '<?= $google_font; ?>';
 			if(check_font!=""){WebFont.load({google: {families: ['<? echo $google_font; ?>']}})}
-		
-		    $(document).ready(function(){
+
+            jQuery(function(){    
+                try {
 				setTimeout(function() {
 
-					var any_type_tags = $('#tag_html5_<?= $inst_id; ?> a');		
-					var test = $('#tag_html5_<?= $inst_id; ?>');
+					var any_type_tags = jQuery('#tag_html5_<?= $inst_id; ?> a');		
+					var test = jQuery('#tag_html5_<?= $inst_id; ?>');
 					var taxonomy = '<?= $taxonomy; ?>';
 					var wm = '<?= $weight_mode; ?>';
 					if((taxonomy=="links")&&(wm!='none')){
@@ -185,45 +185,45 @@ class wpTagCanvasWidget extends WP_Widget {
 						var increment = (bigest-3)/any_type_tags.length;
 						for (var i = 0; i < any_type_tags.length; i++) { 
 							var fsize = Math.round(bigest-increment*i);
-							$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-size':fsize+'px'});
+							jQuery('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-size':fsize+'px'});
 						}
 					}
 
 					if(taxonomy=="archives"){
-						var link_span = $('#tag_html5_<?= $inst_id; ?> span');
+						var link_span = jQuery('#tag_html5_<?= $inst_id; ?> span');
 						for (var i = 0; i < link_span.length; i++) { 
-							var text_s = $('#tag_html5_<?= $inst_id; ?> span').eq(i).text();
-							var text_a = $('#tag_html5_<?= $inst_id; ?> span a').eq(i).text();
+							var text_s = jQuery('#tag_html5_<?= $inst_id; ?> span').eq(i).text();
+							var text_a = jQuery('#tag_html5_<?= $inst_id; ?> span a').eq(i).text();
 							var weight_value = text_s.substring(text_a.length+2,text_s.length-1);
-							$('#tag_html5_<?= $inst_id; ?> span a').eq(i).text(text_s);
-							$('#tag_html5_<?= $inst_id; ?> span a').eq(i).css({'font-size': weight_value+'px'});						
+							jQuery('#tag_html5_<?= $inst_id; ?> span a').eq(i).text(text_s);
+							jQuery('#tag_html5_<?= $inst_id; ?> span a').eq(i).css({'font-size': weight_value+'px'});						
 						}
-						var clear_links = $('#tag_html5_<?= $inst_id; ?> span a').detach();
-						$('#tag_html5_<?= $inst_id; ?> span').remove();
-						$(clear_links).appendTo('#tag_html5_<?= $inst_id; ?>');
+						var clear_links = jQuery('#tag_html5_<?= $inst_id; ?> span a').detach();
+						jQuery('#tag_html5_<?= $inst_id; ?> span').remove();
+						jQuery(clear_links).appendTo('#tag_html5_<?= $inst_id; ?>');
 					}
 
 					if(taxonomy=="authors"){
-						var text_a = $('#tag_html5_<?= $inst_id; ?> a');
-						var div_full_text =  $('#tag_html5_<?= $inst_id; ?>').text();
+						var text_a = jQuery('#tag_html5_<?= $inst_id; ?> a');
+						var div_full_text =  jQuery('#tag_html5_<?= $inst_id; ?>').text();
 						var div_clear_text = div_full_text.replace(',','');	
 						var authors_array = div_clear_text.split(')');					
 						for (var i = 0; i < text_a.length; i++) { 
 							authors_array[i]=authors_array[i].trim();
 							var weight_val = authors_array[i].substring(authors_array[i].lastIndexOf('(')+1, authors_array[i].length);		
-							$('#tag_html5_<?= $inst_id; ?> a').eq(i).text(authors_array[i]+')');
-							$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-size': weight_val+'px'});	
+							jQuery('#tag_html5_<?= $inst_id; ?> a').eq(i).text(authors_array[i]+')');
+							jQuery('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-size': weight_val+'px'});	
 						}
-						var clear_links = $('#tag_html5_<?= $inst_id; ?> a').detach();
-						$('#tag_html5_<?= $inst_id; ?>').text('');
-						$(clear_links).appendTo('#tag_html5_<?= $inst_id; ?>');					
+						var clear_links = jQuery('#tag_html5_<?= $inst_id; ?> a').detach();
+						jQuery('#tag_html5_<?= $inst_id; ?>').text('');
+						jQuery(clear_links).appendTo('#tag_html5_<?= $inst_id; ?>');					
 					}				
 				
 					var multiple_fonts = '<?= $multiple_fonts; ?>';
 					if(multiple_fonts!=''){
 						var mf_array = multiple_fonts.split(',');
 							for (var i = 0; i < any_type_tags.length; i++) { 
-							$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-family':_.shuffle(mf_array)[0]});
+							jQuery('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'font-family':_.shuffle(mf_array)[0]});
 						}
 					}
 				
@@ -235,7 +235,7 @@ class wpTagCanvasWidget extends WP_Widget {
 							mc_array[i] = '#'+ mc_array[i];
 						}
 						for (var i = 0; i < any_type_tags.length; i++) { 
-							$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'color': _.shuffle(mc_array)[0]});
+							jQuery('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'color': _.shuffle(mc_array)[0]});
 						}
 					}
 				
@@ -247,7 +247,7 @@ class wpTagCanvasWidget extends WP_Widget {
 							mb_array[i] = '#'+ mb_array[i];
 						}
 						for (var i = 0; i < any_type_tags.length; i++) { 
-							$('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'background-color': _.shuffle(mb_array)[0]});
+							jQuery('#tag_html5_<?= $inst_id; ?> a').eq(i).css({'background-color': _.shuffle(mb_array)[0]});
 						}
 					}
 	
@@ -345,8 +345,14 @@ class wpTagCanvasWidget extends WP_Widget {
 					TagCanvas.zoomMin = <?= $zoom_min; ?>;
 					TagCanvas.zoomStep = <?= $zoom_step; ?>;
 
-					TagCanvas.Start('tag_canvas_<?=$inst_id; ?>','tag_html5_<?=$inst_id; ?>', { centreFunc: CF_<?php echo $center_function; ?> });
+					var cf_url = '<?= $cf_url; ?>';
+					var cf_name = '<?= $cf_name; ?>';
+					if((cf_url!='')&&(cf_name!='')){TagCanvas.Start('tag_canvas_<?=$inst_id; ?>','tag_html5_<?=$inst_id; ?>', { centreFunc: window[cf_name] });}
+					else {TagCanvas.Start('tag_canvas_<?=$inst_id; ?>','tag_html5_<?=$inst_id; ?>');};
+
 				}, 500);
+                } 
+                catch(err) { } 
 			});
 		</script>
 		<?php
@@ -374,6 +380,8 @@ class wpTagCanvasWidget extends WP_Widget {
 		$tag_option['authors_limit'] =strip_tags(stripslashes($new_instance["authors_limit"]));	
 		$tag_option['exclude_admin'] =strip_tags(stripslashes($new_instance["exclude_admin"]));	
 		$tag_option['google_font'] =strip_tags(stripslashes($new_instance["google_font"]));
+		$tag_option['cf_url'] =strip_tags(stripslashes($new_instance["cf_url"]));
+		$tag_option['cf_name'] =strip_tags(stripslashes($new_instance["cf_name"]));
 		
 		$tag_option['active_cursor'] =strip_tags(stripslashes($new_instance["active_cursor"]));		
 		$tag_option['animation_timing'] =strip_tags(stripslashes($new_instance["animation_timing"]));		
@@ -381,7 +389,6 @@ class wpTagCanvasWidget extends WP_Widget {
 		$tag_option['bg_outline'] =strip_tags(stripslashes($new_instance["bg_outline"]));	
 		$tag_option['bg_outline_thickness'] =strip_tags(stripslashes($new_instance["bg_outline_thickness"]));
 		$tag_option['bg_radius'] =strip_tags(stripslashes($new_instance["bg_radius"]));
-		$tag_option['center_function'] =strip_tags(stripslashes($new_instance["center_function"])); 
 		$tag_option['click_to_front'] =strip_tags(stripslashes($new_instance["click_to_front"]));
 		$tag_option['deceleration'] =strip_tags(stripslashes($new_instance["deceleration"]));		
 		$tag_option['depth'] =strip_tags(stripslashes($new_instance["depth"]));		
@@ -472,6 +479,8 @@ class wpTagCanvasWidget extends WP_Widget {
 			'authors_limit' => '',		
 			'exclude_admin' => 'true',	
 			'google_font' => '',
+			'cf_url' => '',
+			'cf_name' => '',
 			
 			'active_cursor' => 'pointer',
 			'animation_timing' => 'Smooth',
@@ -479,7 +488,6 @@ class wpTagCanvasWidget extends WP_Widget {
 			'bg_outline' => '',
 			'bg_outline_thickness' => '0',
 			'bg_radius' => '10',
-			'center_function' => '1',
 			'click_to_front' => '',
 			'deceleration' => '0.98',
 			'depth' => '0.5',
@@ -564,7 +572,9 @@ class wpTagCanvasWidget extends WP_Widget {
 		$archives_limit = attribute_escape($instance['archives_limit']);
 		$authors_limit = attribute_escape($instance['authors_limit']);		
 		$exclude_admin = attribute_escape($instance['exclude_admin']);	
-		$google_font = attribute_escape($instance['google_font']);			
+		$google_font = attribute_escape($instance['google_font']);	
+		$cf_url = attribute_escape($instance['cf_url']);	
+		$cf_name = attribute_escape($instance['cf_name']);			
 		
 		$active_cursor = attribute_escape($instance['active_cursor']);		
 		$animation_timing = attribute_escape($instance['animation_timing']);
@@ -572,7 +582,6 @@ class wpTagCanvasWidget extends WP_Widget {
 		$bg_outline = attribute_escape($instance['bg_outline']);		
 		$bg_outline_thickness = attribute_escape($instance['bg_outline_thickness']);	
 		$bg_radius = attribute_escape($instance['bg_radius']);		
-		$center_function = attribute_escape($instance['center_function']);		
 		$click_to_front = attribute_escape($instance['click_to_front']);
 		$deceleration = attribute_escape($instance['deceleration']);		
 		$depth = attribute_escape($instance['depth']);		
@@ -639,7 +648,7 @@ class wpTagCanvasWidget extends WP_Widget {
 		$zoom_min = attribute_escape($instance['zoom_min']);
 		$zoom_step = attribute_escape($instance['zoom_step']);
 																																			
-		include '3D.WP.Tag.Cloud/CPtemplate.php'; 
+		include 'CP.template.php'; 
  
  ?>
 
