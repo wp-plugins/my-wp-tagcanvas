@@ -1,38 +1,53 @@
-=== 3D WP Tag Cloud ===
+=== 3D WP Tag Cloud-S ===
 Contributors: hityr5yr, bisko
 Tags: tag cloud, 3D, widget, HTML5, canvas, cloud, tags, links, recent posts, menu, images
-Requires at least: 2.9
-Tested up to: 3.9.2
+Requires at least: 3.9
+Tested up to: 4.0
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 
 
-3D WP Tag Cloud (formerly known as My WP TagCanvas) draws and animates a HTML5 canvas based tag cloud. 
+3D WP Tag Cloud-S (formerly known as My WP TagCanvas) draws and animates a HTML5 canvas based tag cloud. 
 
 
 == Description ==
 
-This plugin creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Now clouds may rotate Pages, Recent Posts, External Links, Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content.  Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives the option to put images and/or text in the center of the cloud. The Number of tags in the cloud is adjustable. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
+This is the Single Cloud variation of 3D WP Tag Cloud. It Creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Plugin may rotate Pages, Recent Posts, External Links (blogroll), Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Option values are preset and don't have to be typed but selected. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content. Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives an option to put images and/or text in the center of the cloud. It accepts background images as well. The Number of tags in the cloud is adjustable. The plugin automatically includes WP Links panel for users who started using WP since v 3.5, when Links Manager and blogroll were made hidden by default. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5.1 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
 
 == Installation ==
 
 = Manual = 
-1. Make sure you are running WordPress version 2.9 or higher. 
+1. Make sure you are running WordPress version 3.9 or higher. 
 2. Download the zip file and extract the content. 
 3. Upload the '3D WP Tag Cloud' folder to your plugins directory (wp-content/plugins/). 
-4. Login to your WordPress Admin menu, 
-4. Go to 'Appearance' > 'Widgets' and make sure you have enabled accessibility mode in 'Screen Options' (right top corner).
-5. Add a widget instance of 3D WP Tag Cloud.
+4. Login to your WordPress Admin menu, go to 'Appearance > Widgets' and if required enable accessibility mode in 'Screen Options' (right top corner). 
+5. Add a widget instance.
+6. If tag clouds created by previous plugin versions do not appear on your site after installation of a new version, just open and save their widget instances again without any changes.
 
 = Automatic =
-1. Make sure you are running WordPress version 2.9 or higher.
+1. Make sure you are running WordPress version 3.9 or higher.
 2. Use WordPress' built-in installer and activate the plugin.
-3. Go to 'Appearance > Widgets' and make sure you have enabled accessibility mode in 'Screen Options' (right top corner).
-4. Add a widget instance of 3D WP Tag Cloud.
+3. Go to 'Appearance > Widgets' and if required enable accessibility mode in 'Screen Options' (right top corner). 
+4. Add a widget instance.
+5. If tag clouds created by previous plugin versions do not appear on your site after installation of a new version, just open and save their widget instances again without any changes.
 
 
 == Changelog ==
+
+= 3.0 =
+
+1. New option for adding background image behind cloud's content
+2. New function: At a click over a tag animation freezes and starts loading of requested URL 
+3. New option for excluding tags from a cloud when its content consists of Authors
+4. Automatic including of WP Links panel for users who started using WP after v 3.5 when Links Manager and blogroll were made hidden by default. 
+5. Added User Guide in Help Section
+6. Added new tips in Help Section
+7. Added two ready made Central Functions for putting image or text in the center of the cloud
+8. Redesigned Control Panel: All settings are preset and thus option values don't have to be typed, but selected. Entered colors are shown next to their value for user's convenience. 
+9. Fixed bug in Multiple Fonts
+10. Code Improvements
+
 
 = 2.3 =
 1. Resolved problem with conflict between different js libraries used by customers: Due to such conflict some customers were not able to create 3D Tag Clouds.
