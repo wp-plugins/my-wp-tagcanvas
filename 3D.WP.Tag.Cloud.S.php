@@ -2,8 +2,8 @@
 /*
 Plugin Name: 3D WP Tag Cloud-S
 Plugin URI: http://peter.bg/archives/7373
-Description: This is the Single Cloud variation of 3D WP Tag Cloud. It creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Plugin may rotate Pages, Recent Posts, External Links (blogroll), Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Option values are preset and don't have to be typed but selected. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content. Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. It gives an option to put images and/or text in the center of the cloud. It accepts background images as well. The Number of tags in the cloud is adjustable. The plugin automatically includes WP Links panel for users who started using WP since v 3.5, when Links Manager and blogroll were made hidden by default. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.5.1 and includes all its 70+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
-Version: 3.0
+Description: This is the Single Cloud variation of 3D WP Tag Cloud. It creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Plugin may rotate Pages, Recent Posts, External Links (blogroll), Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Option values are preset and don't have to be typed but selected. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content. Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. In case of Recent posts, Pages, Menus, List of Authors and External Links (blogroll) tags may consist of both image and text. It gives an option to put images and/or text in the center of the cloud. It accepts background images as well. The Number of tags in the cloud is adjustable. The plugin automatically includes WP Links panel for users who started using WP since v 3.5, when Links Manager and blogroll were made hidden by default. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.6 and includes all its 80+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
+Version: 3.1
 Author: Peter Petrov
 Author URI: http://peter.bg
 Update Server: http://peter.bg/
@@ -25,7 +25,7 @@ License: LGPL v3
 
 			$inst_id = mt_rand(0,999999);
 			
-			wp_register_script('jq-tagcloud', plugin_dir_url( __FILE__ ) . 'js/jquery.tagcanvas.js', array('jquery'), '2.5.1',true);
+			wp_register_script('jq-tagcloud', plugin_dir_url( __FILE__ ) . 'js/jquery.tagcanvas.js', array('jquery'), '2.6.1',true);
 			wp_enqueue_script('jq-tagcloud');
 			
 			include 's.variables.php';			
@@ -54,7 +54,15 @@ License: LGPL v3
 <!-- HTML Cloud Template -->
         <div id="uni_tags_container_<?= $inst_id; ?>" hidden>
 			<?php 
-				if( $taxonomy == "links" ) {$args = array ('category' => $links_category_id, 'hide_invisible' => 0, 'limit' => $links, 'categorize' => 0, 'title_li' => 0, 'before' => '', 'after' => ''); wp_list_bookmarks($args);}
+				if( $taxonomy == "links" ) {
+					$lin_args = array ('category' => $links_category_id, 'hide_invisible' => 0, 'limit' => $links); 
+					$bookmarks = get_bookmarks($lin_args);
+					foreach( $bookmarks as $bookmark ){
+						echo '<a href="' . $bookmark->link_url . '">';
+						if ($bookmark->link_image) { echo '<img src="' .$bookmark->link_image . '" width="96" height="96">';}
+						echo  $bookmark->link_name . '</a>';
+					}
+				}
 				else { if ($taxonomy == "menu" ) {$args = array ('menu' => $menu); wp_nav_menu($args);}
 					else { if ($taxonomy == "recent_posts") {
 								$recent_posts = abs($recent_posts);
@@ -64,13 +72,28 @@ License: LGPL v3
 								$args= array ('numberposts' => $recent_posts, 'category' => $rp_category_id); $recent_posts = wp_get_recent_posts($args); 
 								foreach( $recent_posts as $recent ){
 									$count=$count+1; $font_size=round($bigest-$increment*$count); 
-									if($weight_mode != "none") {echo '<a href="' . get_permalink($recent["ID"]) . '" style="font-size: ' . $font_size . 'px;" title="Look '.esc_attr($recent["post_title"]).'" >' . $recent["post_title"].'</a> ';}	
-									else {echo '<a href="' . get_permalink($recent["ID"]) . '" title="Look '.esc_attr($recent["post_title"]).'" >' . $recent["post_title"].'</a> ';};
+									if($weight_mode != "none") {echo '<a href="' . get_permalink($recent["ID"]) . '" style="font-size: ' . $font_size . 'px;">' . get_the_post_thumbnail( $recent["ID"], 'thumbnail' ), $recent["post_title"].'</a> ';}	
+									else {echo '<a href="' . get_permalink($recent["ID"]) . '">' . get_the_post_thumbnail( $recent["ID"], 'thumbnail' ), $recent["post_title"].'</a> ';};
 								};
 							} 
 						else { if ($taxonomy == "archives" ) { $args = array ('type' => 'monthly', 'limit' => $archives_limit, 'format' => 'custom', 'before' => '<span>', 'after' => '</span>', 'show_post_count' => true); wp_get_archives( $args ); }
-							else { if ($taxonomy == "authors" ) { $args = array ('number' => $authors_limit, 'optioncount' => true, 'exclude' => $exclude, 'show_fullname' => true, 'hide_empty' => false, 'style' => 'none' ); wp_list_authors( $args );}
-								else { if ($taxonomy == "pages" ) { $args = array ('show_home' => true); wp_page_menu( $args);}
+							else { if ($taxonomy == "authors" ) { 
+								$args = array('number' => $authors_limit, 'exclude' => $exclude);
+								$users = get_users($args);
+								foreach( $users as $user ){ 
+									$userAvatar = get_avatar($user->ID);
+									$userFName = $user->first_name;
+									$userLName = $user->last_name;
+									$userPosts = count_user_posts($user->ID);
+									$userPostsURL = get_author_posts_url($user->ID);
+									echo '<a href="'.$userPostsURL.'" style="font-size: '.$userPosts.'px">'.$userAvatar, $userFName.'<br>'.$userLName.'<br>('.$userPosts.')</a>';
+								};	
+							 }
+								else { if ($taxonomy == "pages" ) { $args = array('number' => $pages_limit); $pages = get_pages($args);
+									foreach( $pages as $page ){
+										echo '<a href="' . get_page_link( $page->ID ) . '">' . get_the_post_thumbnail( $page->ID, 'thumbnail' ), $page->post_title . '</a>';
+									}
+								}
 									else { if ($taxonomy == "pp_links") {$pp_links = get_the_ID();}
 										else {$args = array ('number' => $tags, 'taxonomy' => $taxonomy); wp_tag_cloud($args);}
 									}
@@ -80,8 +103,8 @@ License: LGPL v3
 					}	 
 				}
 			?>	
-        </div>
-        <canvas title="<?= $canvas_tooltip; ?>" id="tag_canvas_<?= $inst_id; ?>" width="<?= $width;?>" height="<?= $height;?>"></canvas>	
+        </div>	
+        <canvas title="<?php if($tooltip != ''){ echo $canvas_tooltip;} ?>" id="tag_canvas_<?= $inst_id; ?>" width="<?= $width;?>" height="<?= $height;?>"></canvas>	
 		<script type="text/javascript">
 			<?php include 'js/s.functions.js'; ?>
 			<?php include 'js/s.cf.js'; ?>
@@ -89,7 +112,7 @@ License: LGPL v3
 <?php
 		echo $after_widget;
 	}
-	
+
 	function update($new_instance, $old_instance) {
 		$tag_option = array();
 		
@@ -120,6 +143,7 @@ License: LGPL v3
 		$tag_option['multiple_colors'] = $new_instance['multiple_colors'];
 		$tag_option['multiple_fonts'] = $new_instance['multiple_fonts'];
 		$tag_option['multiple_fonts_g'] = $new_instance['multiple_fonts_g'];
+		$tag_option['pages_limit'] = $new_instance['pages_limit'];
 		$tag_option['rp_category_id'] = $new_instance['rp_category_id'];		
 		$tag_option['recent_posts'] = $new_instance['recent_posts'];
 		$tag_option['tags'] = $new_instance['tags'];
@@ -152,7 +176,12 @@ License: LGPL v3
 		$tag_option['freeze_decel'] = $new_instance['freeze_decel']; 
 		$tag_option['front_select'] = $new_instance['front_select'];
 		$tag_option['hide_tags'] = $new_instance['hide_tags'];			
+		$tag_option['image_align'] = $new_instance['image_align'];
+		$tag_option['image_mode'] = $new_instance['image_mode'];
+		$tag_option['image_padding'] = $new_instance['image_padding'];
+		$tag_option['image_position'] = $new_instance['image_position'];
 		$tag_option['image_scale'] = $new_instance['image_scale'];
+		$tag_option['image_valign'] = $new_instance['image_valign'];
 		$tag_option['initial_x'] = $new_instance['initial_x'];	
 		$tag_option['initial_y'] = $new_instance['initial_y'];	
 		$tag_option['interval'] = $new_instance['interval']; 	
@@ -163,6 +192,7 @@ License: LGPL v3
 		$tag_option['min_speed'] = $new_instance['min_speed']; 
 		$tag_option['no_mouse'] = $new_instance['no_mouse'];
 		$tag_option['no_select'] = $new_instance['no_select']; 
+		$tag_option['no_tags_msg'] = $new_instance['no_tags_msg']; 
 		$tag_option['offset_x'] = $new_instance['offset_x'];
 		$tag_option['offset_y'] = $new_instance['offset_y']; 		
 		$tag_option['outline_color'] = $new_instance['outline_color'];
@@ -187,11 +217,13 @@ License: LGPL v3
 		$tag_option['stretch_x'] = $new_instance['stretch_x'];
 		$tag_option['stretch_y'] = $new_instance['stretch_y'];
 		$tag_option['shuffle_tags'] = $new_instance['shuffle_tags'];
+		$tag_option['text_align'] = $new_instance['text_align'];
 		$tag_option['text_color'] = $new_instance['text_color'];
 		$tag_option['text_font'] = $new_instance['text_font'];
 		$tag_option['text_height'] = $new_instance['text_height'];
 		$tag_option['text_scale'] = $new_instance['text_scale'];
 		$tag_option['text_optimisation'] = $new_instance['text_optimisation'];
+		$tag_option['text_valign'] = $new_instance['text_valign'];
 		$tag_option['tooltip'] = $new_instance['tooltip'];
 		$tag_option['tooltip_class'] = $new_instance['tooltip_class'];
 		$tag_option['tooltip_delay'] = $new_instance['tooltip_delay'];
@@ -244,6 +276,7 @@ License: LGPL v3
 			'multiple_colors' => '280000, 003333, 00008b, 000066, 000000',
 			'multiple_fonts' => '',
 			'multiple_fonts_g' => '',
+			'pages_limit' => '',
 			'recent_posts' => '10',
 			'rp_category_id' => '',
 			'tags' => '45',
@@ -276,7 +309,12 @@ License: LGPL v3
 			'freeze_decel' => 'false',
 			'front_select' => 'false',
 			'hide_tags' => 'true',
-			'image_scale' => '1',
+			'image_align' => 'centre',
+			'image_mode' => '',
+			'image_padding' => '2',
+			'image_position' => 'left',
+			'image_scale' => '1.0',
+			'image_valign' => 'middle',
 			'initial_x' => '0',
 			'initial_y' => '0',
 			'interval' => '20',
@@ -287,6 +325,7 @@ License: LGPL v3
 			'min_speed' => '0',
 			'no_mouse' => 'false',
 			'no_select' => 'false',
+			'no_tags_msg' => 'true',
 			'offset_x' => '0',
 			'offset_y' => '0',
 			'outline_color' => '369d88',
@@ -311,14 +350,16 @@ License: LGPL v3
 			'split_width' => '120',
 			'stretch_x' => '1',
 			'stretch_y' => '1',
+			'text_align' => 'centre',
 			'text_color' => '666666',
 			'text_font' => 'Arial',
 			'text_height' => '15',
+			'text_optimisation' => 'true',
+			'text_scale' => '2',
+			'text_valign' => 'middle',
 			'tooltip' => '',
 			'tooltip_class' => 'tctooltip',
 			'tooltip_delay' => '300',
-			'text_optimisation' => 'true',
-			'text_scale' => '2',
 			'weight_from' => '',
 			'weight' => 'false',
 			'weight_gradient_1' => 'f00',

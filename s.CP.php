@@ -172,58 +172,61 @@
 		</div>
 		<table>
 			<tr>
-				<td style="width: 110px; border-bottom: 1px solid #aaa; padding: 0; vertical-align: top;">
+				<td style="width: 110px; padding: 0; vertical-align: top;">
 					<div style="width: 100%;">
 						<span>CONTENT</span>
 						<div style="padding: 15px 0 0 0;">
 							<div class="nishka" style="margin-top: 0;">
 								<input  class="radio" style="margin: 4px 1px 4px 0;" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays most recent posts. Font Size weighting is provided for all <span class='green'>Weight Mode</span> options except for <span class='green'>none</span>. As older a post is, as smaller its title font is. Combine with the <span class='green'>Posts' Categories</span> and <span class='green'>Number</span> of Posts options on the right."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="recent_posts"
-								<?php if( $taxonomy == "recent_posts" ){ echo ' checked="checked"'; } ?>>recent posts
+								<?php if( $taxonomy == "recent_posts" ){ echo ' checked="checked"'; } ?>>Recent Posts
 								<span style="font-size: 18px; line-height: 12px; float: right; padding: 3px 0 0 0;">&#8594;</span>
 							</div>
 							<div class="nishka">								
 								<input  class="radio" style="margin: 4px 1px 4px 0;" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays bookmarks found in the WP Admin Panel: <span class='green'>Links</span>. Font Size weighting is provided for all  <span class='green'>Weight Mode</span> options except for <span class='green'>none</span>. Font size of the Links is calculated in accordance with their position in the list: The last in it has the smallest font size. Combine with the <span class='green'>Links' Categories</span> and <span class='green'>Number</span> of Links options on the right."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="links"									
-								<?php if( $taxonomy == "links" ){ echo ' checked="checked"'; } ?>>links
+								<?php if( $taxonomy == "links" ){ echo ' checked="checked"'; } ?>>Links
 								<span style="font-size: 18px; line-height: 12px; float: right; padding: 3px 0 0 0;">&#8594;</span>
 							</div>
 							<div class="nishka">									
 								<input style="margin: 4px 1px 4px 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a navigation menu created via WP Admin Panel:  <span class='green'>Appearance</span> <span style='font-size: 18px;'>&#8594;</span>  <span class='green'>Menus</span>. <span class='green'>Weight Mode</span> is not applicable to this option. Combine with the <span class='green'>Menu</span> option on the right."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="menu"
-								<?php if( $taxonomy == "menu" ){ echo ' checked="checked"'; } ?>>menu
+								<?php if( $taxonomy == "menu" ){ echo ' checked="checked"'; } ?>>Menu
 								<span style="font-size: 18px; line-height: 12px; float: right; padding: 3px 0 0 0;">&#8594;</span>
 							</div>
 							<div class="nishka" style="border-radius: 0; border-top-right-radius: 50px; border-bottom: 0; margin: 10px 0 0 0;">
 								<input style="margin: 4px 1px 4px 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of categories created in the WP Admin Panel: <span class='green'>Posts</span> <span style='font-size: 18px;'>&#8594;</span>  <span class='green'>Categories</span>."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="category"
-								<?php if( $taxonomy == "category" ){ echo ' checked="checked"'; } ?>>categories
+								<?php if( $taxonomy == "category" ){ echo ' checked="checked"'; } ?>>Categories
 							</div>
 							<div class="nishka" style="border-radius: 0; height: 10px; margin: 0; border: 0; border-right: 1px dotted #aaa;"><span style="font-size: 18px; line-height: 10px; float: right;">&#8594;</span></div>
 							<div class="nishka" style="border-radius: 0; border-bottom-right-radius: 50px; border-top: 0; margin: 0 0 10px 0;">
 								<input style="margin: 4px 1px 4px 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of post tags. Combine with the <span class='green'>Number</span> of Post Tags option on the right."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="post_tag"
-								<?php if( $taxonomy == "post_tag" ){ echo ' checked="checked"'; } ?>>post tags
+								<?php if( $taxonomy == "post_tag" ){ echo ' checked="checked"'; } ?>>Post Tags
 							</div>
 							<div class="nishka">
 							<input style="margin: 4px 1px 4px 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of archives. Combine with the <span class='green'>Number</span> of Archives option on the right."
 							name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="archives"
-							<?php if( $taxonomy == "archives" ){ echo ' checked="checked"'; } ?>>archives
+							<?php if( $taxonomy == "archives" ){ echo ' checked="checked"'; } ?>>Archives
 							<span style="font-size: 18px; line-height: 12px; float: right; padding: 3px 0 0 0;">&#8594;</span>
 							</div>
-							<input style="margin: 2px 1px 2px 0 ;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of pages. <span class='green'>Weight Mode</span> is not applicable to this option."
+							<div class="nishka">							
+							<input style="margin: 4px 1px 4px 0 ;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of pages. <span class='green'>Weight Mode</span> is not applicable to this option."
 							name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="pages"
-							<?php if( $taxonomy == "pages" ){ echo ' checked="checked"'; } ?>>pages	
+							<?php if( $taxonomy == "pages" ){ echo ' checked="checked"'; } ?>>Pages
+							<span style="font-size: 18px; line-height: 12px;  float: right; padding: 3px 0 0 0;">&#8594;</span>								
+							</div>							
 							<div class="nishka" style="margin-bottom: 5px;">
 							<input style="margin: 4px 1px 4px 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of authors. Combine with the <span class='green'>Number</span> of Authors and <span class='green'>Exclude</span> options on the right."
 							name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="authors"
-							<?php if( $taxonomy == "authors" ){ echo ' checked="checked"'; } ?>>authors
+							<?php if( $taxonomy == "authors" ){ echo ' checked="checked"'; } ?>>Authors
 							<span style="font-size: 18px; line-height: 12px;  float: right; padding: 3px 0 0 0;">&#8594;</span>	
 							</div>
 						</div>
 					</div>
 				</td >
-				<td style="border-bottom: 1px solid #aaa; vertical-align: top;">
+				<td style="vertical-align: top;">
 						<label style="margin: 18px 5px 0 0; line-height: 13px;" title="Post Category to be displayed." for="<?=$this->get_field_id('rp_category_id'); ?>">
 							Post Category
 							<br>
@@ -318,8 +321,20 @@
 							echo '<option id="arli_66"'; if($archives_limit==''){echo ' selected';}; echo ' value="">all</option>';
 						?>
 						</select>
+					</label>
+					<label style="width: 220px; line-height: 13px; margin: 2px 0 0 0;" title="Number of pages to display" for="<?=$this->get_field_id('pages_limit'); ?>">
+						<span style="margin-right: 5px; font-weight: normal;">Number</span>
+						<br> 							
+						<select id="<?=$this->get_field_id('pages_limit'); ?>" name="<?=$this->get_field_name('pages_limit'); ?>">
+						<?php 
+							for($i=5; $i<55; $i+=5){
+								echo '<option id="pali_' . $i . '" value="' . $i . '"'; if($pages_limit==$i){echo ' selected';}; echo '>' . $i . '</option>'; 
+							} 
+							echo '<option id="pali_55"'; if($pages_limit==''){echo ' selected';}; echo ' value="">all</option>';
+						?>
+						</select>
 					</label>  	
-					<label style="margin: 29px 5px 0 0; width: 45px; line-height: 13px;" title="Number of authors to display" for="<?=$this->get_field_id('authors_limit'); ?>">
+					<label style="margin: 2px 5px 0 0; width: 45px; line-height: 13px;" title="Number of authors to display" for="<?=$this->get_field_id('authors_limit'); ?>">
 						<span style="margin-right: 5px; font-weight: normal;">Number</span> 
 						<br> 							
 						<select id="<?=$this->get_field_id('authors_limit'); ?>" name="<?=$this->get_field_name('authors_limit'); ?>">
@@ -331,13 +346,30 @@
 							?>
 						</select>
 					</label>  	
-					<label style="width: 173px; margin: 29px 0 0 0; line-height: 13px;" title="Exclude one or more authors from the results. Enter a comma-separated list of authors IDs." for="<?=$this->get_field_id('exclude'); ?>">
+					<label style="width: 173px; margin: 2px 0 0 0; line-height: 13px;" title="Exclude one or more authors from the results. Enter a comma-separated list of authors IDs." for="<?=$this->get_field_id('exclude'); ?>">
 						Exclude 
-						<input style="width: 173px;"
+						<input style="margin-top: 0; width: 173px;"
 						style="padding: 2px" id="<?=$this->get_field_id('exclude'); ?>"
 						name="<?=$this->get_field_name('exclude'); ?>" type="text"
 						value="<?php echo $exclude; ?>" />
 					</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="border-bottom: 1px solid #aaa;">
+					<div class="thin-spacer"></div>
+					<div style="text-align: center;" title="Displays “No tags” instead of an empty canvas when there are no tags available.">
+						No Tags Message
+						<br>
+						<input style="margin: 0 1px 0 0;" class="radio" id="<?=$this->get_field_id('no_tags_msg'); ?>"
+						name="<?=$this->get_field_name('no_tags_msg'); ?>" type="radio" value="true"
+						<?php if( $no_tags_msg == "true" ){ echo ' checked="checked"'; } ?>>on
+						
+						<input style="margin: 0 1px 0 0;" class="radio" id="<?=$this->get_field_id('no_tags_msg'); ?>"
+						name="<?=$this->get_field_name('no_tags_msg'); ?>" type="radio" value="false"
+						<?php if( $no_tags_msg == "false" ){ echo ' checked="checked"'; } ?>>off
+					</div>
+					<div class="thin-spacer"></div>
 				</td>
 			</tr>
 		</table>	
@@ -427,7 +459,7 @@
 			<?php if( $outline_method == "none" ){ echo ' checked="checked"'; } ?>>none
 		</div>
 	</div>
-	<h3><span class="front-title">cloud:</span> SIZES & OPACITY</h3>
+	<h3><span class="front-title">cloud:</span> SIZES & ZOOM</h3>
 	<div class="section_content">
 		<span>SIZES</span>
 		<br>
@@ -436,21 +468,21 @@
 			Radius X 
 			<br>
 			<select id="<?=$this->get_field_id('radius_x'); ?>" name="<?=$this->get_field_name('radius_x'); ?>">
-				<?php for($i=10; $i<755; $i+=5){echo '<option id="rx_' . $i . '" value="' . $i/100 . '"'; if($radius_x==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				<?php for($i=10; $i<1005; $i+=5){echo '<option id="rx_' . $i . '" value="' . $i/100 . '"'; if($radius_x==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
 		</label>				
 		<label style="width: 90px;" title="Initial size of cloud from center to top and bottom." for="<?=$this->get_field_id('radius_y'); ?>">
 			Radius Y 
 			<br>
 			<select id="<?=$this->get_field_id('radius_y'); ?>" name="<?=$this->get_field_name('radius_y'); ?>">
-				<?php for($i=10; $i<755; $i+=5){echo '<option id="ry_' . $i . '" value="' . $i/100 . '"'; if($radius_y==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				<?php for($i=10; $i<1005; $i+=5){echo '<option id="ry_' . $i . '" value="' . $i/100 . '"'; if($radius_y==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
 		</label>				
 		<label style="width: 90px;" title="Initial size of cloud from center to front and back." for="<?=$this->get_field_id('radius_z'); ?>">
 			Radius Z 
 			<br>
 			<select id="<?=$this->get_field_id('radius_z'); ?>" name="<?=$this->get_field_name('radius_z'); ?>">
-				<?php for($i=10; $i<755; $i+=5){echo '<option id="rz_' . $i . '" value="' . $i/100 . '"'; if($radius_z==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				<?php for($i=10; $i<1005; $i+=5){echo '<option id="rz_' . $i . '" value="' . $i/100 . '"'; if($radius_z==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
 		</label> 
 		<label title="Controls the perspective." style="width: 58px;" for="<?=$this->get_field_id('depth'); ?>">
@@ -489,28 +521,54 @@
 				<?php for($i=5; $i<21; $i++){echo '<option id="sy_' . $i . '" value="' . $i/10 . '"'; if($stretch_y==$i/10){echo ' selected';}; echo '>' . $i/10 . '</option>'; } ?>
 			</select>
 		</label> 
-		<div class="divider"></div>
-		<span>OPACITY</span>
-		<div class="thin-spacer"></div>
-		<label style="width: 115px;" title="Minimal opacity of tags at back of cloud." for="<?=$this->get_field_id('min_brightness'); ?>">
-			Min Opacity
+		<div style="font-weight: bold; padding: 5px 0 0 0; margin: 5px 0 0 0; border-top: 1px solid #aaa; width: 100%; display: inline-block;">ZOOM</div>
+		<div style="float: left; margin: 5px 11px 0 0;" title="Enables zooming the cloud in and out using the mouse wheel or scroll gesture">
+			<div>
+				Wheel Zoom
+			</div>
+			<div  style="float: left;">
+				<input class="radio" id="<?=$this->get_field_id('wheel_zoom'); ?>"
+				name="<?=$this->get_field_name('wheel_zoom'); ?>" type="radio" value="true"
+				<?php if( $wheel_zoom == "true" ){ echo ' checked="checked"'; } ?>>on
+				<input class="radio" id="<?=$this->get_field_id('wheel_zoom'); ?>"
+				name="<?=$this->get_field_name('wheel_zoom'); ?>" type="radio" value="false"
+				<?php if( $wheel_zoom == "false" ){ echo ' checked="checked"'; } ?>>off
+			</div>
+		</div>
+		<label title="Minimal zoom value" style="margin: 5px 7px 0 0;" for="<?=$this->get_field_id('zoom_min'); ?>">
+			Zoom Min
 			<br>
-			<select id="<?=$this->get_field_id('min_brightness'); ?>" name="<?=$this->get_field_name('min_brightness'); ?>">
-				<?php for($i=0; $i<105; $i+=5){echo '<option id="mib_' . $i . '" value="' . $i/100 . '"'; if($min_brightness==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>					
+			<select id="<?=$this->get_field_id('zoom_min'); ?>" name="<?=$this->get_field_name('zoom_min'); ?>">
+				<?php for($i=3; $i<11; $i++){echo '<option id="zomi_' . $i . '" value="' . $i/10 . '"'; if($zoom_min==$i/10){echo ' selected';}; echo '>' . $i/10 . '</option>'; } ?>
 			</select>
-		</label> 
-		<label style="width: 115px;" title="Maximal opacity of tags at front of cloud." for="<?=$this->get_field_id('max_brightness'); ?>">
-			Max Opacity
+		</label>  
+		<label title="Maximal zoom value" style="margin: 5px 7px 0 0;" for="<?=$this->get_field_id('zoom_max'); ?>">
+			Zoom Max
 			<br>
-			<select id="<?=$this->get_field_id('max_brightness'); ?>" name="<?=$this->get_field_name('max_brightness'); ?>">
-				<?php for($i=0; $i<105; $i+=5){echo '<option id="mab_' . $i . '" value="' . $i/100 . '"'; if($max_brightness==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>					
+			<select id="<?=$this->get_field_id('zoom_max'); ?>" name="<?=$this->get_field_name('zoom_max'); ?>">
+				<?php for($i=20; $i<41; $i++){echo '<option id="zoma_' . $i . '" value="' . $i/10 . '"'; if($zoom_max==$i/10){echo ' selected';}; echo '>' . $i/10 . '</option>'; } ?>
 			</select>
 		</label>
+		<label style="margin: 5px 7px 0 0;" title="The amount that the zoom is changed by with each movement of the mouse wheel." for="<?=$this->get_field_id('zoom_step'); ?>">
+			Zoom Step
+			<br>
+			<select id="<?=$this->get_field_id('zoom_step'); ?>" name="<?=$this->get_field_name('zoom_step'); ?>">
+				<?php for($i=1; $i<11; $i++){echo '<option id="zos_' . $i . '" value="' . $i/100 . '"'; if($zoom_step==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+			</select>
+		</label>
+		<label style="margin: 5px 0 0;" title="Adjusts the relative size of the tag cloud in the canvas. Larger values will zoom into the cloud, smaller values will zoom out." for="<?=$this->get_field_id('zoom'); ?>">
+			Zoom
+			<br>
+			<select id="<?=$this->get_field_id('zoom'); ?>" name="<?=$this->get_field_name('zoom'); ?>">
+				<?php for($i=10; $i<755; $i+=5){echo '<option id="zo_' . $i . '" value="' . $i/100 . '"'; if($zoom==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+			</select>
+		</label>
+
 	</div>
-	<h3><span class="front-title">cloud:</span> SPEED & ZOOM</h3>
+	<h3><span class="front-title">cloud:</span> SPEED & OPACITY</h3>
 	<div class="section_content" style="padding: 0 2px 5px;">
-		<div style="width: 180px; float: left;" title="Starting rotation speed, with horizontal and vertical values as an array, e.g. <span class='green'>[0.5,-0.3]</span>. Values are multiplied by <span class='green'>maxSpeed</span>.">
-			<div style="font-weight: bold; padding: 5px 0 0 0;">SPEED</div>
+		<div style="width: 128px; float: left;" title="Starting rotation speed, with horizontal and vertical values as an array, e.g. <span class='green'>[0.5,-0.3]</span>. Values are multiplied by <span class='green'>maxSpeed</span>.">
+			<div style="font-weight: bold; padding: 5px 0 0;">SPEED</div>
 			<div class="thin-spacer"></div>
 			<div style="float: left; padding: 0 1px 1px 1px; border: 1px dotted #aaa; border-radius: 5px;">
 				Initial Speed [x, y]
@@ -522,68 +580,42 @@
 				</select>
 			</div>
 		</div>
-		<label style="width: 78px; padding: 25px 0 0 0;" title="Minimal speed of rotation when mouse leaves canvas." for="<?=$this->get_field_id('min_speed'); ?>">
+		<label style="width: 68px; padding: 25px 0 0;" title="Minimal speed of rotation when mouse leaves canvas." for="<?=$this->get_field_id('min_speed'); ?>">
 			Min Speed
 			<br>
 			<select id="<?=$this->get_field_id('min_speed'); ?>" name="<?=$this->get_field_name('min_speed'); ?>">
 				<?php for($i=0; $i<55; $i+=5){echo '<option id="mis_' . $i . '" value="' . $i/1000 . '"'; if($min_speed==$i/1000){echo ' selected';}; echo '>' . $i/1000 . '</option>'; } ?>
 			</select>
 		</label>	
-		<label style="width: 78px; padding: 25px 0 0 0;" title="Maximum speed of rotation: This setting is just a multiplier of speed." for="<?=$this->get_field_id('max_speed'); ?>">
+		<label style="width: 68px; padding: 25px 0 0;" title="Maximum speed of rotation: This setting is just a multiplier of speed." for="<?=$this->get_field_id('max_speed'); ?>">
 			Max Speed
 			<br>
 			<select id="<?=$this->get_field_id('max_speed'); ?>" name="<?=$this->get_field_name('max_speed'); ?>">
 				<?php for($i=5; $i<105; $i+=5){echo '<option id="mas_' . $i . '" value="' . $i/1000 . '"'; if($max_speed==$i/1000){echo ' selected';}; echo '>' . $i/1000 . '</option>'; } ?>
 			</select>
 		</label>
-		<label style="width: 75px; padding: 5px 0 0 2px; clear: both;" title="Deceleration rate when mouse leaves canvas" for="<?=$this->get_field_id('deceleration'); ?>">
+		<label style="padding: 25px 0 0;" title="Deceleration rate when mouse leaves canvas" for="<?=$this->get_field_id('deceleration'); ?>">
 			Deceleration
 			<br>
 			<select id="<?=$this->get_field_id('deceleration'); ?>" name="<?=$this->get_field_name('deceleration'); ?>">
 				<?php for($i=75; $i<100; $i++){echo '<option id="de_' . $i . '" value="' . $i/100 . '"'; if($deceleration==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
 		</label>
-		<div style="font-weight: bold; padding: 5px 0 0 0; margin: 5px 0 0 0; border-top: 1px solid #aaa; width: 100%; display: inline-block;">ZOOM</div>
-		<div style="float: left; margin: 5px 3px 0;" title="Enables zooming the cloud in and out using the mouse wheel or scroll gesture">
-			<div>
-				Wheel Zoom
-			</div>
-			<div  style="float: left;">
-				<input class="radio" id="<?=$this->get_field_id('wheel_zoom'); ?>"
-				name="<?=$this->get_field_name('wheel_zoom'); ?>" type="radio" value="true"
-				<?php if( $wheel_zoom == "true" ){ echo ' checked="checked"'; } ?>>on
-				<br>
-				<input class="radio" id="<?=$this->get_field_id('wheel_zoom'); ?>"
-				name="<?=$this->get_field_name('wheel_zoom'); ?>" type="radio" value="false"
-				<?php if( $wheel_zoom == "false" ){ echo ' checked="checked"'; } ?>>off
-			</div>
-		</div>
-		<label title="Minimal zoom value" style="width: 64px; margin: 5px 0 0 0;" for="<?=$this->get_field_id('zoom_min'); ?>">
-			Zoom Min
+		<div class="divider"></div>
+		<span style="float: left;">OPACITY</span>
+		<div class="thin-spacer"></div>
+		<label style="width: 80px;" title="Minimal opacity of tags at back of cloud." for="<?=$this->get_field_id('min_brightness'); ?>">
+			Min Opacity
 			<br>
-			<select id="<?=$this->get_field_id('zoom_min'); ?>" name="<?=$this->get_field_name('zoom_min'); ?>">
-				<?php for($i=3; $i<11; $i++){echo '<option id="zomi_' . $i . '" value="' . $i/10 . '"'; if($zoom_min==$i/10){echo ' selected';}; echo '>' . $i/10 . '</option>'; } ?>
+			<select id="<?=$this->get_field_id('min_brightness'); ?>" name="<?=$this->get_field_name('min_brightness'); ?>">
+				<?php for($i=0; $i<105; $i+=5){echo '<option id="mib_' . $i . '" value="' . $i/100 . '"'; if($min_brightness==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>					
 			</select>
-		</label>  
-		<label title="Maximal zoom value" style="width: 64px; margin: 5px 0 0 0;" for="<?=$this->get_field_id('zoom_max'); ?>">
-			Zoom Max
+		</label> 
+		<label title="Maximal opacity of tags at front of cloud." for="<?=$this->get_field_id('max_brightness'); ?>">
+			Max Opacity
 			<br>
-			<select id="<?=$this->get_field_id('zoom_max'); ?>" name="<?=$this->get_field_name('zoom_max'); ?>">
-				<?php for($i=20; $i<41; $i++){echo '<option id="zoma_' . $i . '" value="' . $i/10 . '"'; if($zoom_max==$i/10){echo ' selected';}; echo '>' . $i/10 . '</option>'; } ?>
-			</select>
-		</label>
-		<label style="width: 71px; margin: 5px 0 0 0;" title="The amount that the zoom is changed by with each movement of the mouse wheel." for="<?=$this->get_field_id('zoom_step'); ?>">
-			Zoom Step
-			<br>
-			<select id="<?=$this->get_field_id('zoom_step'); ?>" name="<?=$this->get_field_name('zoom_step'); ?>">
-				<?php for($i=1; $i<11; $i++){echo '<option id="zos_' . $i . '" value="' . $i/100 . '"'; if($zoom_step==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
-			</select>
-		</label>
-		<label style="width: 60px; margin: 5px 0 0 0;" title="Adjusts the relative size of the tag cloud in the canvas. Larger values will zoom into the cloud, smaller values will zoom out." for="<?=$this->get_field_id('zoom'); ?>">
-			Zoom
-			<br>
-			<select id="<?=$this->get_field_id('zoom'); ?>" name="<?=$this->get_field_name('zoom'); ?>">
-				<?php for($i=10; $i<755; $i+=5){echo '<option id="zo_' . $i . '" value="' . $i/100 . '"'; if($zoom==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+			<select id="<?=$this->get_field_id('max_brightness'); ?>" name="<?=$this->get_field_name('max_brightness'); ?>">
+				<?php for($i=0; $i<105; $i+=5){echo '<option id="mab_' . $i . '" value="' . $i/100 . '"'; if($max_brightness==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>					
 			</select>
 		</label>
 	</div>
@@ -593,7 +625,7 @@
 			<span>TIME</span>
 			<br>
 			<div class="thin-spacer"></div>
-			<label title="Time to fade in tags at start" style="margin: 0 145px 0 0;" for="<?=$this->get_field_id('fadein'); ?>">
+			<label title="Time to fade in tags at start" style="margin: 0 141px 0 0;" for="<?=$this->get_field_id('fadein'); ?>">
 				FadeIn Time
 				<br>
 				<select id="<?=$this->get_field_id('fadein'); ?>" name="<?=$this->get_field_name('fadein'); ?>">
@@ -640,7 +672,7 @@
 			<div style="font-weight: bold; padding-top: 5px;">FUNCTIONS</div>
 			<br>
 			<div class="thick-spacer"></div>
-			<div class="thin-spacer"></div>
+			<div class="thick-spacer"></div>
 			<div style="margin: 0 20px 0 0; float: left;">
 				<br>
 				Reverse
@@ -691,8 +723,9 @@
 				</div>
 			</div>
 			<label for="<?=$this->get_field_id('lock'); ?>" title="Limits rotation of the cloud using the mouse:<br><span class='green'>x-axis</span> - limits rotation to the x-axis;<br><span class='green'>y-axis</span> - limits rotation to the y-axis;<br><span class='green'>both</span> - prevents the cloud rotating in response to the mouse - the cloud will only move if the <span class='green'>initial</span> option is used to give it a starting speed;<br><span class='green'>none</span> - leaves the cloud unlocked.">
-				<br>
 				Lock
+				<br>
+				Rotation
 				<br>
 				<select id="<?=$this->get_field_id('lock'); ?>" name="<?=$this->get_field_name('lock'); ?>">
 					<option value="x" <?php if( $lock == "x" ){ echo ' selected'; } ?>>x-axis</option>
@@ -702,7 +735,7 @@
 				</select>
 			</label>
 			<div class="thick-spacer"></div>
-			<div style="border: 1px dotted #aaa; border-radius: 10px; display: block; float: left; padding: 2px 0 2px 2px; margin: 0 3px 0 0;">	
+			<div style="border: 1px dotted #aaa; border-radius: 10px; display: block; float: left; padding: 2px 0 2px 2px; margin: 0 15px 0 0;">	
 				<div style="float: left;">
 					Drag<br>Control
 					<div title="When enabled, cloud moves when dragged instead of based on mouse position. Combine with the  <span class='green'>Drag Threshold</span> option on the right."">
@@ -764,7 +797,7 @@
 						<?php if( $no_select == "false" ){ echo ' checked="checked"'; } ?>>off 
 					</div>
 				</div>  	
-				<div style="float: left; margin: 0 10px;" title="Set to <span class='green'>on</span> to prevent any mouse interaction. The <span class='green'>Initial Speed</span> option must be used to animate the cloud, otherwise it will be motionless.">
+				<div style="float: left; margin: 0 20px;" title="Set to <span class='green'>on</span> to prevent any mouse interaction. The <span class='green'>Initial Speed</span> option must be used to animate the cloud, otherwise it will be motionless.">
 					No Mouse
 					<br>
 					<input class="radio" id="<?=$this->get_field_id('no_mouse'); ?>"
@@ -789,7 +822,7 @@
 						<?php if( $shuffle_tags == "false" ){ echo ' checked="checked"'; } ?>>off
 					</div>
 				</div>			
-				<div style="float: left; margin: 0 9px;" title="Set to <span class='green'>on</span> to automatically hide the list of cloud elements if TagCanvas is started successfully.">
+				<div style="float: left; margin: 0 0 0 20px;" title="Set to <span class='green'>on</span> to automatically hide the list of cloud elements if TagCanvas is started successfully.">
 					Hide List
 					<div>
 						<input class="radio" id="<?=$this->get_field_id('hide_tags'); ?>"
@@ -829,19 +862,13 @@
 			name="<?=$this->get_field_name('bg_img_url'); ?>" type="text"
 			value="<?php echo $bg_img_url; ?>" /> 
 		</label>
-		<span>CLOUD TOOLTIP</span>
+		<span>TOOLTIPS</span>
 		<br>
-		<label style="width: 100%; margin: 0 0 5px;" for="<?=$this->get_field_id('canvas_tooltip'); ?>" title="Sets text for operating system tooltip of your cloud. For instance if the cloud allows <span class='green'>Drag Control</span> then you can suggest your site visitors to 'Drag & Click'. It is not advisable to use it together with <span class='green'>Tags Tooltip</span>.">
-			<div>
-				<input style="width: 100%;" id="<?=$this->get_field_id('canvas_tooltip'); ?>"
-				name="<?=$this->get_field_name('canvas_tooltip'); ?>" type="text"
-				value="<?php echo $canvas_tooltip; ?>" />
-			</div> 
-		</label>
-		<div class="divider"></div>
-		<span>TAGS TOOLTIP</span>
-		<br>
-		<label style="margin: 15px 30px 5px 0;" for="<?=$this->get_field_id('tooltip'); ?>" title="Sets tooltip display method:<br><span class='green'>none</span> - for no tooltips;<br><span class='green'>native</span> - for operating system tooltips;<br><span class='green'>div</span> - for div-based.">
+		The plugin uses title attribute of your tags & canvas for tooltips.
+		<div class="thin-spacer"></div>
+		<label style="margin: 0 30px 5px 0;" for="<?=$this->get_field_id('tooltip'); ?>" title="<br><span class='green'>none</span> - for no tooltips;<br><span class='green'>native</span> - for operating system tooltips;<br><span class='green'>div</span> - for div-based.">
+			Display Method
+			<br>
 			<select id="<?=$this->get_field_id('tooltip'); ?>" name="<?=$this->get_field_name('tooltip'); ?>">
 				<option value="" <?php if( $tooltip == "" ){ echo ' selected'; } ?>>none</option>
 				<option value="native" <?php if( $tooltip == "native" ){ echo ' selected'; } ?>>native</option>
@@ -867,6 +894,14 @@
 			</select>msec
 			</label>
 		</div>
+		<label style="width: 100%; margin: 0 0 5px;" for="<?=$this->get_field_id('canvas_tooltip'); ?>" title="Sets your canvas tooltip. For instance if the cloud allows <span class='green'>Drag Control</span> you can suggest your site visitors to 'Drag or Click'. It is advisable to set it only if your tags have no title attribute. This is to avoid a mess of pop-up tooltips over your cloud. In other words do not use it when content is <span class='green'>Categories</span> or <span class='green'>Post Tags</span>.">
+			Text for canvas tooltip
+			<div>
+				<input style="width: 100%;" id="<?=$this->get_field_id('canvas_tooltip'); ?>"
+				name="<?=$this->get_field_name('canvas_tooltip'); ?>" type="text"
+				value="<?php echo $canvas_tooltip; ?>" />
+			</div> 
+		</label>
 		<div style="border-top: 1px solid #aaa; font-weight: bold; display: inline-block; width: 100%; padding: 5px 0 0 0;" title="The CSS cursor type to use when the mouse is over a tag.">CURSOR</div>
 		<div class="thin-spacer"></div>
 		<div style="display: inline-block; width: 100%;">
@@ -931,10 +966,12 @@
 				<?php if( $active_cursor == "zoom-in" ){ echo ' checked="checked"'; } ?>>zoom-in
 			</div>
 		</div>
-		<div style="width: 100%; float: left; padding: 5px 0 10px; border-top: 1px solid #aaa;" title="Function for drawing in the center of the cloud. You can use two ready made functions or create yours.">
+		<div style="width: 100%; float: left; padding: 5px 0; border-top: 1px solid #aaa;" title="Function for drawing in the center of the cloud. You can use two ready made functions or create yours.">
 			<span style="font-weight: bold;">CENTER FUNCTION</span>
 		</div>
-		<label style="margin: 0 39px 0 0;" for="<?=$this->get_field_id('cf_name'); ?>" title="<span class='green'>none</span> - no Center Function;<br><span class='green'>image_cf()</span> - for an image in cloud's center;<br><span class='green'>text_cf()</span> - for text in cloud's center and<br><span class='green'>my_cf()</span> - for your own code.">
+		<span title="Put an image in the center of your cloud.">General Settings</span>
+		<br>
+		<label style="margin: 0 10px 0 0;" for="<?=$this->get_field_id('cf_name'); ?>" title="<span class='green'>none</span> - no Center Function;<br><span class='green'>image_cf()</span> - for an image in cloud's center;<br><span class='green'>text_cf()</span> - for text in cloud's center and<br><span class='green'>my_cf()</span> - for your own code.">
 			Function
 			<br>
 			<select id="<?=$this->get_field_id('cf_name'); ?>" name="<?=$this->get_field_name('cf_name'); ?>">
@@ -945,9 +982,9 @@
 			</select>
 		</label>
 		<div style="float: left;" title="Rotation of Center <span class='green'>Function</span> image/text. Suitable for <span class='green'>square</span> sized image/text.<br><span class='green'>off</span> - no rotation;<br><span class='green'>&#8635;</span> - clockwise rotation (<span class='green'>image_cf()</span> & <span class='green'>text_cf()</span>);<br><span class='green'>&#8634;</span> - counterclockwise rotation (<span class='green'>image_cf()</span> & <span class='green'>text_cf()</span>).">
-		Rotation
-		<br>
-		<input class="radio" id="<?=$this->get_field_id('cf_rotation'); ?>"
+			Rotation
+			<br>
+			<input class="radio" id="<?=$this->get_field_id('cf_rotation'); ?>"
 			name="<?=$this->get_field_name('cf_rotation'); ?>" type="radio" value="0"
 			<?php if( $cf_rotation == "0" ){ echo ' checked="checked"'; } ?>>off
 			
@@ -956,18 +993,21 @@
 			name="<?=$this->get_field_name('cf_rotation'); ?>" type="radio" value="1"
 			<?php if( $cf_rotation == "1" ){ echo ' checked="checked"'; } ?>>
 			
-			<span style="position:relative; top: 6px; left: -9px; font-size: 30px; line-height: 4px; font-weight: normal;">&#8634;</span>
-			<input style="margin: 0 0 0 10px; position: relative; left: -43px; top: 0px;" class="radio" id="<?=$this->get_field_id('cf_rotation'); ?>"
+			<span style="position:relative; top: 6px; left: -14px; font-size: 30px; line-height: 4px; font-weight: normal;">&#8634;</span>
+			<input style="margin: 0 0 0 10px; position: relative; left: -48px; top: 0px;" class="radio" id="<?=$this->get_field_id('cf_rotation'); ?>"
 			name="<?=$this->get_field_name('cf_rotation'); ?>" type="radio" value="-1"
 			<?php if( $cf_rotation == "-1" ){ echo ' checked="checked"'; } ?>>
 		</div>
-		<label title="Opacity of Center <span class='green'>Function</span> image/text" for="<?=$this->get_field_id('cf_opacity'); ?>">
+		<label style="margin-left: -30px;" title="Opacity of Center <span class='green'>Function</span> image/text" for="<?=$this->get_field_id('cf_opacity'); ?>">
 			Opacity
 			<br>
 			<select id="<?=$this->get_field_id('cf_opacity'); ?>" name="<?=$this->get_field_name('cf_opacity'); ?>">
 				<?php for($i=5; $i<105; $i+=5){echo '<option id="cfo_' . $i . '" value="' . $i/100 . '"'; if($cf_opacity==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>					
 			</select>
-		</label> 
+		</label>
+		<label style="padding: 15px 0 0 8px; text-align: center;">
+			<a style="color:#1e8cbe; font-weight: bold;" title="...of Center Function" href="http://peter.bg/archives/7840" target="_blank">Examples</a>
+		</label>		
 		<div class="thick-spacer" style="float: none; border-bottom: 1px dotted #bbb;"></div>
 		<span title="Put an image in the center of your cloud.">Image Center Function</span>
 		<br>
@@ -993,7 +1033,7 @@
 		<div style="clear: both; padding-top: 5px;">
 			<span title="Put a text object in the center of your cloud.">Text Center Function</span>
 			<br>
-			<label style="margin: 0 5px 0 0;" for="<?=$this->get_field_id('text_cont'); ?>" title="Choose shape of container for your text: <span class='green'>square</span> (suitable for all types of cloud <span class='green'>shape</span>), <span class='green'>landscape</span> rectangle (suitable for shape <span class='green'>hring</span> and <span class='green'>hcylinder</span> when <span class='green'>x-axis</span> rotation is locked) or <span class='green'>portrait</span> rectangle (suitable for <span class='green'>vring</span> and <span class='green'>vcylinder</span> when <span class='green'>y-axis</span> rotation is locked).">
+			<label style="margin: 0 4px 0 0;" for="<?=$this->get_field_id('text_cont'); ?>" title="Choose shape of container for your text: <span class='green'>square</span> (suitable for all types of cloud <span class='green'>shape</span>), <span class='green'>landscape</span> rectangle (suitable for shape <span class='green'>hring</span> and <span class='green'>hcylinder</span> when <span class='green'>x-axis</span> rotation is locked) or <span class='green'>portrait</span> rectangle (suitable for <span class='green'>vring</span> and <span class='green'>vcylinder</span> when <span class='green'>y-axis</span> rotation is locked).">
 				Text Container
 				<br>
 				<select id="<?=$this->get_field_id('text_cont'); ?>" name="<?=$this->get_field_name('text_cont'); ?>">
@@ -1002,7 +1042,7 @@
 					<option value="portrait" <?php if( $text_cont == "portrait" ){ echo ' selected'; } ?>>portrait</option>
 				</select>
 			</label>
-			<label style="margin: 0 5px 0 0;" for="<?=$this->get_field_id('text_zoom'); ?>" title="Zooms your text object">
+			<label style="margin: 0 4px 0 0;" for="<?=$this->get_field_id('text_zoom'); ?>" title="Zooms your text object">
 				Zoom
 				<br>
 				<select id="<?=$this->get_field_id('text_zoom'); ?>" name="<?=$this->get_field_name('text_zoom'); ?>">
@@ -1035,34 +1075,34 @@
 				<?php if( $font_w == "bold" ){ echo ' checked="checked"'; } ?>>bold
 			</div>
 			<div class="thin-spacer"></div>		
-			<div style="display: inline-block; width: 128px; float: left;">
+			<div style="display: inline-block; width: 127px; float: left;">
 				<span style="font-weight: normal; padding: 0 0 0 40px;">Text</span>
 				<br>
-				<label style="clear: both; padding: 0 5px 0 0;" title="Enter short text (2-3 words)." for="<?=$this->get_field_id('text_line_1'); ?>">
+				<label style="clear: both; padding: 0 4px 0 0;" title="Enter short text (2-3 words)." for="<?=$this->get_field_id('text_line_1'); ?>">
 					<div style="display: inline-block;">Line 1</div>
 					<input style="width: 84px;" id="<?=$this->get_field_id('text_line_1'); ?>"
 					name="<?=$this->get_field_name('text_line_1'); ?>" type="text"
 					value="<?php echo $text_line_1; ?>" onblur="qutes_check(this, this.value)"  />
 				</label>
-				<label style="padding: 0 5px 0 0;" title="Enter short text (2-3 words)." for="<?=$this->get_field_id('text_line_2'); ?>">
+				<label style="padding: 0 4px 0 0;" title="Enter short text (2-3 words)." for="<?=$this->get_field_id('text_line_2'); ?>">
 					<div style="display: inline-block;">Line 2</div>
 					<input	style="width: 84px;" id="<?=$this->get_field_id('text_line_2'); ?>"
 					name="<?=$this->get_field_name('text_line_2'); ?>" type="text"
 					value="<?php echo $text_line_2; ?>" onblur="qutes_check(this, this.value)" /> 
 				</label>
-				<label style="padding: 0 5px 0 0;" title="Enter short text (2-3 words)." for="<?=$this->get_field_id('text_line_3'); ?>">
+				<label style="padding: 0 4px 0 0;" title="Enter short text (2-3 words)." for="<?=$this->get_field_id('text_line_3'); ?>">
 					<div style="display: inline-block;">Line 3</div>
 					<input	style="width: 84px;" id="<?=$this->get_field_id('text_line_3'); ?>"
 					name="<?=$this->get_field_name('text_line_3'); ?>" type="text"
 					value="<?php echo $text_line_3; ?>" onblur="qutes_check(this, this.value)" /> 
 				</label>
-				<label style="padding: 0 5px 0 0;" title="Enter short text (2-3 words)." for="<?=$this->get_field_id('text_line_4'); ?>">
+				<label style="padding: 0 4px 0 0;" title="Enter short text (2-3 words)." for="<?=$this->get_field_id('text_line_4'); ?>">
 					<div style="display: inline-block;">Line 4</div>
 					<input	style="width: 84px;" id="<?=$this->get_field_id('text_line_4'); ?>"
 					name="<?=$this->get_field_name('text_line_4'); ?>" type="text"
 					value="<?php echo $text_line_4; ?>" onblur="qutes_check(this, this.value)" /> 
 				</label>
-				<label style="padding: 0 5px 0 0;" title="Enter short text (2-3 words)." for="<?=$this->get_field_id('text_line_5'); ?>">
+				<label style="padding: 0 4px 0 0;" title="Enter short text (2-3 words)." for="<?=$this->get_field_id('text_line_5'); ?>">
 					<div style="display: inline-block;">Line 5</div>
 					<input style="width: 84px;" id="<?=$this->get_field_id('text_line_5'); ?>"
 					name="<?=$this->get_field_name('text_line_5'); ?>" type="text"
@@ -1392,11 +1432,11 @@
 					<?php for($i=50; $i<155; $i+=5){echo '<option id="spw_' . $i . '" value="' . $i . '"'; if($split_width==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>					
 				</select>px
 			</label>
-			<label style="width: 80px;" title="Amount to scale images by. The default of <span class='green'>1.0</span> uses the size they appear on the page. For no scaling (use the actual image size) leave empty." for="<?=$this->get_field_id('image_scale'); ?>">
+			<label style="width: 80px;" title="Amount to scale images by. Depending on <span class='green'>Content</span> the default of <span class='green'>1.0</span> uses:<br> - avatar size 96x96px (<span class='green'>Authors</span>, <span class='green'>Links</span> & <span class='green'>Menu</span>);<br> - thumbnail size 120x120px (<span class='green'>Pages</span> & <span class='green'>Recent Posts</span>)." for="<?=$this->get_field_id('image_scale'); ?>">
 				Image Scale
 				<br>
 				<select id="<?=$this->get_field_id('image_scale'); ?>" name="<?=$this->get_field_name('image_scale'); ?>">
-					<?php for($i=25; $i<3025; $i+=25){echo '<option id="ims_' . $i . '" value="' . $i/1000 . '"'; if($image_scale==$i/1000){echo ' selected';}; echo '>' . $i/1000 . '</option>'; } ?>					
+					<?php for($i=25; $i<1525; $i+=25){echo '<option id="ims_' . $i . '" value="' . $i/1000 . '"'; if($image_scale==$i/1000){echo ' selected';}; echo '>' . $i/1000 . '</option>'; } ?>					
 				</select>
 			</label>
 		</div>
@@ -1459,7 +1499,80 @@
 				<?php for($i=0; $i<11; $i++){echo '<option id="oui_' . $i . '" value="' . $i . '"'; if($outline_increase==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>					
 			</select>px
 		</label>				
-	</div>		
+	</div>
+	<h3><span class="front-title">tags:</span> MIXED IMAGE & TEXT</h3>
+	<div class="section_content" style="padding: 5px 1px 0;">
+		(for <b>Recent Posts</b>, <b>Pages</b>, <b>Links</b>, <b>Menu</b> & <b>Authors</b>)
+		<div style="padding-top: 5px; display: inline-block;">
+			<label style="margin: 0 17px 0 0;" title="What to display when tag contains images and text:<br><span class='green'>null</span> - Image if present, otherwise text;<br><span class='green'>image</span> - Image tags only;<br><span class='green'>text</span> - Text tags only;<br><span class='green'>both</span> - Image and text on tag using <span class='green'>Image Position</span>." for="<?=$this->get_field_id('image_mode'); ?>">
+				<br>
+				Tag Mode
+				<br>
+				<select id="<?=$this->get_field_id('image_mode'); ?>" name="<?=$this->get_field_name('image_mode'); ?>">
+					<option value="" <?php if( $image_mode == "" ){ echo ' selected'; } ?>>null</option>
+					<option value="image" <?php if( $image_mode == "image" ){ echo ' selected'; } ?>>image</option>
+					<option value="text" <?php if( $image_mode == "text" ){ echo ' selected'; } ?>>text</option>
+					<option value="both" <?php if( $image_mode == "both" ){ echo ' selected'; } ?>>both</option>
+				</select>
+			</label>
+			<label style="margin: 0 17px 0 0;" title="Position of image relative to text when using an <span class='green'>Tag Mode</span> of <span class='green'>both</span>." for="<?=$this->get_field_id('image_position'); ?>">
+				Image<br>Position
+				<br>
+				<select id="<?=$this->get_field_id('image_position'); ?>" name="<?=$this->get_field_name('image_position'); ?>">
+					<option value="left" <?php if( $image_position == "left" ){ echo ' selected'; } ?>>left</option>
+					<option value="right" <?php if( $image_position == "right" ){ echo ' selected'; } ?>>right</option>
+					<option value="top" <?php if( $image_position == "top" ){ echo ' selected'; } ?>>top</option>
+					<option value="bottom" <?php if( $image_position == "bottom" ){ echo ' selected'; } ?>>bottom</option>
+				</select>
+			</label>
+			<label style="margin: 0 17px 0 0;" title="Distance between image and text when using an <span class='green'>Tag Mode</span> of <span class='green'>both</span>." for="<?=$this->get_field_id('image_padding'); ?>">
+				Image<br>Padding
+				<br>
+				<select id="<?=$this->get_field_id('image_padding'); ?>" name="<?=$this->get_field_name('image_padding'); ?>">	
+					<?php for($i=1; $i<6; $i++){echo '<option id="impa_' . $i . '" value="' . $i . '"'; if($image_padding==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>	
+				</select>px
+			</label>
+			<div style="float: left; border: 1px dotted #aaa; border-radius: 5px; padding: 0 2px;" title="Amount to scale images by.">For <b>Image Scale</b><br>go to <b>SIZES</b><br>section above.</div>		
+		</div>
+		<div style="padding-top: 5px; display: inline-block;">
+			<label style="margin: 0 20px 5px 0;" title="Horizontal image alignment" for="<?=$this->get_field_id('image_align'); ?>">
+				Horizontal<br>Image Align
+				<br>
+				<select id="<?=$this->get_field_id('image_align'); ?>" name="<?=$this->get_field_name('image_align'); ?>">
+					<option value="left" <?php if( $image_align == "left" ){ echo ' selected'; } ?>>left</option>
+					<option value="centre" <?php if( $image_align == "centre" ){ echo ' selected'; } ?>>center</option>
+					<option value="right" <?php if( $image_align == "right" ){ echo ' selected'; } ?>>right</option>
+				</select>
+			</label>
+			<label style="margin: 0 20px 5px 0;" title="Vertical image alignment" for="<?=$this->get_field_id('image_valign'); ?>">
+				Vertical<br>Image Align
+				<br>
+				<select id="<?=$this->get_field_id('image_valign'); ?>" name="<?=$this->get_field_name('image_valign'); ?>">
+					<option value="top" <?php if( $image_valign == "top" ){ echo ' selected'; } ?>>top</option>
+					<option value="middle" <?php if( $image_valign == "middle" ){ echo ' selected'; } ?>>middle</option>
+					<option value="bottom" <?php if( $image_valign == "bottom" ){ echo ' selected'; } ?>>bottom</option>
+				</select>
+			</label>
+			<label style="margin: 0 20px 5px 0;" title="Horizontal text alignment" for="<?=$this->get_field_id('text_align'); ?>">
+				Horizontal<br>Text Align
+				<br>
+				<select id="<?=$this->get_field_id('text_align'); ?>" name="<?=$this->get_field_name('text_align'); ?>">
+					<option value="left" <?php if( $text_align == "left" ){ echo ' selected'; } ?>>left</option>
+					<option value="centre" <?php if( $text_align == "centre" ){ echo ' selected'; } ?>>center</option>
+					<option value="right" <?php if( $text_align == "right" ){ echo ' selected'; } ?>>right</option>
+				</select>
+			</label>
+			<label style="margin: 0 0 5px;" title="Vertical text alignment" for="<?=$this->get_field_id('text_valign'); ?>">
+				Vertical<br>Text Align
+				<br>
+				<select id="<?=$this->get_field_id('text_valign'); ?>" name="<?=$this->get_field_name('text_valign'); ?>">
+					<option value="top" <?php if( $text_valign == "top" ){ echo ' selected'; } ?>>top</option>
+					<option value="middle" <?php if( $text_valign == "middle" ){ echo ' selected'; } ?>>middle</option>
+					<option value="bottom" <?php if( $text_valign == "bottom" ){ echo ' selected'; } ?>>bottom</option>
+				</select>
+			</label>				
+		</div>
+	</div>
 	<h3><span class="front-title">tags:</span> FONTS</h3>
 	<div class="section_content">
 		<p style="margin: 0; padding: 0 5px 5px; font-size: 12px;">
@@ -1533,7 +1646,7 @@
 				value="<?php echo $google_font; ?>" /> 
 			</label>
 		</div>
-		<label style="width: 100%; margin: 0 0 10px;" title="Web Safe Fonts, separated by coma, to distribute randomly on your Cloud <span class='green'>Content</span>. To apply this function:<br> 1. Choose <span class='green'>Font of the original link</span> for <span class='green'>Web Safe Font</span> and<br>2. Empty <span class='green'>Google Font</span> field." for="<?=$this->get_field_id('multiple_fonts'); ?>">
+		<label style="width: 100%; margin: 0 0 5px;" title="Web Safe Fonts, separated by coma, to distribute randomly on your Cloud <span class='green'>Content</span>. To apply this function:<br> 1. Choose <span class='green'>Font of the original link</span> for <span class='green'>Web Safe Font</span> and<br>2. Empty <span class='green'>Google Font</span> field." for="<?=$this->get_field_id('multiple_fonts'); ?>">
 			Multiple Web Safe Fonts
 			<input style="width: 100%;"
 			id="<?=$this->get_field_id('multiple_fonts'); ?>"
@@ -1551,7 +1664,7 @@
 	<h3 class="help"><span class="help-2">help:</span> GUIDE & TIPS</h3>
 	<div class="section_content" style="padding: 6px 0 3px;">
 		<h3 id="guide" class="ui-guide-icons" style="margin-left: 5px; margin-right: 5px;" onclick="window.open('<?php echo plugins_url( 'help/s.user.guide.htm' , __FILE__ ) ?>')">
-			<span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Guide (opens in new tab)
+			<span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Guide (opens in a new tab)
 		</h3>
 		<div id="accordion-3">
 			<?php include 'help/s.tips.php'; ?>	

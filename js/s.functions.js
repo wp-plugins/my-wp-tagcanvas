@@ -51,23 +51,14 @@ jQuery(function(){
 			jQuery('#'+container[i]+' span').remove();
 			jQuery(clear_links).appendTo('#'+container[i]);								
 			}
-
-//----- Weighting Authors' List according to number of their publications -----
-			if(taxonomy=="authors"){
-				var text_a = jQuery('#'+container[i]+' a');
-				var div_full_text =  jQuery('#'+container[i]).text();
-				var div_clear_text = div_full_text.replace(',','');	
-				var authors_array = div_clear_text.split(')');					
-				for (var j = 0; j < text_a.length; j++) { 
-					authors_array[j]=authors_array[j].trim();
-					var weight_val = authors_array[j].substring(authors_array[j].lastIndexOf('(')+1, authors_array[j].length);		
-					jQuery('#'+container[i]+' a').eq(j).text(authors_array[j]+')');
-					jQuery('#'+container[i]+' a').eq(j).css({'font-size': weight_val+'px'});	
-				}
-				var clear_links = jQuery('#'+container[i]+' a').detach();
-				jQuery('#'+container[i]).text('');
-				jQuery(clear_links).appendTo('#'+container[i]);					
-			}				
+			
+//-----  Adding image size attributes for Menu content -----
+			if(taxonomy=="menu"){
+			var link_img = jQuery('#'+container[i]+' a img');
+			for (var j = 0; j < link_img.length; j++) { 
+				jQuery('#'+container[i]+' div ul li a img').eq(j).attr({"width":"96","height":"96"});
+			}							
+			}
 			
 //----- Distributing multiple fonts on random way -----
 			if(multiple_fonts!=''){
@@ -140,7 +131,12 @@ jQuery(function(){
 				freezeDecel: <?= $freeze_decel; ?>,	
 				frontSelect: <?= $front_select; ?>,
 				hideTags: <?= $hide_tags; ?>,		
-				imageScale: <?= $image_scale; ?>,				
+				imageAlign: '<?= $image_align; ?>',
+				imageMode: '<?= $image_mode; ?>',
+				imagePadding: <?= $image_padding; ?>,
+				imagePosition: '<?= $image_position; ?>',
+				imageScale: <?= $image_scale; ?>,
+				imageVAlign: '<?= $image_valign; ?>',				
 				initial: [<?= $initial_x ?>,<?= $initial_y ?>],							
 				interval: <?= $interval; ?>,
 				lock: '<?= $lock; ?>',
@@ -150,6 +146,7 @@ jQuery(function(){
 				minSpeed: <?= $min_speed; ?>,	
 				noMouse: <?= $no_mouse; ?>,
 				noSelect: <?= $no_select; ?>,	
+				noTagsMessage: <?= $no_tags_msg; ?>,	
 				offsetX: <?= $offset_x; ?>,
 				offsetY: <?= $offset_y; ?>,					
 				outlineColour: '#<?= $outline_color; ?>',					
@@ -167,15 +164,17 @@ jQuery(function(){
 				reverse: <?= $reverse; ?>,	
 				shadow: '#<?= $shadow; ?>',	
 				shadowBlur: <?= $shadow_blur; ?>,
-				shadowOffset: [<?= $shadow_offset_x ?>,<?= $shadow_offset_y ?>],	
+				shadowOffset: [<?= $shadow_offset_x ?>,<?= $shadow_offset_y ?>],
 				shape: '<?= $shape; ?>',	
 				shuffleTags: <?= $shuffle_tags; ?>,		
 				splitWidth: <?= $split_width; ?>,
 				stretchX: <?= $stretch_x; ?>,
 				stretchY: <?= $stretch_y; ?>,
+				textAlign: '<?= $text_align; ?>',
 				textColour: text_color,
 				textFont: text_font,	
-				textHeight: <?= $text_height; ?>,	
+				textHeight: <?= $text_height; ?>,
+				textVAlign: '<?= $text_valign; ?>',
 				tooltip: '<?= $tooltip; ?>',
 				tooltipClass: '<?= $tooltip_class; ?>',	
 				tooltipDelay: <?= $tooltip_delay; ?>,
@@ -199,10 +198,7 @@ jQuery(function(){
 		
 //----- Freezing animation till loading next page -----
 		jQuery('#uni_tags_container_<?= $inst_id; ?> a').click(function(){
-			if(click_to_front != 'null'){
-				setTimeout(function() {TagCanvas.Pause('tag_canvas_<?=$inst_id; ?>')}, parseInt(click_to_front));
-			}
+				TagCanvas.Pause('tag_canvas_<?=$inst_id; ?>');
 		});	
 	}, 0);
-
 });

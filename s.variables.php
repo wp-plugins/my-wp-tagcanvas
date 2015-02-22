@@ -30,6 +30,7 @@
 			$multiple_colors = $instance['multiple_colors'];	
 			$multiple_fonts = $instance['multiple_fonts'];
 			$multiple_fonts_g = $instance['multiple_fonts_g'];
+			$pages_limit = $instance['pages_limit'];	
 			$recent_posts = $instance['recent_posts'];
 			$rp_category_id = $instance['rp_category_id'];
 			$tags = $instance['tags'];
@@ -62,7 +63,12 @@
 			$freeze_decel = $instance['freeze_decel'];
 			$front_select = $instance['front_select'];
 			$hide_tags = $instance['hide_tags'];
+			$image_align = $instance['image_align'];
+			$image_mode = $instance['image_mode'];
+			$image_padding = $instance['image_padding'];
+			$image_position = $instance['image_position'];
 			$image_scale = $instance['image_scale'];
+			$image_valign = $instance['image_valign'];
 			$initial_x = $instance['initial_x'];		
 			$initial_y = $instance['initial_y'];		
 			$interval = $instance['interval'];	
@@ -73,6 +79,7 @@
 			$min_speed = $instance['min_speed'];
 			$no_mouse = $instance['no_mouse'];
 			$no_select = $instance['no_select'];
+			$no_tags_msg = $instance['no_tags_msg'];
 			$offset_x = $instance['offset_x'];
 			$offset_y = $instance['offset_y'];
 			$outline_color = $instance['outline_color'];
@@ -96,12 +103,14 @@
 			$shuffle_tags = $instance['shuffle_tags'];	
 			$split_width = $instance['split_width'];
 			$stretch_x = $instance['stretch_x'];
-			$stretch_y = $instance['stretch_y'];		
+			$stretch_y = $instance['stretch_y'];
+			$text_align = $instance['text_align'];	
 			$text_color = $instance['text_color'];	
 			$text_font = $instance['text_font'];	
 			$text_height = $instance['text_height'];	
 			$text_optimisation = $instance['text_optimisation'];		
 			$text_scale = $instance['text_scale'];
+			$text_valign = $instance['text_valign'];
 			$tooltip = $instance['tooltip'];
 			$tooltip_class = $instance['tooltip_class'];
 			$tooltip_delay = $instance['tooltip_delay'];
