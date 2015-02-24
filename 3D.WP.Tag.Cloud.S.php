@@ -3,14 +3,16 @@
 Plugin Name: 3D WP Tag Cloud-S
 Plugin URI: http://peter.bg/archives/7373
 Description: This is the Single Cloud variation of 3D WP Tag Cloud. It creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Plugin may rotate Pages, Recent Posts, External Links (blogroll), Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Option values are preset and don't have to be typed but selected. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content. Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. In case of Recent posts, Pages, Menus, List of Authors and External Links (blogroll) tags may consist of both image and text. It gives an option to put images and/or text in the center of the cloud. It accepts background images as well. The Number of tags in the cloud is adjustable. The plugin automatically includes WP Links panel for users who started using WP since v 3.5, when Links Manager and blogroll were made hidden by default. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.6 and includes all its 80+ options in the Control Panel settings. Supports following shapes: sphere, hcylinder for a cylinder that starts off horizontal, vcylinder for a cylinder that starts off vertical, hring for a horizontal circle and vring for a vertical circle.
-Version: 3.1
+Version: 3.2
 Author: Peter Petrov
 Author URI: http://peter.bg
 Update Server: http://peter.bg/
 License: LGPL v3
 */
+// Enabling link manager for users of WP 3.5+
 	add_filter( 'pre_option_link_manager_enabled', '__return_true' );
-	
+// ===
+// Creating Widget
 	class wpTagCanvasWidget extends WP_Widget {
 		function wpTagCanvasWidget () {
 			parent::__construct(
@@ -19,28 +21,23 @@ License: LGPL v3
 				array( 'description' => __( 'Draws & Animates single 3D tag cloud.', 'text_domain' ), ) // Args
 			);
 		}
-
+// ===
 		function widget($args, $instance) {  
 			extract($args);
-
 			$inst_id = mt_rand(0,999999);
-			
+//  Registration of TagCanvas.js & including an external file	
 			wp_register_script('jq-tagcloud', plugin_dir_url( __FILE__ ) . 'js/jquery.tagcanvas.js', array('jquery'), '2.6.1',true);
 			wp_enqueue_script('jq-tagcloud');
-			
 			include 's.variables.php';			
 			echo $before_widget;
-			
-			$gmf = explode(",", str_replace(' ,', ',', str_replace(', ', ',', preg_replace('/\s\s+/', ' ', trim($multiple_fonts_g))))); 
+// ===
 ?>
 <!-- Loading Google Fonts -->
 			<script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
 			<script type="text/javascript">
-				var gmf = new Array();
-				gmf = <?= $gmf; ?>;
 				var goof = '<?= $google_font; ?>';
-				if(gmf.length > 0){WebFont.load({google: {families: [<? for ($i=0;$i<count($gmf);$i++){echo "'" . $gmf[$i] . "',";} ?>]}});}
-				else{if(goof != ''){WebFont.load({google: {families: ['<?= $google_font; ?>']}});}};
+				WebFont.load({google: {families: [<? for ($i=0;$i<count($multiple_fonts_g);$i++){echo "'" . $multiple_fonts_g[$i] . "',";} ?>]}});
+				WebFont.load({google: {families: ['<?= $google_font; ?>']}});
 				WebFont.load({google: {families: ['<?= $font_cf; ?>']}});
 			</script>
 <!-- Loading User's Center Function file -->
@@ -274,7 +271,7 @@ License: LGPL v3
 			'menu' => '',
 			'multiple_bg' => 'ff4500, daa520, 9acd32, 6b8e23, 2f4f4f',
 			'multiple_colors' => '280000, 003333, 00008b, 000066, 000000',
-			'multiple_fonts' => '',
+			'multiple_fonts' => 'Arial',
 			'multiple_fonts_g' => '',
 			'pages_limit' => '',
 			'recent_posts' => '10',
@@ -352,7 +349,7 @@ License: LGPL v3
 			'stretch_y' => '1',
 			'text_align' => 'centre',
 			'text_color' => '666666',
-			'text_font' => 'Arial',
+			'text_font' => '',
 			'text_height' => '15',
 			'text_optimisation' => 'true',
 			'text_scale' => '2',
@@ -406,9 +403,8 @@ License: LGPL v3
 <?php
 	}
 }
-
+// Registering Widget
 function wpTagCanvasLoad() {
     register_widget( 'wpTagCanvasWidget' );    
 }
-
 add_action('widgets_init', 'wpTagCanvasLoad');

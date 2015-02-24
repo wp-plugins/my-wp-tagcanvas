@@ -35,6 +35,11 @@ This is the Single Cloud variation of 3D WP Tag Cloud. It Creates multiple insta
 
 == Changelog ==
 
+= 3.2 =
+1. Entirely redesigned Fonts section. Selection of Web Safe Fonts and Google fonts is simplified by two combo-boxes. Single or multiple fonts now can be selected rather than entered via keyboard.
+2. Automatic update of Google Fonts List from Google Font Library.
+3. Small code improvements.
+
 = 3.1 =
 1. Added a new feature for Recent posts, Pages, Menu Items, List of Authors and External Links (blogroll): Support for mixed image/text tags and choice of image, text or both. 
 2. Added text and image alignment options. 

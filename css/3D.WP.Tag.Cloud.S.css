@@ -194,6 +194,9 @@ select {
 	border-radius: 4px;
 	font-family: Arial!important;
 }
+.special_s{
+	padding: 0!important;
+}
 option {
 	line-height: 21px!important;
 	margin: 0!important; 

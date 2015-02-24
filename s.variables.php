@@ -30,7 +30,7 @@
 			$multiple_colors = $instance['multiple_colors'];	
 			$multiple_fonts = $instance['multiple_fonts'];
 			$multiple_fonts_g = $instance['multiple_fonts_g'];
-			$pages_limit = $instance['pages_limit'];	
+			$pages_limit = $instance['pages_limit'];
 			$recent_posts = $instance['recent_posts'];
 			$rp_category_id = $instance['rp_category_id'];
 			$tags = $instance['tags'];

@@ -2,16 +2,18 @@
 /*
 3D WP Tag Cloud-S: HTML Control Panel Template
 */
+// Important variables for redirecting to WP Admin panel > Appearance > Widgets page
 	$admin_url = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 	$look_4_string_1 = "editwidget";
 	$look_4_string_2 = "customize";
 	$check_widget_1 = strpos($admin_url, $look_4_string_1);
 	$check_widget_2 = strpos($admin_url, $look_4_string_2);
-	
+// Registering scripts and CSS file	
 	wp_enqueue_script('jquery-ui-accordion');
 	wp_enqueue_script('jquery-ui-tooltip');
     wp_register_style('tag-cloud-css', plugin_dir_url( __FILE__ ) . 'css/3D.WP.Tag.Cloud.S.css');
     wp_enqueue_style('tag-cloud-css');
+// ===
 ?>
 <style>.widget-inside {padding:0!important; border-radius: 5px; border:1px solid #bbb; background: #f1f1f1;};</style>
 <script type="text/javascript">
@@ -93,7 +95,7 @@
 		}
 	}		
 	</script>
-
+<!-- Check for proper entrance to widget's Control Panel -->
 <?php if( $check_widget_1 == "" && $check_widget_2!= "" ){
 			echo '<p id="warning" style="margin: 10px 5px 5px; font-size: 14px; text-align: justify;">This widget can be customized only through <span style="font-weight: bold;">WP Admin panel > Appearance > Widgets</span> page, where Accessibility mode in <span style="font-weight: bold;">Screen Options</span> (top right corner of the page) has to be enabled.</p>'; 
 		} 
@@ -102,6 +104,7 @@
 			}
 		}
 ?>
+<!-- CP Template -->
 <div id="wihead" style="visibility: hidden;">
 	<div style="float: left;">
 		<span>WIDGET OPTIONS</span>
@@ -1155,7 +1158,7 @@
 					</div>
 				</label>
 				<br>
-				<label title="Google Fonts for your text" style="float: left; margin-right: 5px;" for="<?=$this->get_field_id('font_cf'); ?>">
+				<label title="36 Google Fonts for your text" style="float: left; margin-right: 5px;" for="<?=$this->get_field_id('font_cf'); ?>">
 					Font
 					<br>
 					<select id="<?=$this->get_field_id('font_cf'); ?>" name="<?=$this->get_field_name('font_cf'); ?>">
@@ -1574,92 +1577,87 @@
 		</div>
 	</div>
 	<h3><span class="front-title">tags:</span> FONTS</h3>
-	<div class="section_content">
-		<p style="margin: 0; padding: 0 5px 5px; font-size: 12px;">
-			The plugin is connected to Google Font Library, so besides <a title="Find what is Web Safe Font." style="color: #1e8cbe;" href="http://www.w3schools.com/cssref/css_websafe_fonts.asp" target="_blank">Web Safe Fonts</a> you can use the full diversity of <a title="Find a Google Font Family." style="color: #1e8cbe;" href="http://www.google.com/fonts/" target="_blank">Google Fonts.</a>
+	<div class="section_content" style="padding-bottom: 0;">
+		<p style="margin: 0; padding: 0 5px 5px; font-size: 12px; text-align: center;">
+			<b>N.B.</b> If no font is selected pludin applies <b>Arial</b>.
 		</p>
-		<div>
-			<label title="Web Safe Font family for the tag text" style="float: left; width: 174px; margin-right: 5px;" for="<?=$this->get_field_id('text_font'); ?>">
-				Web Safe Font
-				<select id="<?=$this->get_field_id('text_font'); ?>" name="<?=$this->get_field_name('text_font'); ?>">
-					<option value="" <?php if( $text_font == "" ){ echo ' selected'; } ?>>Font of the original link</option>
-					<option style="background-color: #ddd;" title="Generic Font Family" value="Sans Serif" <?php if( $text_font == "Sans Serif" ){ echo ' selected'; } ?>>SANS SERIF</option>
-					<option value="Arial" <?php if( $text_font == "Arial" ){ echo ' selected'; } ?>>Arial</option>
-					<option	value="Arial Black" <?php if( $text_font == "Arial Black" ){ echo ' selected'; } ?>>Arial Black</option>
-					<option	value="Arial Narrow" <?php if( $text_font == "Arial Narrow" ){ echo ' selected'; } ?>>Arial Narrow</option>
-					<option	value="Avant Garde" <?php if( $text_font == "Avant Garde" ){ echo ' selected'; } ?>>Avant Garde</option>										
-					<option	value="Calibri" <?php if( $text_font == "Calibri" ){ echo ' selected'; } ?>>Calibri</option>										
-					<option	value="Candara" <?php if( $text_font == "Candara" ){ echo ' selected'; } ?>>Candara</option>										
-					<option	value="Century Gothic" <?php if( $text_font == "Century Gothic" ){ echo ' selected'; } ?>>Century Gothic</option>
-					<option	value="Comic Sans MS" <?php if( $text_font == "Comic Sans MS" ){ echo ' selected'; } ?>>Comic Sans MS</option>										
-					<option	value="Franklin Gothic Medium" <?php if( $text_font == "Franklin Gothic Medium" ){ echo ' selected'; } ?>>Franklin Gothic Medium</option>
-					<option	value="Futura" <?php if( $text_font == "Futura" ){ echo ' selected'; } ?>>Futura</option>
-					<option	value="Geneva" <?php if( $text_font == "Geneva" ){ echo ' selected'; } ?>>Geneva</option>
-					<option	value="Gill Sans" <?php if( $text_font == "Gill Sans" ){ echo ' selected'; } ?>>Gill Sans</option>
-					<option value="Helvetica" <?php if( $text_font == "Helvetica" ){ echo ' selected'; } ?>>Helvetica</option>
-					<option value="Impact" <?php if( $text_font == "Impact" ){ echo ' selected'; } ?>>Impact</option>
-					<option value="Lucida Grande" <?php if( $text_font == "Lucida Grande" ){ echo ' selected'; } ?>>Lucida Grande</option>
-					<option value="Lucida Sans Unicode" <?php if( $text_font == "Lucida Sans Unicode" ){ echo ' selected'; } ?>>Lucida Sans Unicode</option>												
-					<option value="Optima" <?php if( $text_font == "Optima" ){ echo ' selected'; } ?>>Optima</option>
-					<option value="Segoe UI" <?php if( $text_font == "Segoe UI" ){ echo ' selected'; } ?>>Segoe UI</option>
-					<option value="Tahoma" <?php if( $text_font == "Tahoma" ){ echo ' selected'; } ?>>Tahoma</option>
-					<option value="Trebuchet MS" <?php if( $text_font == "Trebuchet MS" ){ echo ' selected'; } ?>>Trebuchet MS</option>
-					<option value="Verdana" <?php if( $text_font == "Verdana" ){ echo ' selected'; } ?>>Verdana</option>
-					<option style="background-color: #ddd;" title="Generic Font Family" value="Serif" <?php if( $text_font == "Serif" ){ echo ' selected'; } ?>>SERIF</option>										
-					<option	value="Baskerville" <?php if( $text_font == "Baskerville" ){ echo ' selected'; } ?>>Baskerville</option>
-					<option	value="Big Caslon" <?php if( $text_font == "Big Caslon" ){ echo ' selected'; } ?>>Big Caslon</option>
-					<option	value="Bodoni MT" <?php if( $text_font == "Bodoni MT" ){ echo ' selected'; } ?>>Bodoni MT</option>
-					<option	value="Book Antiqua" <?php if( $text_font == "Book Antiqua" ){ echo ' selected'; } ?>>Book Antiqua</option>
-					<option	value="Calisto MT" <?php if( $text_font == "Calisto MT" ){ echo ' selected'; } ?>>Calisto MT</option>
-					<option	value="Cambria" <?php if( $text_font == "Cambria" ){ echo ' selected'; } ?>>Cambria</option>
-					<option	value="Didot" <?php if( $text_font == "Didot" ){ echo ' selected'; } ?>>Didot</option>
-					<option	value="Garamond" <?php if( $text_font == "Garamond" ){ echo ' selected'; } ?>>Garamond</option>
-					<option	value="Georgia" <?php if( $text_font == "Georgia" ){ echo ' selected'; } ?>>Georgia</option>
-					<option	value="Goudy Old Style" <?php if( $text_font == "Goudy Old Style" ){ echo ' selected'; } ?>>Goudy Old Style</option>
-					<option	value="Hoefler Text" <?php if( $text_font == "Hoefler Text" ){ echo ' selected'; } ?>>Hoefler Text</option>
-					<option	value="Lucida Bright" <?php if( $text_font == "Lucida Bright" ){ echo ' selected'; } ?>>Lucida Bright</option>
-					<option	value="Palatino" <?php if( $text_font == "Palatino" ){ echo ' selected'; } ?>>Palatino</option>
-					<option	value="Palatino Linotype" <?php if( $text_font == "Palatino Linotype" ){ echo ' selected'; } ?>>Palatino Linotype</option>										
-					<option	value="Perpetua" <?php if( $text_font == "Perpetua" ){ echo ' selected'; } ?>>Perpetua</option>
-					<option	value="Rockwell" <?php if( $text_font == "Rockwell" ){ echo ' selected'; } ?>>Rockwell</option>
-					<option	value="Rockwell Extra Bold" <?php if( $text_font == "Rockwell Extra Bold" ){ echo ' selected'; } ?>>Rockwell Extra Bold</option>
-					<option	value="Times New Roman" <?php if( $text_font == "Times New Roman" ){ echo ' selected'; } ?>>Times New Roman</option>
-					<option style="background-color: #ddd;" title="Generic Font Family" value="Monospaced" <?php if( $text_font == "Monospaced" ){ echo ' selected'; } ?>>MONOSPACED</option>
-					<option value="Andale Mono" <?php if( $text_font == "Andale Mono" ){ echo ' selected'; } ?>>Andale Mono</option>
-					<option value="Consolas" <?php if( $text_font == "Consolas" ){ echo ' selected'; } ?>>Consolas</option>
-					<option value="Courier New" <?php if( $text_font == "Courier New" ){ echo ' selected'; } ?>>Courier New</option>
-					<option	value="Lucida Console" <?php if( $text_font == "Lucida Console" ){ echo ' selected'; } ?>>Lucida Console</option>
-					<option	value="Lucida Sans Typewriter" <?php if( $text_font == "Lucida Sans Typewriter" ){ echo ' selected'; } ?>>Lucida Sans Typewriter</option>
-					<option	value="Monaco" <?php if( $text_font == "Monaco" ){ echo ' selected'; } ?>>Monaco</option>
-					<option style="background-color: #ddd;" title="Generic Font Family" value="Fantasy" <?php if( $text_font == "Fantasy" ){ echo ' selected'; } ?>>FANTASY</option>
-					<option value="Copperplate" <?php if( $text_font == "Copperplate" ){ echo ' selected'; } ?>>Copperplate</option>
-					<option value="Papyrus" <?php if( $text_font == "Papyrus" ){ echo ' selected'; } ?>>Papyrus</option>
-					<option style="background-color: #ddd;" title="Generic Font Family" value="Script" <?php if( $text_font == "Script" ){ echo ' selected'; } ?>>SCRIPT</option>
-					<option value="Brush Script MT" <?php if( $text_font == "Brush Script MT" ){ echo ' selected'; } ?>>Brush Script MT</option>		
-				</select>
-			</label>
-			<label style="width: 159px; margin-bottom: 5px;" title="Uses a Google Font for Cloud Tags. If filled up this option overrides <span class='green'>Web Safe Font</span>." for="<?=$this->get_field_id('google_font'); ?>">
-				Google Font
-				<input style="width: 159px;"
-				id="<?=$this->get_field_id('google_font'); ?>"
-				name="<?=$this->get_field_name('google_font'); ?>" type="text"
-				value="<?php echo $google_font; ?>" /> 
-			</label>
-		</div>
-		<label style="width: 100%; margin: 0 0 5px;" title="Web Safe Fonts, separated by coma, to distribute randomly on your Cloud <span class='green'>Content</span>. To apply this function:<br> 1. Choose <span class='green'>Font of the original link</span> for <span class='green'>Web Safe Font</span> and<br>2. Empty <span class='green'>Google Font</span> field." for="<?=$this->get_field_id('multiple_fonts'); ?>">
-			Multiple Web Safe Fonts
-			<input style="width: 100%;"
-			id="<?=$this->get_field_id('multiple_fonts'); ?>"
-			name="<?=$this->get_field_name('multiple_fonts'); ?>" type="text"
-			value="<?php echo $multiple_fonts; ?>" /> 
+		<label style="margin: 0 5px 0 0;" title="Web Safe Fonts will be distributed randomly on the Cloud <span class='green'>Content</span> if you select more than one. Your choice will be mixed with <span class='green'>Google Fonts</span> if such are selected." for="<?=$this->get_field_id('multiple_fonts'); ?>">
+			Web Safe Fonts (48)
+			<br>
+			<select style="height: 389px!important;" id="<?=$this->get_field_id('multiple_fonts'); ?>" name="<?=$this->get_field_name('multiple_fonts'); ?>[]" multiple>
+				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Arial" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Arial" ){ echo ' selected'; }} ?>>Arial</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Arial Black" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Arial Black" ){ echo ' selected'; }} ?>>Arial Black</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Arial Narrow" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Arial Narrow" ){ echo ' selected'; }} ?>>Arial Narrow</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Avant Garde" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Avant Garde" ){ echo ' selected'; }} ?>>Avant Garde</option>										
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Calibri" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Calibri" ){ echo ' selected'; }} ?>>Calibri</option>										
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Candara" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Candara" ){ echo ' selected'; }} ?>>Candara</option>										
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Century Gothic" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Century Gothic" ){ echo ' selected'; }} ?>>Century Gothic</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Comic Sans MS" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Comic Sans MS" ){ echo ' selected'; }} ?>>Comic Sans MS</option>										
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Franklin Gothic Medium" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Franklin Gothic Medium" ){ echo ' selected'; }} ?>>Franklin Gothic Medium</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Futura" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Futura" ){ echo ' selected'; }} ?>>Futura</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Geneva" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Geneva" ){ echo ' selected'; }} ?>>Geneva</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Gill Sans" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Gill Sans" ){ echo ' selected'; }} ?>>Gill Sans</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Helvetica" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Helvetica" ){ echo ' selected'; }} ?>>Helvetica</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Impact" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Impact" ){ echo ' selected'; }} ?>>Impact</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Lucida Grande" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Lucida Grande" ){ echo ' selected'; }} ?>>Lucida Grande</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Lucida Sans Unicode" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Lucida Sans Unicode" ){ echo ' selected'; }} ?>>Lucida Sans Unicode</option>												
+				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Optima" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Optima" ){ echo ' selected'; }} ?>>Optima</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Segoe UI" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Segoe UI" ){ echo ' selected'; }} ?>>Segoe UI</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Tahoma" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Tahoma" ){ echo ' selected'; }} ?>>Tahoma</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Trebuchet MS" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Trebuchet MS" ){ echo ' selected'; }} ?>>Trebuchet MS</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Verdana" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Verdana" ){ echo ' selected'; }} ?>>Verdana</option>
+				<option title="Serif Family" value="Baskerville" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Baskerville" ){ echo ' selected'; }} ?>>Baskerville</option>
+				<option title="Serif Family" value="Big Caslon" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Big Caslon" ){ echo ' selected'; }} ?>>Big Caslon</option>
+				<option title="Serif Family" value="Bodoni MT" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Bodoni MT" ){ echo ' selected'; }} ?>>Bodoni MT</option>
+				<option title="Serif Family" value="Book Antiqua" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Book Antiqua" ){ echo ' selected'; }} ?>>Book Antiqua</option>
+				<option title="Serif Family" value="Calisto MT" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Calisto MT" ){ echo ' selected'; }} ?>>Calisto MT</option>
+				<option title="Serif Family" value="Cambria" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Cambria" ){ echo ' selected'; }} ?>>Cambria</option>
+				<option title="Serif Family" value="Didot" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Didot" ){ echo ' selected'; }} ?>>Didot</option>
+				<option title="Serif Family" value="Garamond" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Garamond" ){ echo ' selected'; }} ?>>Garamond</option>
+				<option title="Serif Family" value="Georgia" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Georgia" ){ echo ' selected'; }} ?>>Georgia</option>
+				<option title="Serif Family" value="Goudy Old Style" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Goudy Old Style" ){ echo ' selected'; }} ?>>Goudy Old Style</option>
+				<option title="Serif Family" value="Hoefler Text" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Hoefler Text" ){ echo ' selected'; }} ?>>Hoefler Text</option>
+				<option title="Serif Family" value="Lucida Bright" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Lucida Bright" ){ echo ' selected'; }} ?>>Lucida Bright</option>
+				<option title="Serif Family" value="Palatino" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Palatino" ){ echo ' selected'; }} ?>>Palatino</option>
+				<option title="Serif Family" value="Palatino Linotype" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Palatino Linotype" ){ echo ' selected'; }} ?>>Palatino Linotype</option>										
+				<option title="Serif Family" value="Perpetua" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Perpetua" ){ echo ' selected'; }} ?>>Perpetua</option>
+				<option title="Serif Family" value="Rockwell" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Rockwell" ){ echo ' selected'; }} ?>>Rockwell</option>
+				<option title="Serif Family" value="Rockwell Extra Bold" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Rockwell Extra Bold" ){ echo ' selected'; }} ?>>Rockwell Extra Bold</option>
+				<option title="Serif Family" value="Times New Roman" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Times New Roman" ){ echo ' selected'; }} ?>>Times New Roman</option>
+				<option style="background: #f1f1f1;" title="Monospaced Family" value="Andale Mono" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Andale Mono" ){ echo ' selected'; }} ?>>Andale Mono</option>
+				<option style="background: #f1f1f1;" title="Monospaced Family" value="Consolas" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Consolas" ){ echo ' selected'; }} ?>>Consolas</option>
+				<option style="background: #f1f1f1;" title="Monospaced Family" value="Courier New" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Courier New" ){ echo ' selected'; }} ?>>Courier New</option>
+				<option style="background: #f1f1f1;" title="Monospaced Family"	value="Lucida Console" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Lucida Console" ){ echo ' selected'; }} ?>>Lucida Console</option>
+				<option style="background: #f1f1f1;" title="Monospaced Family"	value="Lucida Sans Typewriter" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Lucida Sans Typewriter" ){ echo ' selected'; }} ?>>Lucida Sans Typewriter</option>
+				<option style="background: #f1f1f1;" title="Monospaced Family"	value="Monaco" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Monaco" ){ echo ' selected'; }} ?>>Monaco</option>
+				<option title="Fantasy Family" value="Copperplate" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Copperplate" ){ echo ' selected'; }} ?>>Copperplate</option>
+				<option title="Fantasy Family" value="Papyrus" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Papyrus" ){ echo ' selected'; }} ?>>Papyrus</option>
+				<option style="background: #f1f1f1;" title="Script Family" value="Brush Script MT" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Brush Script MT" ){ echo ' selected'; }} ?>>Brush Script MT</option>		
+			</select>			
 		</label>
-		<label style="width: 100%;" title="Google Fonts, separated by coma, to distribute randomly on your Cloud <span class='green'>Content</span>. To apply this function:<br> 1. Choose <span class='green'>Font of the original link</span> for <span class='green'>Web Safe Font</span> and<br>2. Empty <span class='green'>Google Font</span> field." for="<?=$this->get_field_id('multiple_fonts_g'); ?>">
-			Multiple Google Fonts
-			<input style="width: 100%;"
-			id="<?=$this->get_field_id('multiple_fonts_g'); ?>"
-			name="<?=$this->get_field_name('multiple_fonts_g'); ?>" type="text"
-			value="<?php echo $multiple_fonts_g; ?>" /> 
+<?php
+				$fontsSeraliazed = file_get_contents('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBlBRwG98Uy3ci9ygxRDxW1CxCDD-2MOPc');
+				$obj = json_decode($fontsSeraliazed);
+				$items = $obj->{'items'};
+?>
+		<label style="width: 175px;" title="Google Fonts will be distributed randomly on the Cloud <span class='green'>Content</span> if you select more than one. Your choice will be mixed with <span class='green'>Web Safe Fonts</span> if such are selected." for="<?=$this->get_field_id('multiple_fonts_g'); ?>">
+			Google Fonts (<?= count($items) ?>)
+			<br>
+			<select style="height: 389px!important;" id="<?=$this->get_field_id('multiple_fonts_g'); ?>" name="<?=$this->get_field_name('multiple_fonts_g'); ?>[]" multiple>
+<?php
+				foreach ($items as $font){
+					echo '<option value="'.$font->{'family'}.'"';
+					for($i=0; $i <= count($multiple_fonts_g)-1; $i++){				
+						if ($multiple_fonts_g[$i] == $font->{'family'}) {echo 'selected'; };
+					}
+					echo '>'.$font->{'family'}.'</option>';
+				}
+ ?>
+			</select>
 		</label>
+		<p style="text-align: center; margin: 0;">
+			About <a title="Find what is Web Safe Font." style="color: #1e8cbe;" href="http://www.w3schools.com/cssref/css_websafe_fonts.asp" target="_blank">Web Safe Fonts</a> & <a title="Find a Google Font Family." style="color: #1e8cbe;" href="http://www.google.com/fonts/" target="_blank">Google Fonts</a>
+		</p>
 	</div>
 	<h3 class="help"><span class="help-2">help:</span> GUIDE & TIPS</h3>
 	<div class="section_content" style="padding: 6px 0 3px;">

@@ -15,8 +15,15 @@ jQuery(function(){
 			};
 		}
 		else {var zoom = true;};
-		var multiple_fonts = '<?= $multiple_fonts; ?>'+','+'<?= $multiple_fonts_g; ?>';
-		var mf_array = multiple_fonts.split(',');
+		var mf_array_1 = <?= json_encode($multiple_fonts); ?>;
+		var mf_array_2 = <?= json_encode($multiple_fonts_g); ?>;
+		if (mf_array_1 && mf_array_2) {var mf_array = mf_array_1.concat(mf_array_2)}
+		else {if(mf_array_1){var mf_array = mf_array_1;}
+			else {if(mf_array_2){var mf_array = mf_array_2;}
+				else {var mf_array = new Array("Arial");};
+				}
+			};
+		
 		var multiple_colors = '<?= $multiple_colors; ?>';
 		multiple_colors = multiple_colors.replace(/ /gi, '');
 		var mc_array = multiple_colors.split(',');
@@ -24,10 +31,12 @@ jQuery(function(){
 		multiple_bg = multiple_bg.replace(/ /gi, '');
 		var mb_array = multiple_bg.split(',');
 				
-//----- Weighting Links and Recent Posts according to their order of appearance -----
 		for (var i = 0; i < container.length; i++) {
+//----- Cutting excess of selected fonts if their number is bigger than number of tags
 			var taxonomy = content[i];
 			var any_type_tags = jQuery('#'+container[i]+' a');		
+			if(any_type_tags.length < mf_array.length){mf_array = mf_array.slice(0,any_type_tags.length);};
+//----- Weighting Links and Recent Posts according to their order of appearance -----
 			if((taxonomy=="links")||(taxonomy=="recent_posts")){
 				var bigest = <?= $weight_size; ?>*6;
 				var increment = (bigest-6)/any_type_tags.length;
@@ -61,7 +70,7 @@ jQuery(function(){
 			}
 			
 //----- Distributing multiple fonts on random way -----
-			if(multiple_fonts!=''){
+			if(mf_array[0]!=''){
 				for (var j = 0; j < any_type_tags.length; j++) { 
 					jQuery('#'+container[i]+' a').eq(j).css({'font-family':mf_array[Math.floor(Math.random()*mf_array.length)]});
 				}
