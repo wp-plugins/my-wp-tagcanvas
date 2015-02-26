@@ -35,6 +35,9 @@ This is the Single Cloud variation of 3D WP Tag Cloud. It Creates multiple insta
 
 == Changelog ==
 
+= 3.2.2 =
+1. Fixed bug in switching off Wheel Zoom.
+
 = 3.2.1 =
 1. The minimal values of Radius X, Radius Y & Radius Z are shifted to zero so clouds could be one or two dimensional.
 2. Expanded scope of Canvas Height (90px - 960px): now Tag Cloud could be used as Header/Footer menu or Leaderboard Banner (728x90).

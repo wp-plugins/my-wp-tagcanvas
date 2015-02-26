@@ -14,7 +14,7 @@ jQuery(function(){
 				cf_name+= <?= $inst_id; ?>;
 			};
 		}
-		else {var zoom = true;};
+		else {var zoom = <?= $wheel_zoom; ?>};
 		var mf_array_1 = <?= json_encode($multiple_fonts); ?>;
 		var mf_array_2 = <?= json_encode($multiple_fonts_g); ?>;
 		if (mf_array_1 && mf_array_2) {var mf_array = mf_array_1.concat(mf_array_2)}
