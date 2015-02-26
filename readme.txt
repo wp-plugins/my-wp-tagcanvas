@@ -35,6 +35,13 @@ This is the Single Cloud variation of 3D WP Tag Cloud. It Creates multiple insta
 
 == Changelog ==
 
+= 3.2.1 =
+1. The minimal values of Radius X, Radius Y & Radius Z are shifted to zero so clouds could be one or two dimensional.
+2. Expanded scope of Canvas Height (90px - 960px): now Tag Cloud could be used as Header/Footer menu or Leaderboard Banner (728x90).
+3. Reduced step between Depth values for precise setting of perspective. 
+4. Reduced step between Initial values for precise control of speed.
+5. Fixed bug in HEX check of entered colors.
+
 = 3.2 =
 1. Entirely redesigned Fonts section. Selection of Web Safe Fonts and Google fonts is simplified by two combo-boxes. Single or multiple fonts now can be selected rather than entered via keyboard.
 2. Automatic update of Google Fonts List from Google Font Library.

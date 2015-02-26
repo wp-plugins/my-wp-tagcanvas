@@ -45,7 +45,6 @@
 			jQuery(e).parent().append('<span class="color" style="background: #fff; padding: 0 0 0 1px; letter-spacing: 0;">original color</span>');
 			}
 		else{
-			s = s.replace(/ /gi, '');
 			hex_check = /(^[0-9A-F]{6}$)|(^[0-9A-F]{3}$)/i.test(s);
 			if (hex_check == true){
 				jQuery(e).parent().find('.color').remove();
@@ -68,32 +67,58 @@
 	}
 
 // HEX check for entered multiple colors		
+	var poscal = 0;
 	function multi_colors_check(e,s,d){
 		var multiple_colors = s.replace(/ /gi, '');
-		if(multiple_colors.charAt(multiple_colors.length-1) == ',') {
-			multiple_colors = multiple_colors.substr(0, multiple_colors.length-1)
+		var mcl = multiple_colors.length;
+		var multiple_colors = multiple_colors.replace(/,,/gi, ',');
+		while(mcl > multiple_colors.length){
+			multiple_colors = multiple_colors.replace(/,,/gi, ',');
+			mcl = mcl - 1;
 		};
+		jQuery(e).val(multiple_colors);
+		while(multiple_colors.charAt(multiple_colors.length-1) == ',') {
+			multiple_colors = multiple_colors.substr(0, multiple_colors.length-1)	
+		};
+		jQuery(e).val(multiple_colors);	
 		var mc_array = multiple_colors.split(',');
-		if(e.id.charAt(2)=='c'){jQuery(d).empty();}
-		else {jQuery(d).empty();};
+		jQuery(d).empty();
 		if(multiple_colors != ''){
 			for (var i = 0; i < mc_array.length; i++) {
 				var hex_check = /(^[0-9A-F]{6}$)|(^[0-9A-F]{3}$)/i.test(mc_array[i]);
+				poscal = poscal + mc_array[i].length +1;
 				if (hex_check == false){
 					jQuery(e).tooltip({ content: 'Wrong Color Value: <span style="font-weight: bold; color: red;">'+mc_array[i]+'</span><br>Please enter a valid one!', tooltipClass: 'custom-tooltip-styling', position: { my: 'center bottom', at: 'center top-15' } }); 
 					jQuery(e).focus(); 
+					jQuery(e).setCursorPosition(poscal-1);
 					jQuery(e).tooltip({content: function(){
 						var element = jQuery( this ); 
 						var html_text=element.attr('title'); return html_text;}
 					});	
 					jQuery(d).append('<span class="multi-colors" style="border-radius: 3px; border: 1px solid #000; font-size: 10px; padding: 0 15px; margin: 0 5px 0 0; line-height: 11px;"><span style="background: #fff; padding: 0 3px;">?</span></span>');
+					poscal = 0;
+					break;
 				}
 				else {
 					jQuery(d).append('<span class="multi-colors" style="color: #'+mc_array[i]+';">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>');
 				};
 			}
 		}
-	}		
+	}
+	jQuery.fn.setCursorPosition = function(pos) {
+	  this.each(function(index, elem) {
+		if (elem.setSelectionRange) {
+		  elem.setSelectionRange(pos, pos);
+		} else if (elem.createTextRange) {
+		  var range = elem.createTextRange();
+		  range.collapse(true);
+		  range.moveEnd('character', pos);
+		  range.moveStart('character', pos);
+		  range.select();
+		}
+	  });
+	  return this;
+	};
 	</script>
 <!-- Check for proper entrance to widget's Control Panel -->
 <?php if( $check_widget_1 == "" && $check_widget_2!= "" ){
@@ -134,7 +159,7 @@
 		Height
 		<br>
 		<select id="<?=$this->get_field_id('height'); ?>" name="<?=$this->get_field_name('height'); ?>">
-			<?php for($i=160; $i<781; $i++){echo '<option id="ho_' . $i . '" value="' . $i . '"'; if($height==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>				
+			<?php for($i=90; $i<961; $i++){echo '<option id="ho_' . $i . '" value="' . $i . '"'; if($height==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>				
 		</select>px
 	</label>
 	<label title="Widget's width" for="<?=$this->get_field_id('width'); ?>" style="display: inline-block; float: right; margin: 0 4px 0 0">
@@ -142,7 +167,7 @@
 		Width
 		<br>
 		<select id="<?=$this->get_field_id('width'); ?>" name="<?=$this->get_field_name('width'); ?>">
-			<?php for($i=160; $i<781; $i++){echo '<option id="wo_' . $i . '" value="' . $i . '"'; if($width==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>		
+			<?php for($i=90; $i<961; $i++){echo '<option id="wo_' . $i . '" value="' . $i . '"'; if($width==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>		
 		</select>px
 	</label>
 </div>
@@ -471,28 +496,29 @@
 			Radius X 
 			<br>
 			<select id="<?=$this->get_field_id('radius_x'); ?>" name="<?=$this->get_field_name('radius_x'); ?>">
-				<?php for($i=10; $i<1005; $i+=5){echo '<option id="rx_' . $i . '" value="' . $i/100 . '"'; if($radius_x==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				<?php for($i=0; $i<1005; $i+=5){echo '<option id="rx_' . $i . '" value="' . $i/100 . '"'; if($radius_x==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
 		</label>				
 		<label style="width: 90px;" title="Initial size of cloud from center to top and bottom." for="<?=$this->get_field_id('radius_y'); ?>">
 			Radius Y 
 			<br>
 			<select id="<?=$this->get_field_id('radius_y'); ?>" name="<?=$this->get_field_name('radius_y'); ?>">
-				<?php for($i=10; $i<1005; $i+=5){echo '<option id="ry_' . $i . '" value="' . $i/100 . '"'; if($radius_y==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				<?php for($i=0; $i<1005; $i+=5){echo '<option id="ry_' . $i . '" value="' . $i/100 . '"'; if($radius_y==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
 		</label>				
 		<label style="width: 90px;" title="Initial size of cloud from center to front and back." for="<?=$this->get_field_id('radius_z'); ?>">
 			Radius Z 
 			<br>
 			<select id="<?=$this->get_field_id('radius_z'); ?>" name="<?=$this->get_field_name('radius_z'); ?>">
-				<?php for($i=10; $i<1005; $i+=5){echo '<option id="rz_' . $i . '" value="' . $i/100 . '"'; if($radius_z==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				<?php for($i=0; $i<1005; $i+=5){echo '<option id="rz_' . $i . '" value="' . $i/100 . '"'; if($radius_z==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
 		</label> 
 		<label title="Controls the perspective." style="width: 58px;" for="<?=$this->get_field_id('depth'); ?>">
 			Depth 
 			<br>
 			<select id="<?=$this->get_field_id('depth'); ?>" name="<?=$this->get_field_name('depth'); ?>">
-				<?php for($i=1; $i<11; $i++){echo '<option id="dep_' . $i . '" value="' . $i/10 . '"'; if($depth==$i/10){echo ' selected';}; echo '>' . $i/10 . '</option>'; } ?>
+				<option id="dep_0" value="0.001" <?php if($depth==0.001){echo ' selected';} ?>>0</option>
+				<?php for($i=5; $i<105; $i+=5){echo '<option id="dep_' . $i . '" value="' . $i/100 . '"'; if($depth==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
 		</label>
 		<div class="thin-spacer"></div>
@@ -577,9 +603,9 @@
 				Initial Speed [x, y]
 				<br>
 				<select id="<?=$this->get_field_id('initial_x'); ?>" name="<?=$this->get_field_name('initial_x'); ?>">		
-					<?php for($i=-100; $i<101; $i+=5){echo '<option id="inx_' . $i . '" value="' . $i/100 . '"'; if($initial_x==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>							
+					<?php for($i=-100; $i<101; $i++){echo '<option id="inx_' . $i . '" value="' . $i/100 . '"'; if($initial_x==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>							
 				</select><select id="<?=$this->get_field_id('initial_y'); ?>" name="<?=$this->get_field_name('initial_y'); ?>">	
-					<?php for($i=-100; $i<101; $i+=5){echo '<option id="iny_' . $i . '" value="' . $i/100 . '"'; if($initial_y==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>							
+					<?php for($i=-100; $i<101; $i++){echo '<option id="iny_' . $i . '" value="' . $i/100 . '"'; if($initial_y==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>							
 				</select>
 			</div>
 		</div>
