@@ -25,7 +25,13 @@
 		jQuery(function() {jQuery( "#accordion-1" ).accordion({heightStyle: "content", collapsible: true, active: false}); jQuery( "#accordion-3, #accordion-6" ).accordion({heightStyle: "content", collapsible: true, active: false});});
 		};
 	 });
-	 
+// Check for 2d shape selection and hiding Radius Z 
+	function check43d(vis){
+		var raze;
+		if(vis == 'hidden'){raze = 0} else{raze = 1};
+		jQuery('#<?=$this->get_field_id('radius_z'); ?>').val(raze);
+		jQuery('#cont_<?=$this->get_field_id('radius_z'); ?>').css('visibility', vis);
+	}
 // Center Function Text check
 	function qutes_check(e,s){
 		if(/"/g.test(s) == true){
@@ -178,25 +184,34 @@
 			<span>SHAPE</span>
 		</div>
 		<div class="section_content" style="margin: 0 0 5px; padding: 0 0 5px; border-bottom: 1px solid #aaa;">
-			<input title="Sphere [Default]" class="radio" id="<?=$this->get_field_id('shape'); ?>"
+			<input title="Sphere" class="radio" id="<?=$this->get_field_id('shape'); ?>"
 			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="sphere"   
-			<?php if( $shape == "sphere" ){ echo ' checked="checked"'; } ?>>sphere
+			<?php if( $shape == "sphere" ){ echo ' checked="checked"'; } ?> onclick="check43d('visible')";>sphere
 			
 			<input style="margin: 0 2px 0 3px;" title="Cylinder that starts off horizontal" class="radio" id="<?=$this->get_field_id('shape'); ?>"
 			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="hcylinder"
-			<?php if( $shape == "hcylinder" ){ echo ' checked="checked"'; } ?>>hcylinder
+			<?php if( $shape == "hcylinder" ){ echo ' checked="checked"'; } ?> onclick="check43d('visible')";>hcylinder
 			
 			<input style="margin: 0 2px 0 3px;" title="Cylinder that starts off vertical" class="radio" id="<?=$this->get_field_id('shape'); ?>"
 			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="vcylinder"
-			<?php if( $shape == "vcylinder" ){ echo ' checked="checked"'; } ?>>vcylinder
+			<?php if( $shape == "vcylinder" ){ echo ' checked="checked"'; } ?> onclick="check43d('visible')";>vcylinder
 			
 			<input style="margin: 0 2px 0 3px;" title="Horizontal circle" class="radio" id="<?=$this->get_field_id('shape'); ?>"
 			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="hring"
-			<?php if( $shape == "hring" ){ echo ' checked="checked"'; } ?>>hring
+			<?php if( $shape == "hring" ){ echo ' checked="checked"'; } ?> onclick="check43d('visible')";>hring
 			
 			<input style="margin: 0 2px 0 3px;" title="Vertical circle" class="radio" id="<?=$this->get_field_id('shape'); ?>"
 			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="vring"
-			<?php if( $shape == "vring" ){ echo ' checked="checked"'; } ?>>vring
+			<?php if( $shape == "vring" ){ echo ' checked="checked"'; } ?> onclick="check43d('visible')";>vring
+			<br>
+			<div class="thin-spacer" style="margin-bottom: 5px; border-bottom: 1px dotted #aaa;"></div>	
+			<input style="margin: 0 2px 0 0;" title="2D Spiral" class="radio" id="<?=$this->get_field_id('shape'); ?>"
+			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="spiral"
+			<?php if( $shape == "spiral" ){ echo ' checked="checked"'; } ?> onclick="check43d('hidden')";>spiral
+
+			<input style="margin: 0 2px 0 3px;" title="2D Hexagon" class="radio" id="<?=$this->get_field_id('shape'); ?>"
+			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="hexagon"
+			<?php if( $shape == "hexagon" ){ echo ' checked="checked"'; } ?> onclick="check43d('hidden')";>hexagon
 		</div>
 		<table>
 			<tr>
@@ -325,7 +340,6 @@
 							</select>
 						</label>  							
 						<br style="clear: both" />
-
 					<label style="margin: 19px 0 0 0; width: 220px; line-height: 13px;" title="Number of tags to display" for="<?=$this->get_field_id('tags'); ?>">
 						Number
 						<br>
@@ -506,13 +520,13 @@
 				<?php for($i=0; $i<1005; $i+=5){echo '<option id="ry_' . $i . '" value="' . $i/100 . '"'; if($radius_y==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
 		</label>				
-		<label style="width: 90px;" title="Initial size of cloud from center to front and back." for="<?=$this->get_field_id('radius_z'); ?>">
+		<div style="width: 90px; float: left;<?php if($shape == 'spiral'||$shape == 'hexagon') {echo ' visibility: hidden;';}; ?>" title="Initial size of cloud from center to front and back." id="cont_<?=$this->get_field_id('radius_z'); ?>" <?php if($shape == 'spiral'||$shape == 'hexagon') {echo '; visibility: hidden;';}; ?>>
 			Radius Z 
 			<br>
 			<select id="<?=$this->get_field_id('radius_z'); ?>" name="<?=$this->get_field_name('radius_z'); ?>">
 				<?php for($i=0; $i<1005; $i+=5){echo '<option id="rz_' . $i . '" value="' . $i/100 . '"'; if($radius_z==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
-		</label> 
+		</div> 
 		<label title="Controls the perspective." style="width: 58px;" for="<?=$this->get_field_id('depth'); ?>">
 			Depth 
 			<br>

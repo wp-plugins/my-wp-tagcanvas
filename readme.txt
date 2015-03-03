@@ -35,6 +35,9 @@ This is the Single Cloud variation of 3D WP Tag Cloud. It Creates multiple insta
 
 == Changelog ==
 
+= 3.3 =
+1. Added two new 2D shapes: spiral and hexagon.
+
 = 3.2.2 =
 1. Fixed bug in switching off Wheel Zoom.
 
