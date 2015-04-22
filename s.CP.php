@@ -26,11 +26,81 @@
 		};
 	 });
 // Check for 2d shape selection and hiding Radius Z 
-	function check43d(vis){
+	function check43d(shape){
 		var raze;
-		if(vis == 'hidden'){raze = 0} else{raze = 1};
+		if(shape=='circles'||shape=='spiral'||shape=='beam'||shape=='square'||shape=='hexagon'||shape=='triangle'||shape=='heart'){vis = 'hidden'; raze = 0} else{vis = 'visible'; raze = 1};
 		jQuery('#<?=$this->get_field_id('radius_z'); ?>').val(raze);
 		jQuery('#cont_<?=$this->get_field_id('radius_z'); ?>').css('visibility', vis);
+		change_limits(shape);
+	}
+// Change of tag limits for spiral, hexagon, cube, pyramid, beam, circles & antenna, axes, vcones & hcones, square, fir, sandglass and triangle
+	function change_limits(shape){
+		var i=1, j, limits = [5,25,1,"<?= $this->get_field_id('recent_posts'); ?>","rp_","","",
+							  5,100,5,"<?= $this->get_field_id('links'); ?>","l_","l_125",-1,
+							  10,120,5,"<?= $this->get_field_id('tags'); ?>","t_","t_125",0,
+							  6,60,6,"<?= $this->get_field_id('archives_limit'); ?>","arli_","arli_66","",
+							  5,50,5,"<?= $this->get_field_id('pages_limit'); ?>","pali_","pali_55","",
+							  5,50,5,"<?= $this->get_field_id('authors_limit'); ?>","auli_","auli_55","",
+							  5,60,5,"<?= $this->get_field_id('categories'); ?>","c_","c_65",0];
+		for(i=3;i<= 45;i+=7){
+			jQuery('#'+limits[i]).empty();
+		}
+		if(shape!="spiral"&&shape!="hexagon"&&shape!="cube"&&shape!="pyramid"&&shape!="beam"&&shape!="circles"&&shape!="antena"&&shape!="axes"&&shape!="vcones"&&shape!="hcones"&&shape!="square"&&shape!="fir"&&shape!="sandglass"&&shape!="triangle"&&shape!="heart"){
+			for(j=0; j<=42; j+=7){
+				for(i=limits[j]; i<=limits[j+1]; i+=limits[j+2]){
+					jQuery('#'+limits[j+3]).append('<option id="'+limits[j+4]+i+'" value="'+i+'" '+(j==0&&i==limits[j+1]?"selected":"")+'>'+i+'</option>');
+				}
+			}
+			for(i=0;i<=35;i+=7){
+				jQuery('#'+limits[10+i]).append('<option id="'+limits[12+i]+'" value="'+limits[13+i]+'" selected>all</option>');
+			}
+		}
+		else{
+//COL: rec, lin, pos, arc, pag, aut, cat
+//ROW: spiral, hexagon, cube, pyramid, beam, circles & antenna, axes, vcones & hcones, square, fir, sandglass, triangle and heart
+			var limits2 = [8,29,7,"","","","",8,99,7,"","","","",8,120,7,"","","","",8,64,7,"","","","",8,50,7,"","","","",8,50,7,"","","","",8,57,7,"","","","",
+						   1,2,1,3,3,1,"",1,5,1,3,3,1,"",1,6,1,3,3,1,"",1,4,1,3,3,1,"",1,3,1,3,3,1,"",1,3,1,3,3,1,"",1,4,1,3,3,1,"",
+						   0,1,1,6,12,8,"",0,3,1,6,12,8,"",0,4,1,6,12,8,"",0,2,1,6,12,8,"",0,1,1,6,12,8,"",0,1,1,6,12,8,"",0,2,1,6,12,8,"",
+						   1,3,1,2,0,2,"",1,7,1,2,0,2,"",1,8,1,2,0,2,"",1,6,1,2,0,2,"",1,5,1,2,0,2,"",1,5,1,2,0,2,"",1,6,1,2,0,2,"",
+						   5,10,5,"","","","",5,10,5,"","","","",5,10,5,"","","","",5,10,5,"","","","",5,10,5,"","","","",5,10,5,"","","","",5,10,5,"","","","",
+						   2,4,1,"","","","",2,6,1,"","","","",2,7,1,"","","","",2,5,1,"","","","",2,4,1,"","","","",2,4,1,"","","","",2,5,1,"","","","",
+						   6,24,6,"","","","",6,102,6,"","","","",6,120,6,"","","","",6,60,6,"","","","",6,48,6,"","","","",6,48,6,"","","","",6,60,6,"","","","",
+						   2,3,1,2,0,1,"",2,5,1,2,0,1,"",2,6,1,2,0,1,"",2,4,1,2,0,1,"",2,4,1,2,0,1,"",2,4,1,2,0,1,"",2,4,1,2,0,1,"",
+						   2,5,1,"","","","",2,10,1,"","","","",2,11,1,"","","","",2,8,1,"","","","",2,7,1,"","","","",2,7,1,"","","","",2,8,1,"","","","",
+						   1,3,1,2,2,1,"",1,7,1,2,2,1,"",1,8,1,2,2,1,"",1,5,1,2,2,1,"",1,4,1,2,2,1,"",1,4,1,2,2,1,"",1,5,1,2,2,1,"",
+						   2,3,1,4,0,2,"",2,5,1,4,0,2,"",2,6,1,4,0,2,"",2,4,1,4,0,2,"",2,3,1,4,0,2,"",2,3,1,4,0,2,"",2,4,1,4,0,2,"",
+						   3,6,1,0.5,0.5,0,"",3,14,1,0.5,0.5,0,"",3,15,1,0.5,0.5,0,"",3,11,1,0.5,0.5,0,"",3,10,1,0.5,0.5,0,"",3,10,1,0.5,0.5,0,"",3,11,1,0.5,0.5,0,"",
+						   12,24,12,"","","","",12,48,12,"","","","",12,48,12,"","","","",12,48,12,"","","","",12,36,12,"","","","",12,36,12,"","","","",12,48,12,"","","","",]
+			switch(shape){
+				case "spiral": delta = 0; break;
+				case "hexagon": delta = 49; break;
+				case "cube": delta = 98; break;
+				case "pyramid": delta = 147; break;
+				case "beam": delta = 196; break;
+				case "circles": delta = 245; break;
+				case "antenna": delta = 245; break;
+				case "axes": delta = 294; break;
+				case "vcones": delta = 343; break;
+				case "hcones": delta = 343; break;
+				case "square": delta = 392; break;
+				case "fir": delta = 441; break;
+				case "sandglass": delta = 490; break;
+				case "triangle": delta = 539; break;
+				case "heart": delta = 588;
+//				Next delta=637;
+			}
+			for(j=0; j<=42; j+=7){
+				for(i=limits2[delta+j]; i<=limits2[delta+j+1]; i+=limits2[delta+j+2]){
+					jQuery('#'+limits[j+3]).append(
+						'<option id="'+limits[j+4]+(shape=='spiral'||shape=='beam'?i:shape=='circles'?(2*i*i*i+3*i*i+i)/6:shape=='antenna'?(2*i*i*i+3*i*i+i)/6+4:shape=='axes'||shape=='heart'?i:shape=='square'?i*i:shape=='fir'?(2*i*i+2*i+1):shape=='vcones'||shape=='hcones'?(2*i*i*i+i)/3:shape=='sandglass'?(4*i*i*i+2*i)/3-1:shape=='triangle'?(i*i/2+i/2):limits2[delta+j+3]*i*i+limits2[delta+j+4]*i+limits2[delta+j+5])+
+						'" value="'+
+						(shape=='spiral'||shape=='beam'?i:shape=='circles'?(2*i*i*i+3*i*i+i)/6:shape=='antenna'?(2*i*i*i+3*i*i+i)/6+4:shape=='axes'||shape=='heart'?i:shape=='square'?i*i:shape=='fir'?(2*i*i+2*i+1):shape=='vcones'||shape=='hcones'?(2*i*i*i+i)/3:shape=='sandglass'?(4*i*i*i+2*i)/3-1:shape=='triangle'?(i*i/2+i/2):limits2[delta+j+3]*i*i+limits2[delta+j+4]*i+limits2[delta+j+5])+
+						'" '+(i==limits2[delta+j+1]?"selected":"")+'>'+
+						(shape=='spiral'||shape=='beam'?i:shape=='circles'?(2*i*i*i+3*i*i+i)/6:shape=='antenna'?(2*i*i*i+3*i*i+i)/6+4:shape=='axes'?i:shape=='heart'?i-i/6:shape=='square'?i*i:shape=='fir'?(2*i*i+2*i+1):shape=='vcones'||shape=='hcones'?(2*i*i*i+i)/3:shape=='sandglass'?(4*i*i*i+2*i)/3-1:shape=='triangle'?(i*i/2+i/2):limits2[delta+j+3]*i*i+limits2[delta+j+4]*i+limits2[delta+j+5])+
+						'</option>');
+				}
+			}			
+		}		 
 	}
 // Center Function Text check
 	function qutes_check(e,s){
@@ -72,7 +142,7 @@
 		}
 	}
 
-// HEX check for entered multiple colors		
+// HEX check for entered multiple colors
 	var poscal = 0;
 	function multi_colors_check(e,s,d){
 		var multiple_colors = s.replace(/ /gi, '');
@@ -84,7 +154,7 @@
 		};
 		jQuery(e).val(multiple_colors);
 		while(multiple_colors.charAt(multiple_colors.length-1) == ',') {
-			multiple_colors = multiple_colors.substr(0, multiple_colors.length-1)	
+			multiple_colors = multiple_colors.substr(0, multiple_colors.length-1)
 		};
 		jQuery(e).val(multiple_colors);	
 		var mc_array = multiple_colors.split(',');
@@ -147,7 +217,7 @@
 		name="<?=$this->get_field_name('tooltip_status'); ?>" type="radio" value="on" 
 		<?php if( $tooltip_status == "on" ){ echo ' checked="checked"'; } ?> onclick="jQuery('#accordion-1, #wihead').tooltip({content: function() {var element = $( this ); var html_text=element.attr('title'); return html_text;}, position: {  my: 'left top+20',  at: 'left bottom'}}); ">on
 		
-		<input style="margin: 0;" title="Turn off Option tooltips." class="radio" id="<?=$this->get_field_id('tooltip_status'); ?>"						
+		<input style="margin: 0;" title="Turn off Option tooltips." class="radio" id="<?=$this->get_field_id('tooltip_status'); ?>"
 		name="<?=$this->get_field_name('tooltip_status'); ?>" type="radio" value="off"
 		<?php if( $tooltip_status == "off" ){ echo ' checked="checked"'; } ?> onclick="jQuery('#accordion-1, #wihead').tooltip({position: { my: 'left-300 top', at: 'left bottom',  of: 'body'}});">off
 	</div>
@@ -165,7 +235,7 @@
 		Height
 		<br>
 		<select id="<?=$this->get_field_id('height'); ?>" name="<?=$this->get_field_name('height'); ?>">
-			<?php for($i=90; $i<961; $i++){echo '<option id="ho_' . $i . '" value="' . $i . '"'; if($height==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>				
+			<?php for($i=90; $i<1025; $i++){echo '<option id="ho_' . $i . '" value="' . $i . '"'; if($height==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 		</select>px
 	</label>
 	<label title="Widget's width" for="<?=$this->get_field_id('width'); ?>" style="display: inline-block; float: right; margin: 0 4px 0 0">
@@ -173,49 +243,66 @@
 		Width
 		<br>
 		<select id="<?=$this->get_field_id('width'); ?>" name="<?=$this->get_field_name('width'); ?>">
-			<?php for($i=90; $i<961; $i++){echo '<option id="wo_' . $i . '" value="' . $i . '"'; if($width==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>		
+			<?php for($i=90; $i<1025; $i++){echo '<option id="wo_' . $i . '" value="' . $i . '"'; if($width==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 		</select>px
 	</label>
 </div>
 <div id="accordion-1" style="background: #fff; padding: 2px 0 1px; visibility: hidden; " <?php if( $check_widget_1 == "" ){ echo ' hidden'; } ?>>
 	<h3><span class="front-title">cloud:</span> SHAPE, CONTENT, WEIGHT, OUTLINE</h3>
 	<div class="section_content" style="padding-bottom: 0;">
-		<div title="The shape of the cloud">
-			<span>SHAPE</span>
-		</div>
-		<div class="section_content" style="margin: 0 0 5px; padding: 0 0 5px; border-bottom: 1px solid #aaa;">
-			<input title="Sphere" class="radio" id="<?=$this->get_field_id('shape'); ?>"
-			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="sphere"   
-			<?php if( $shape == "sphere" ){ echo ' checked="checked"'; } ?> onclick="check43d('visible')";>sphere
-			
-			<input style="margin: 0 2px 0 3px;" title="Cylinder that starts off horizontal" class="radio" id="<?=$this->get_field_id('shape'); ?>"
-			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="hcylinder"
-			<?php if( $shape == "hcylinder" ){ echo ' checked="checked"'; } ?> onclick="check43d('visible')";>hcylinder
-			
-			<input style="margin: 0 2px 0 3px;" title="Cylinder that starts off vertical" class="radio" id="<?=$this->get_field_id('shape'); ?>"
-			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="vcylinder"
-			<?php if( $shape == "vcylinder" ){ echo ' checked="checked"'; } ?> onclick="check43d('visible')";>vcylinder
-			
-			<input style="margin: 0 2px 0 3px;" title="Horizontal circle" class="radio" id="<?=$this->get_field_id('shape'); ?>"
-			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="hring"
-			<?php if( $shape == "hring" ){ echo ' checked="checked"'; } ?> onclick="check43d('visible')";>hring
-			
-			<input style="margin: 0 2px 0 3px;" title="Vertical circle" class="radio" id="<?=$this->get_field_id('shape'); ?>"
-			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="vring"
-			<?php if( $shape == "vring" ){ echo ' checked="checked"'; } ?> onclick="check43d('visible')";>vring
-			<br>
-			<div class="thin-spacer" style="margin-bottom: 5px; border-bottom: 1px dotted #aaa;"></div>	
-			<input style="margin: 0 2px 0 0;" title="2D Spiral" class="radio" id="<?=$this->get_field_id('shape'); ?>"
-			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="spiral"
-			<?php if( $shape == "spiral" ){ echo ' checked="checked"'; } ?> onclick="check43d('hidden')";>spiral
-
-			<input style="margin: 0 2px 0 3px;" title="2D Hexagon" class="radio" id="<?=$this->get_field_id('shape'); ?>"
-			name="<?=$this->get_field_name('shape'); ?>" type="radio" value="hexagon"
-			<?php if( $shape == "hexagon" ){ echo ' checked="checked"'; } ?> onclick="check43d('hidden')";>hexagon
+		<span>SHAPE</span>
+		<div class="section_content" style="margin: 5px 0; padding: 0 0 5px; border-bottom: 1px solid #aaa;">
+			<select style="margin: 0 0 5px!important;" id="<?=$this->get_field_id('shape'); ?>" name="<?=$this->get_field_name('shape'); ?>" onchange="check43d(this.value)";>
+				<option value="axes" <?php if( $shape == "axes" ){ echo ' selected'; } ?>>3D Axes*</option>
+				<option value="balls" <?php if( $shape == "balls" ){ echo ' selected'; } ?>>Balls</option>
+				<option value="blossom" <?php if( $shape == "blossom" ){ echo ' selected'; } ?>>Blossom</option>
+				<option value="bulb" <?php if( $shape == "bulb" ){ echo ' selected'; } ?>>Bulb</option>
+				<option value="candy" <?php if( $shape == "candy" ){ echo ' selected'; } ?>>Candy</option>
+				<option value="capsule" <?php if( $shape == "capsule" ){ echo ' selected'; } ?>>Capsule</option>
+				<option value="egg" <?php if( $shape == "egg" ){ echo ' selected'; } ?>>Egg</option>
+				<option value="fir" <?php if( $shape == "fir" ){ echo ' selected'; } ?>>Chrismas Fir*</option>
+				<option value="cube" <?php if( $shape == "cube" ){ echo ' selected'; } ?>>Cube*</option>
+				<option value="glass" <?php if( $shape == "glass" ){ echo ' selected'; } ?>>Glass</option>
+				<option value="globe" <?php if( $shape == "globe" ){ echo ' selected'; } ?>>Globe of Rings</option>
+				<option value="hcylinder" <?php if( $shape == "hcylinder" ){ echo ' selected'; } ?>>Horisontal Cylinder</option>
+				<option value="knot" <?php if( $shape == "knot" ){ echo ' selected'; } ?>>Knot</option>
+				<option value="lemon" <?php if( $shape == "lemon" ){ echo ' selected'; } ?>>Lemon</option>
+				<option value="antenna" <?php if( $shape == "antenna" ){ echo ' selected'; } ?>>Parabolic Antenna*</option>
+				<option value="hcones" <?php if( $shape == "hcones" ){ echo ' selected'; } ?>>Peg top around X-axis*</option>
+				<option value="vcones" <?php if( $shape == "vcones" ){ echo ' selected'; } ?>>Peg top around Y-axis*</option>
+				<option value="hring" <?php if( $shape == "hring" ){ echo ' selected'; } ?>>Ring around X-axis</option>
+				<option value="vring" <?php if( $shape == "vring" ){ echo ' selected'; } ?>>Ring around Y-axis</option>
+				<option value="roller" <?php if( $shape == "roller" ){ echo ' selected'; } ?>>Roller of rings</option>
+				<option value="sandglass" <?php if( $shape == "sandglass" ){ echo ' selected'; } ?>>Sandglass*</option>
+				<option value="sphere" <?php if( $shape == "sphere" ){ echo ' selected'; } ?>>Sphere</option>
+				<option value="stairs" <?php if( $shape == "stairs" ){ echo ' selected'; } ?>>Staircase</option>
+				<option value="stool" <?php if( $shape == "stool" ){ echo ' selected'; } ?>>Stool</option>
+				<option value="pyramid" <?php if( $shape == "pyramid" ){ echo ' selected'; } ?>>Tetrahedron (Triangle Pyramid)*</option>
+				<option value="tire" <?php if( $shape == "tire" ){ echo ' selected'; } ?>>Tire</option>
+				<option value="tower" <?php if( $shape == "tower" ){ echo ' selected'; } ?>>Tower of rings</option>
+				<option value="vcylinder" <?php if( $shape == "vcylinder" ){ echo ' selected'; } ?>>Vertical Cylinder</option>
+				<option style="background: #ccc;" value="circles" <?php if( $shape == "circles" ){ echo ' selected'; } ?>>Concentric Circles*</option>
+				<option style="background: #ccc;" value="heart" <?php if( $shape == "heart" ){ echo ' selected'; } ?>>Heart</option>
+				<option style="background: #ccc;" value="hexagon" <?php if( $shape == "hexagon" ){ echo ' selected'; } ?>>Hexagon (Bee Cell)*</option>
+				<option style="background: #ccc;" value="spiral" <?php if( $shape == "spiral" ){ echo ' selected'; } ?>>Spiral*</option>
+				<option style="background: #ccc;" value="square" <?php if( $shape == "square" ){ echo ' selected'; } ?>>Square*</option>
+				<option style="background: #ccc;" value="triangle" <?php if( $shape == "triangle" ){ echo ' selected'; } ?>>Triangle*</option>
+				<option style="background: #aaa;" value="beam" <?php if( $shape == "beam" ){ echo ' selected'; } ?>>Lighthouse Beam*</option>
+			</select>
+			<div style="text-align: justify;">
+				<b>Legend:</b><br>
+				<span class="color" style="padding: 0; border: 1px solid #444; font-size: 10px; color: #fff;">██</span> 3D Shape, 
+				<span class="color" style="padding: 0; border: 1px solid #444; font-size: 10px; color: #ccc;">██</span> 2D Shape,
+				<span class="color" style="padding: 0; border: 1px solid #444; font-size: 10px; color: #aaa;">██</span> 1D Shape, 
+				<b style="font-size: 26px; line-height: 5px; position: relative; top: 10px;">*</b> Specific set of tag numbers (in 'Number' fields below).<br>
+				<div class="thin-spacer"></div>
+				See <span style='font-weight: bold; color: #dc143c;'>GUIDE & TIPS</span> > <span style='font-weight: bold; color: #444;'>Shape Tips</span> 
+				for advices on selection.
+			</div>
 		</div>
 		<table>
 			<tr>
-				<td style="width: 110px; padding: 0; vertical-align: top;">
+				<td style="width: 110px; padding: 0; vertical-align: top;" title="">
 					<div style="width: 100%;">
 						<span>CONTENT</span>
 						<div style="padding: 15px 0 0 0;">
@@ -225,28 +312,29 @@
 								<?php if( $taxonomy == "recent_posts" ){ echo ' checked="checked"'; } ?>>Recent Posts
 								<span style="font-size: 18px; line-height: 12px; float: right; padding: 3px 0 0 0;">&#8594;</span>
 							</div>
-							<div class="nishka">								
+							<div class="nishka">
 								<input  class="radio" style="margin: 4px 1px 4px 0;" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays bookmarks found in the WP Admin Panel: <span class='green'>Links</span>. Font Size weighting is provided for all  <span class='green'>Weight Mode</span> options except for <span class='green'>none</span>. Font size of the Links is calculated in accordance with their position in the list: The last in it has the smallest font size. Combine with the <span class='green'>Links' Categories</span> and <span class='green'>Number</span> of Links options on the right."
-								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="links"									
+								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="links"
 								<?php if( $taxonomy == "links" ){ echo ' checked="checked"'; } ?>>Links
 								<span style="font-size: 18px; line-height: 12px; float: right; padding: 3px 0 0 0;">&#8594;</span>
 							</div>
-							<div class="nishka">									
+							<div class="nishka">
 								<input style="margin: 4px 1px 4px 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a navigation menu created via WP Admin Panel:  <span class='green'>Appearance</span> <span style='font-size: 18px;'>&#8594;</span>  <span class='green'>Menus</span>. <span class='green'>Weight Mode</span> is not applicable to this option. Combine with the <span class='green'>Menu</span> option on the right."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="menu"
 								<?php if( $taxonomy == "menu" ){ echo ' checked="checked"'; } ?>>Menu
 								<span style="font-size: 18px; line-height: 12px; float: right; padding: 3px 0 0 0;">&#8594;</span>
 							</div>
-							<div class="nishka" style="border-radius: 0; border-top-right-radius: 50px; border-bottom: 0; margin: 10px 0 0 0;">
+							<div class="nishka">
 								<input style="margin: 4px 1px 4px 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of categories created in the WP Admin Panel: <span class='green'>Posts</span> <span style='font-size: 18px;'>&#8594;</span>  <span class='green'>Categories</span>."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="category"
 								<?php if( $taxonomy == "category" ){ echo ' checked="checked"'; } ?>>Categories
+								<span style="font-size: 18px; line-height: 12px; float: right; padding: 3px 0 0 0;">&#8594;</span>
 							</div>
-							<div class="nishka" style="border-radius: 0; height: 10px; margin: 0; border: 0; border-right: 1px dotted #aaa;"><span style="font-size: 18px; line-height: 10px; float: right;">&#8594;</span></div>
-							<div class="nishka" style="border-radius: 0; border-bottom-right-radius: 50px; border-top: 0; margin: 0 0 10px 0;">
+							<div class="nishka">
 								<input style="margin: 4px 1px 4px 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of post tags. Combine with the <span class='green'>Number</span> of Post Tags option on the right."
 								name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="post_tag"
 								<?php if( $taxonomy == "post_tag" ){ echo ' checked="checked"'; } ?>>Post Tags
+								<span style="font-size: 18px; line-height: 12px; float: right; padding: 3px 0 0 0;">&#8594;</span>
 							</div>
 							<div class="nishka">
 							<input style="margin: 4px 1px 4px 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of archives. Combine with the <span class='green'>Number</span> of Archives option on the right."
@@ -254,12 +342,12 @@
 							<?php if( $taxonomy == "archives" ){ echo ' checked="checked"'; } ?>>Archives
 							<span style="font-size: 18px; line-height: 12px; float: right; padding: 3px 0 0 0;">&#8594;</span>
 							</div>
-							<div class="nishka">							
+							<div class="nishka">
 							<input style="margin: 4px 1px 4px 0 ;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of pages. <span class='green'>Weight Mode</span> is not applicable to this option."
 							name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="pages"
 							<?php if( $taxonomy == "pages" ){ echo ' checked="checked"'; } ?>>Pages
-							<span style="font-size: 18px; line-height: 12px;  float: right; padding: 3px 0 0 0;">&#8594;</span>								
-							</div>							
+							<span style="font-size: 18px; line-height: 12px;  float: right; padding: 3px 0 0 0;">&#8594;</span>
+							</div>
 							<div class="nishka" style="margin-bottom: 5px;">
 							<input style="margin: 4px 1px 4px 0;" class="radio" id="<?=$this->get_field_id('taxonomy'); ?>" title="Displays a list of authors. Combine with the <span class='green'>Number</span> of Authors and <span class='green'>Exclude</span> options on the right."
 							name="<?=$this->get_field_name('taxonomy'); ?>" type="radio" value="authors"
@@ -284,16 +372,82 @@
 											echo ">" . $term->name . "</option>";
 										 }
 									 }
-								?>						
+								?>
 							</select>
 						</label>
 						<label style="width: 45px; display: block; line-height: 13px; margin: 18px 0 0 0;" title="Number of recent posts to display"for="<?=$this->get_field_id('recent_posts'); ?>">
 							Number
 							<br>
 							<select id="<?=$this->get_field_id('recent_posts'); ?>" name="<?=$this->get_field_name('recent_posts'); ?>">
-								<?php for($i=5; $i<26; $i++){echo '<option id="rp_' . $i . '" value="' . $i . '"'; if($recent_posts==$i){echo ' selected';}; echo '>' . $i . '</option>'; }	?>
+								<?php 
+									switch($shape){
+										case "spiral":
+											$spiral_rec = 0;
+											for($i=8; $i<36; $i+=7){echo '<option id="rp_' . $i . '" value="' . $i . '"'; if($recent_posts==$i){echo ' selected'; $spiral_rec = 1;} else{if($i==29&&$spiral_rec==0){echo ' selected'; $spiral_rec = 1;}}; echo '>' . $i . '</option>'; };
+											break;
+										case "hexagon":
+											$hexagon_rec = 0;
+											for($i=1; $i<3; $i++){$calc = 3*$i*$i+3*$i+1; echo '<option id="rp_' . $calc . '" value="' . $calc  . '"'; if($recent_posts=$calc ){echo ' selected'; $hexagon_rec = 1;} else{if($i==2&&$hexagon_rec==0){echo ' selected'; $hexagon_rec = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "cube":
+											$cube_rec = 0;
+											for($i=0; $i<2; $i++){$calc = 6*$i*$i+12*$i+8; echo '<option id="rp_' . $calc . '" value="' . $calc  . '"'; if($recent_posts==$calc ){echo ' selected'; $cube_rec = 1;} else{if($i==1&&$cube_rec==0){echo ' selected'; $cube_rec = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "pyramid":
+											$pyramid_rec = 0;
+											for($i=1; $i<4; $i++){$calc = 2*$i*$i+2; echo '<option id="rp_' . $calc . '" value="' . $calc  . '"'; if($recent_posts==$calc ){echo ' selected'; $pyramid_rec = 1;} else{if($i==3&&$pyramid_rec==0){echo ' selected'; $pyramid_rec = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "circles":
+											$circles_rec = 0;
+											for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6; echo '<option id="rp_' . $calc . '" value="' . $calc . '"'; if($recent_posts==$calc){echo ' selected'; $circles_rec = 1;} else{if($i==4&&$circles_rec==0){echo ' selected'; $circles_rec = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "antenna":
+											$antenna_rec = 0;
+											for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6+4; echo '<option id="rp_' . $calc . '" value="' . $calc . '"'; if($recent_posts==$calc){echo ' selected'; $antenna_rec = 1;} else{if($i==4&&$antenna_rec==0){echo ' selected'; $antenna_rec = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "beam":
+											$beam_rec = 0;
+											for($i=5; $i<15; $i+=5){echo '<option id="rp_' . $i . '" value="' . $i . '"'; if($recent_posts==$i){echo ' selected'; $beam_rec = 1;} else{if($i==10&&$beam_rec==0){echo ' selected'; $beam_rec = 1;}}; echo '>' . $i . '</option>'; };
+											break;
+										case "axes":
+											$axes_rec = 0;
+											for($i=6; $i<30; $i+=6){echo '<option id="rp_' . $i . '" value="' . $i . '"'; if($recent_posts==$i){echo ' selected'; $axes_rec = 1;} else{if($i==24&&$axes_rec==0){echo ' selected'; $axes_rec = 1;}}; echo '>' . $i . '</option>'; };
+											break;
+										case "vcones":
+											$vcones_rec = 0;
+											for($i=2; $i<4; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="rp_' . $calc . '" value="' . $calc . '"'; if($recent_posts==$calc){echo ' selected'; $vcones_rec = 1;} else{if($i==3&&$vcones_rec==0){echo ' selected'; $vcones_rec = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "hcones":
+											$hcones_rec = 0;
+											for($i=2; $i<4; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="rp_' . $calc . '" value="' . $calc . '"'; if($recent_posts==$calc){echo ' selected'; $hcones_rec = 1;} else{if($i==3&&$hcones_rec==0){echo ' selected'; $hcones_rec = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "sandglass":
+											$sandglass_rec = 0;
+											for($i=2; $i<4; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="rp_' . $calc . '" value="' . $calc . '"'; if($recent_posts==$calc){echo ' selected'; $sandglass_rec = 1;} else{if($i==3&&$sandglass_rec==0){echo ' selected'; $sandglass_rec = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "square":
+											$square_rec = 0;
+											for($i=2; $i<6; $i++){echo '<option id="rp_' . $i*$i . '" value="' . $i*$i . '"'; if($recent_posts==$i*$i){echo ' selected'; $square_rec = 1;} else{if($i==5&&$square_rec==0){echo ' selected'; $square_rec = 1;}}; echo '>' . $i*$i . '</option>'; };
+											break;
+										case "fir":
+											$fir_rec = 0;
+											for($i=1; $i<4; $i++){$calc = (2*$i*$i+2*$i+1); echo '<option id="rp_' . $calc . '" value="' . $calc . '"'; if($recent_posts==$calc){echo ' selected'; $fir_rec = 1;} else{if($i==3&&$fir_rec==0){echo ' selected'; $fir_rec = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "triangle":
+											$triangle_rec = 0;
+											for($i=3; $i<7; $i++){$calc = (0.5*$i*$i+0.5*$i); echo '<option id="rp_' . $calc . '" value="' . $calc . '"'; if($recent_posts==$calc){echo ' selected'; $triangle_rec = 1;} else{if($i==6&&$triangle_rec==0){echo ' selected'; $triangle_rec = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "heart":
+											$heart_rec = 0;
+											for($i=12; $i<36; $i+=12){echo '<option id="rp_' . $i . '" value="' . $i . '"'; if($recent_posts==$i){echo ' selected'; $heart_rec = 1;} else{if($i==6&&$heart_rec==0){echo ' selected'; $heart_rec = 1;}}; echo '>' . ($i-$i/6) . '</option>'; };
+											break;
+										default:
+											$default_rec = 0;
+											for($i=5; $i<26; $i++){echo '<option id="rp_' . $i . '" value="' . $i . '"'; if($recent_posts==$i){echo ' selected'; $default_rec = 1;} else{if($i==25&&$default_rec==0){echo ' selected'; $default_rec = 1;}}; echo '>' . $i . '</option>'; };
+									}	
+								?>
 							</select>
-						</label>  									
+						</label>
 						<label style="margin: 2px 5px 0 0; line-height: 13px;" title="Links Category to be displayed." for="<?=$this->get_field_id('links_category_id'); ?>">
 						Links Category
 						<br>
@@ -308,7 +462,7 @@
 										echo ">" . $term->name . "</option>";
 									 }
 								 }
-							?>						
+							?>
 						</select>
 						</label>
 						<label style="margin: 2px 0 0 0; width: 45px; display: block; line-height: 13px;" title="Number of links to display" for="<?=$this->get_field_id('links'); ?>">
@@ -316,13 +470,75 @@
 							<br>
 							<select id="<?=$this->get_field_id('links'); ?>" name="<?=$this->get_field_name('links'); ?>">
 								<?php 
-									for($i=5; $i<100; $i+=5){
-										echo '<option id="l_' . $i . '" value="' . $i . '"'; if($inks==$i){echo ' selected';}; echo '>' . $i . '</option>'; 
-									} 
-									echo '<option id="l_100"'; if($links=='-1'){echo ' selected';}; echo ' value="-1">all</option>';
+									switch($shape){
+										case "spiral":
+											$spiral_lin = 0;
+											for($i=8; $i<106; $i+=7){echo '<option id="l_' . $i . '" value="' . $i . '"'; if($links==$i){echo ' selected'; $spiral_lin = 1;} else{if($i==99&&$spiral_lin==0){echo ' selected'; $spiral_lin = 1;}}; echo '>' . $i . '</option>'; };
+											break;
+										case "hexagon":
+											$hexagon_lin = 0;
+											for($i=1; $i<6; $i++){$calc = 3*$i*$i+3*$i+1; echo '<option id="l_' . $calc . '" value="' . $calc  . '"'; if($links==$calc ){echo ' selected'; $hexagon_lin = 1;} else{if($i==5&&$hexagon_lin==0){echo ' selected'; $hexagon_lin = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "cube":
+											$cube_lin = 0;
+											for($i=0; $i<4; $i++){$calc = 6*$i*$i+12*$i+8; echo '<option id="l_' . $calc . '" value="' . $calc  . '"'; if($links==$calc ){echo ' selected'; $cube_lin = 1;} else{if($i==3&&$cube_lin==0){echo ' selected'; $cube_lin = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "pyramid":
+											$pyramid_lin = 0;
+											for($i=1; $i<8; $i++){$calc = 2*$i*$i+2; echo '<option id="l_' . $calc . '" value="' . $calc  . '"'; if($links==$calc ){echo ' selected'; $pyramid_lin = 1; } else{if($i==7&&$pyramid_lin==0){echo ' selected'; $pyramid_lin = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "circles":
+											$circles_lin = 0;
+											for($i=2; $i<7; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6; echo '<option id="l_' . $calc . '" value="' . $calc . '"'; if($links==$calc){echo ' selected'; $circles_lin = 1;} else{if($i==6&&$circles_lin==0){echo ' selected'; $circles_lin = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "antenna":
+											$antena_lin = 0;
+											for($i=2; $i<7; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6+4; echo '<option id="l_' . $calc . '" value="' . $calc . '"'; if($links==$calc){echo ' selected'; $antena_lin = 1;} else{if($i==6&&$antena_lin==0){echo ' selected'; $antena_lin = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "beam";
+											$beam_lin = 0;
+											for($i=5; $i<15; $i+=5){echo '<option id="l_' . $i . '" value="' . $i . '"'; if($links==$i){echo ' selected'; $beam_lin = 1;} else{if($i==10&&$beam_lin==0){echo ' selected'; $beam_lin = 1;}}; echo '>' . $i . '</option>'; };
+											break;
+										case "axes";
+											$axes_lin = 0;
+											for($i=6; $i<108; $i+=6){echo '<option id="l_' . $i . '" value="' . $i . '"'; if($links==$i){echo ' selected'; $axes_lin = 1;} else{if($i==102&&$axes_lin==0){echo ' selected'; $axes_lin = 1;}}; echo '>' . $i . '</option>'; };
+											break;
+										case "vcones";
+											$vcones_lin = 0;
+											for($i=2; $i<6; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="l_' . $calc . '" value="' . $calc . '"'; if($links==$calc){echo ' selected'; $vcones_lin = 1; } else{if($i==5&&$vcones_lin==0){echo ' selected'; $vcones_lin = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "hcones";
+											$hcones_lin = 0;
+											for($i=2; $i<6; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="l_' . $calc . '" value="' . $calc . '"'; if($links==$calc){echo ' selected'; $hcones_lin = 1; } else{if($i==5&&$hcones_lin==0){echo ' selected'; $hcones_lin = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "sandglass";
+											$sandglass_lin = 0;
+											for($i=2; $i<6; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="l_' . $calc . '" value="' . $calc . '"'; if($links==$calc){echo ' selected'; $sandglass_lin = 1;} else{if($i==5&&$sandglass_lin==0){echo ' selected'; $sandglass_lin = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+										case "square";
+											$square_lin = 0;
+											for($i=2; $i<11; $i++){echo '<option id="l_' . $i*$i . '" value="' . $i*$i . '"'; if($links==$i*$i){echo ' selected'; $square_lin = 1;} else{if($i==10&&$square_lin==0){echo ' selected'; $square_lin = 1;}}; echo '>' . $i*$i . '</option>'; };
+											break;
+										case "fir";
+											$fir_lin = 0;
+											for($i=1; $i<8; $i++){$calc = (2*$i*$i+2*$i+1); echo '<option id="l_' . $calc . '" value="' . $calc . '"'; if($links==$calc){echo ' selected'; $fir_lin = 1;} else{if($i==7&&$fir_lin==0){echo ' selected'; $fir_lin = 1;}}; echo '>' . $calc . '</option>'; };
+											break;
+										case "triangle";
+											$triangle_lin = 0;
+											for($i=3; $i<15; $i++){$calc = (0.5*$i*$i+0.5*$i); echo '<option id="l_' . $calc . '" value="' . $calc . '"'; if($links==$calc){echo ' selected'; $triangle_lin = 1;} else{if($i==14&&$triangle_lin==0){echo ' selected'; $triangle_lin = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+										case "heart";
+											$heart_lin = 0;
+											for($i=12; $i<60; $i+=12){echo '<option id="l_' . $i . '" value="' . $i . '"'; if($links==$i){echo ' selected'; $heart_lin = 1;} else{if($i==102&&$heart_lin==0){echo ' selected'; $heart_lin = 1;}}; echo '>' . ($i-$i/6) . '</option>'; };
+											break;
+										default:
+											$default_lin = 0;
+											for($i=5; $i<105; $i+=5){echo '<option id="l_' . $i . '" value="' . $i . '"'; if($links==$i){echo ' selected'; $default_lin = 1;} else{if($i==100&&$default_lin==0){echo ' selected'; $default_lin = 1;}}; echo '>' . $i . '</option>'; };
+											echo '<option id="l_105"'; if($links=='-1'){echo ' selected';}; echo ' value="-1">all</option>';
+									}
 								?>
 							</select>
-						</label>  																	
+						</label> 
 						<label style="margin: 2px 0 0 0; clear: both; width: 175px; line-height: 13px;" title="The menu to be displayed" for="<?=$this->get_field_id('menu'); ?>">
 							Menu
 							<br>
@@ -336,58 +552,380 @@
 										echo ">" . $term->name . "</option>";
 									 }
 								 }
-							?>						
+							?>
 							</select>
-						</label>  							
+						</label>
 						<br style="clear: both" />
-					<label style="margin: 19px 0 0 0; width: 220px; line-height: 13px;" title="Number of tags to display" for="<?=$this->get_field_id('tags'); ?>">
+					<label style="margin: 2px 0 0 0; width: 220px; line-height: 13px;" title="Number of categories to display" for="<?=$this->get_field_id('categories'); ?>">
+						Number
+						<br>
+						<select id="<?=$this->get_field_id('categories'); ?>" name="<?=$this->get_field_name('categories'); ?>">
+							<?php 
+								switch($shape){
+									case "spiral":
+										$spiral_cat = 0;
+										for($i=8; $i<71; $i+=7){echo '<option id="c_' . $i . '" value="' . $i . '"'; if($categories==$i){echo ' selected'; $spiral_cat = 1;} else{if($i==64&&$spiral_cat==0){echo ' selected'; $spiral_spiralcat = 1;}}; echo '>' . $i . '</option>'; };
+										break;
+									case "hexagon":
+										$hexagon_cat = 0;
+										for($i=1; $i<5; $i++){$calc = 3*$i*$i+3*$i+1; echo '<option id="c_' . $calc . '" value="' . $calc  . '"'; if($categories==$calc ){echo ' selected'; $hexagon_cat = 1;} else{if($i==4&&$hexagon_cat==0){echo ' selected'; $hexagon_cat = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "cube":
+										$cube_cat = 0;
+										for($i=0; $i<3; $i++){$calc = 6*$i*$i+12*$i+8 ; echo '<option id="c_' . $calc . '" value="' . $calc  . '"'; if($categories==$calc ){echo ' selected'; $cube_cat = 1;} else{if($i==2&&$cube_cat==0){echo ' selected'; $cube_cat = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "pyramid":
+										$pyramid_cat = 0;
+										for($i=1; $i<7; $i++){$calc = 2*$i*$i+2; echo '<option id="c_' . $calc . '" value="' . $calc  . '"'; if($categories==$calc ){echo ' selected'; $pyramid_cat = 1;} else{if($i==6&&$pyramid_cat==0){echo ' selected'; $pyramid_cat = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "circles":
+										$circles_cat = 0;
+										for($i=2; $i<6; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6; echo '<option id="c_' . $calc . '" value="' . $calc . '"'; if($categories==$calc){echo ' selected'; $circles_cat = 1;} else{if($i==5&&$circles_cat==0){echo ' selected'; $circles_cat = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "antenna":
+										$antenna_cat = 0;
+										for($i=2; $i<6; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6+4; echo '<option id="c_' . $calc . '" value="' . $calc . '"'; if($categories==$calc){echo ' selected'; $antenna_cat = 1;} else{if($i==5&&$antenna_cat==0){echo ' selected'; $antenna_cat = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "beam":
+										$beam_cat = 0;
+										for($i=5; $i<15; $i+=5){echo '<option id="c_' . $i . '" value="' . $i . '"'; if($categories==$i){echo ' selected'; $beam_cat = 1;} else{if($i==10&&$beam_cat==0){echo ' selected'; $beam_cat = 1;}}; echo '>' . $i . '</option>'; };
+										break;
+									case "axes":
+										$axes_cat = 0;
+										for($i=6; $i<66; $i+=6){echo '<option id="c_' . $i . '" value="' . $i . '"'; if($categories==$i){echo ' selected'; $axes_cat = 1;} else{if($i==60&&$axes_cat==0){echo ' selected'; $axes_cat = 1;}}; echo '>' . $i . '</option>'; };
+										break;
+									case "vcones":
+										$vcones_cat = 0;
+										for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="c_' . $calc . '" value="' . $calc . '"'; if($categories==$calc){echo ' selected'; $vcones_cat = 1;} else{if($i==4&&$vcones_cat==0){echo ' selected'; $vcones_cat = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "hcones":
+										$hcones_cat = 0;
+										for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="c_' . $calc . '" value="' . $calc . '"'; if($categories==$calc){echo ' selected'; $hcones_cat = 1;} else{if($i==4&&$hcones_cat==0){echo ' selected'; $hcones_cat = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "sandglass":
+										$sandglass_cat = 0;
+										for($i=2; $i<5; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="c_' . $calc . '" value="' . $calc . '"'; if($categories==$calc){echo ' selected'; $sandglass_cat = 1;} else{if($i==4&&$sandglass_cat==0){echo ' selected'; $sandglass_cat = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "square":
+										$square_cat = 0;
+										for($i=2; $i<9; $i++){echo '<option id="c_' . $i*$i . '" value="' . $i*$i . '"'; if($categories==$i*$i){echo ' selected'; $square_cat = 1;} else{if($i==8&&$square_cat==0){echo ' selected'; $square_cat = 1;}}; echo '>' . $i*$i . '</option>'; };
+										break;
+									case "fir":
+										$fir_cat = 0;
+										for($i=1; $i<6; $i++){$calc = (2*$i*$i+2*$i+1); echo '<option id="c_' . $calc . '" value="' . $calc . '"'; if($categories==$calc){echo ' selected'; $fir_cat = 1;} else{if($i==5&&$fir_cat==0){echo ' selected'; $fir_cat = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "triangle":
+										$triangle_cat = 0;
+										for($i=3; $i<12; $i++){$calc = (0.5*$i*$i+0.5*$i); echo '<option id="c_' . $calc . '" value="' . $calc . '"'; if($categories==$calc){echo ' selected'; $triangle_cat = 1;} else{if($i==11&&$triangle_cat==0){echo ' selected'; $triangle_cat = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "heart":
+										$heart_cat = 0;
+										for($i=12; $i<60; $i+=12){echo '<option id="c_' . $i . '" value="' . $i . '"'; if($categories==$i){echo ' selected'; $heart_cat = 1;} else{if($i==60&&$heart_cat==0){echo ' selected'; $heart_cat = 1;}}; echo '>' . ($i-$i/6) . '</option>'; };
+										break;
+									default:
+										$default_cat = 0;
+										for($i=5; $i<65; $i+=5){echo '<option id="c_' . $i . '" value="' . $i . '"'; if($categories==$i){echo ' selected'; $default_cat = 1;} else{if($i==60&&$default_cat==0){echo ' selected'; $default_cat = 1;}}; echo '>' . $i . '</option>'; };
+										echo '<option id="c_65"'; if($categories=='0'){echo ' selected';}; echo ' value="0">all</option>';
+								}
+							?>
+						</select>
+					</label> 
+					<label style="margin: 2px 0 0 0; width: 220px; line-height: 13px;" title="Number of tags to display" for="<?=$this->get_field_id('tags'); ?>">
 						Number
 						<br>
 						<select id="<?=$this->get_field_id('tags'); ?>" name="<?=$this->get_field_name('tags'); ?>">
 							<?php 
-								for($i=10; $i<125; $i+=5){
-									echo '<option id="t_' . $i . '" value="' . $i . '"'; if($tags==$i){echo ' selected';}; echo '>' . $i . '</option>'; 
-								} 
-								echo '<option id="t_125"'; if($tags=='0'){echo ' selected';}; echo ' value="0">all</option>';
+								switch($shape){
+									case "spiral":
+										$spiral_pos = 0;
+										for($i=8; $i<127; $i+=7){echo '<option id="t_' . $i . '" value="' . $i . '"'; if($tags==$i){echo ' selected'; $spiral_pos = 1;} else{if($i==120&&$spiral_pos==0){echo ' selected'; $spiral_pos = 1;}}; echo '>' . $i . '</option>'; };
+										break;
+										$hexagon_pos = 0;
+									case "hexagon":
+										for($i=1; $i<7; $i++){$calc = 3*$i*$i+3*$i+1; echo '<option id="t_' . $calc . '" value="' . $calc  . '"'; if($tags==$calc ){echo ' selected'; $hexagon_pos = 1;} else{if($i==6&&$hexagon_pos==0){echo ' selected'; $hexagon_pos = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "cube":
+										$cube_pos = 0;
+										for($i=0; $i<5; $i++){$calc = 6*$i*$i+12*$i+8 ; echo '<option id="t_' . $calc . '" value="' . $calc  . '"'; if($tags==$calc ){echo ' selected'; $cube_pos = 1;} else{if($i==4&&$cube_pos==0){echo ' selected'; $cube_pos = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "pyramid":
+										$pyramid_pos = 0;
+											for($i=1; $i<9; $i++){$calc = 2*$i*$i+2; echo '<option id="t_' . $calc . '" value="' . $calc  . '"'; if($tags==$calc ){echo ' selected'; $pyramid_pos = 1;} else{if($i==8&&$pyramid_pos==0){echo ' selected'; $pyramid_pos = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "circles":
+										$circles_pos = 0;
+										for($i=2; $i<8; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6; echo '<option id="t_' . $calc . '" value="' . $calc . '"'; if($tags==$calc){echo ' selected'; $circles_pos = 1;} else{if($i==7&&$circles_pos==0){echo ' selected'; $circles_pos = 1;}}; echo '>' . $calc . '</option>'; };	
+										break;
+									case "antenna":
+										$antenna_pos = 0;
+										for($i=2; $i<8; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6+4; echo '<option id="t_' . $calc . '" value="' . $calc . '"'; if($tags==$calc){echo ' selected'; $antenna_pos = 1;} else{if($i==7&&$antenna_pos==0){echo ' selected'; $antenna_pos = 1;}}; echo '>' . $calc . '</option>'; };	
+										break;
+									case "beam":
+										$beam_pos = 0;
+										for($i=5; $i<15; $i+=5){echo '<option id="t_' . $i . '" value="' . $i . '"'; if($tags==$i){echo ' selected'; $beam_pos = 1;} else{if($i==10&&$beam_pos==0){echo ' selected'; $beam_pos = 1;}}; echo '>' . $i . '</option>'; };
+										break;
+									case "axes":
+										$axes_pos = 0;
+										for($i=6; $i<126; $i+=6){echo '<option id="t_' . $i . '" value="' . $i . '"'; if($tags==$i){echo ' selected'; $axes_pos = 1;} else{if($i==120&&$axes_pos==0){echo ' selected'; $axes_pos = 1;}}; echo '>' . $i . '</option>'; };
+										break;
+									case "vcones":
+										$vcones_pos = 0;
+										for($i=2; $i<7; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="t_' . $calc . '" value="' . $calc . '"'; if($tags==$calc){echo ' selected'; $vcones_pos = 1;} else{if($i==6&&$vcones_pos==0){echo ' selected'; $vcones_pos = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "hcones":
+										$hcones_pos = 0;
+										for($i=2; $i<7; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="t_' . $calc . '" value="' . $calc . '"'; if($tags==$calc){echo ' selected'; $hcones_pos = 1;} else{if($i==6&&$hcones_pos==0){echo ' selected'; $hcones_pos = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "sandglass":
+										$sandglass_pos = 0;
+										for($i=2; $i<7; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="t_' . $calc . '" value="' . $calc . '"'; if($tags==$calc){echo ' selected'; $sandglass_pos = 1;} else{if($i==6&&$sandglass_pos==0){echo ' selected'; $sandglass_pos = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "square":
+										$square_pos = 0;
+										for($i=2; $i<12; $i++){echo '<option id="t_' . $i*$i . '" value="' . $i*$i . '"'; if($tags==$i*$i){echo ' selected'; $square_pos = 1;} else{if($i==11&&$square_pos==0){echo ' selected'; $square_pos = 1;}}; echo '>' . $i*$i . '</option>'; };
+										break;
+									case "fir":
+										$fir_pos = 0;
+										for($i=1; $i<9; $i++){$calc = (2*$i*$i+2*$i+1); echo '<option id="t_' . $calc . '" value="' . $calc . '"'; if($tags==$calc){echo ' selected'; $fir_pos = 1;} else{if($i==8&&$fir_pos==0){echo ' selected'; $fir_pos = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "triangle":
+										$triangle_pos = 0;
+										for($i=3; $i<16; $i++){$calc = (0.5*$i*$i+0.5*$i); echo '<option id="t_' . $calc . '" value="' . $calc . '"'; if($tags==$calc){echo ' selected'; $triangle_pos = 1;} else{if($i==15&&$triangle_pos==0){echo ' selected'; $triangle_pos = 1;}}; echo '>' . $calc . '</option>'; };
+										break;
+									case "heart":
+										$heart_pos = 0;
+										for($i=12; $i<60; $i+=12){echo '<option id="t_' . $i . '" value="' . $i . '"'; if($tags==$i){echo ' selected'; $heart_pos = 1;} else{if($i==120&&$heart_pos==0){echo ' selected'; $heart_pos = 1;}}; echo '>' . ($i-$i/6) . '</option>'; };
+										break;
+									default:
+										$default_pos = 0;
+										for($i=10; $i<125; $i+=5){echo '<option id="t_' . $i . '" value="' . $i . '"'; if($tags==$i){echo ' selected'; $default_pos = 1;} else{if($i==120&&$default_pos==0){echo ' selected'; $default_pos = 1;}}; echo '>' . $i . '</option>'; };
+										echo '<option id="t_125"'; if($tags=='0'){echo ' selected';}; echo ' value="0">all</option>';
+								}
 							?>
 						</select>
 					</label> 
-					<label style="width: 220px; line-height: 13px; margin: 16px 0 0 0;" title="Number of archives to display" for="<?=$this->get_field_id('archives_limit'); ?>">
+					<label style="width: 220px; line-height: 13px; margin: 2px 0 0 0;" title="Number of archives to display" for="<?=$this->get_field_id('archives_limit'); ?>">
 						<span style="margin-right: 5px; font-weight: normal;">Number</span>
-						<br> 							
+						<br>	
 						<select id="<?=$this->get_field_id('archives_limit'); ?>" name="<?=$this->get_field_name('archives_limit'); ?>">
 						<?php 
-							for($i=6; $i<66; $i+=6){
-								echo '<option id="arli_' . $i . '" value="' . $i . '"'; if($archives_limit==$i){echo ' selected';}; echo '>' . $i . '</option>'; 
-							} 
-							echo '<option id="arli_66"'; if($archives_limit==''){echo ' selected';}; echo ' value="">all</option>';
+							switch($shape){
+								case "spiral":
+									$spiral_arc = 0;
+									for($i=8; $i<71; $i+=7){echo '<option id="arli_' . $i . '" value="' . $i . '"'; if($archives_limit==$i){echo ' selected'; $spiral_arc = 1;} else{if($i==64&&$spiral_arc==0){echo ' selected'; $spiral_arc = 1;}}; echo '>' . $i . '</option>'; };
+									break;
+								case "hexagon":
+									$hexagon_arc = 0;
+									for($i=1; $i<5; $i++){$calc = 3*$i*$i+3*$i+1; echo '<option id="arli_' . $calc . '" value="' . $calc  . '"'; if($archives_limit==$calc ){echo ' selected'; $hexagon_arc = 1;} else{if($i==4&&$hexagon_arc==0){echo ' selected'; $hexagon_arc = 1;}}; echo '>' . $calc. '</option>'; };
+									break;
+								case "cube":
+									$cube_arc = 0;
+									for($i=0; $i<3; $i++){$calc = 6*$i*$i+12*$i+8; echo '<option id="arli_' . $calc . '" value="' . $calc  . '"'; if($archives_limit==$calc ){echo ' selected'; $cube_arc = 1;} else{if($i==2&&$cube_arc==0){echo ' selected'; $cube_arc = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "pyramid":
+									$pyramid_arc = 0;
+									for($i=1; $i<7; $i++){$calc = 2*$i*$i+2; echo '<option id="arli_' . $calc . '" value="' . $calc  . '"'; if($archives_limit==$calc ){echo ' selected'; $pyramid_arc = 1;} else{if($i==6&&$pyramid_arc==0){echo ' selected'; $pyramid_arc = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "circles":
+									$circles_arc = 0;
+									for($i=2; $i<6; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6; echo '<option id="arli_' . $calc . '" value="' . $calc . '"'; if($archives_limit==$calc){echo ' selected'; $circles_arc = 1;} else{if($i==5&&$circles_arc==0){echo ' selected'; $circles_arc = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "antenna":
+									$antenna_arc = 0;
+									for($i=2; $i<6; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6+4; echo '<option id="arli_' . $calc . '" value="' . $calc . '"'; if($archives_limit==$calc){echo ' selected'; $antenna_arc = 1;} else{if($i==5&&$antenna_arc==0){echo ' selected'; $antenna_arc = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "beam":
+									$beam_arc = 0;
+									for($i=5; $i<15; $i+=5){echo '<option id="arli_' . $i . '" value="' . $i . '"'; if($archives_limit==$i){echo ' selected'; $beam_arc = 1;} else{if($i==10&&$beam_arc==0){echo ' selected'; $beam_arc = 1;}}; echo '>' . $i . '</option>'; };
+									break;
+								case "axes":
+									$axes_arc = 0;
+									for($i=6; $i<66; $i+=6){echo '<option id="arli_' . $i . '" value="' . $i . '"'; if($archives_limit==$i){echo ' selected'; $axes_arc = 1;} else{if($i==60&&$axes_arc==0){echo ' selected'; $axes_arc = 1;}}; echo '>' . $i . '</option>'; };
+									break;
+								case "vcones":
+									$vcones_arc = 0;
+									for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="arli_' . $calc . '" value="' . $calc . '"'; if($archives_limit==$calc){echo ' selected'; $vcones_arc = 1;} else{if($i==4&&$vcones_arc==0){echo ' selected'; $vcones_arc = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "hcones":
+									$hcones_arc = 0;
+									for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="arli_' . $calc . '" value="' . $calc . '"'; if($archives_limit==$calc){echo ' selected'; $hcones_arc = 1;} else{if($i==4&&$hcones_arc==0){echo ' selected'; $hcones_arc = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "sandglass":
+									$sandglass_arc = 0;
+									for($i=2; $i<5; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="arli_' . $calc . '" value="' . $calc . '"'; if($archives_limit==$calc){echo ' selected'; $sandglass_arc = 1;} else{if($i==4&&$sandglass_arc==0){echo ' selected'; $sandglass_arc = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "square":
+									$square_arc = 0;
+									for($i=2; $i<9; $i++){echo '<option id="arli_' . $i*$i . '" value="' . $i*$i . '"'; if($archives_limit==$i*$i){echo ' selected'; $square_arc = 1;} else{if($i==8&&$square_arc==0){echo ' selected'; $square_arc = 1;}}; echo '>' . $i*$i . '</option>'; };
+									break;
+								case "fir":
+									$fir_arc = 0;
+									for($i=1; $i<6; $i++){$calc = (2*$i*$i+2*$i+1); echo '<option id="arli_' . $calc . '" value="' . $calc . '"'; if($archives_limit==$calc){echo ' selected'; $fir_arc = 1;} else{if($i==5&&$fir_arc==0){echo ' selected'; $fir_arc = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "triangle":
+									$triangle_arc = 0;
+									for($i=3; $i<12; $i++){$calc = (0.5*$i*$i+0.5*$i); echo '<option id="arli_' . $calc . '" value="' . $calc . '"'; if($archives_limit==$calc){echo ' selected'; $triangle_arc = 1;} else{if($i==11&&$triangle_arc==0){echo ' selected'; $triangle_arc = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "heart":
+									$heart_arc = 0;
+									for($i=12; $i<60; $i+=12){echo '<option id="arli_' . $i . '" value="' . $i . '"'; if($archives_limit==$i){echo ' selected'; $heart_arc = 1;} else{if($i==60&&$heart_arc==0){echo ' selected'; $heart_arc = 1;}}; echo '>' . ($i-$i/6) . '</option>'; };
+									break;
+								default:
+									$default_arc = 0;
+									for($i=6; $i<66; $i+=6){echo '<option id="arli_' . $i . '" value="' . $i . '"'; if($archives_limit==$i){echo ' selected'; $default_arc = 1;} else{if($i==60&&$default_arc==0){echo ' selected'; $default_arc = 1;}}; echo '>' . $i . '</option>'; };
+									echo '<option id="arli_66"'; if($archives_limit==''){echo ' selected';}; echo ' value="">all</option>';
+							}
 						?>
 						</select>
 					</label>
 					<label style="width: 220px; line-height: 13px; margin: 2px 0 0 0;" title="Number of pages to display" for="<?=$this->get_field_id('pages_limit'); ?>">
 						<span style="margin-right: 5px; font-weight: normal;">Number</span>
-						<br> 							
+						<br> 
 						<select id="<?=$this->get_field_id('pages_limit'); ?>" name="<?=$this->get_field_name('pages_limit'); ?>">
 						<?php 
-							for($i=5; $i<55; $i+=5){
-								echo '<option id="pali_' . $i . '" value="' . $i . '"'; if($pages_limit==$i){echo ' selected';}; echo '>' . $i . '</option>'; 
-							} 
-							echo '<option id="pali_55"'; if($pages_limit==''){echo ' selected';}; echo ' value="">all</option>';
+							switch($shape){
+								case "spiral":
+									$spiral_pag = 0;
+									for($i=8; $i<57; $i+=7){echo '<option id="pali_' . $i . '" value="' . $i . '"'; if($pages_limit==$i){echo ' selected'; $spiral_pag = 1;} else{if($i==50&&$spiral_pag==0){echo ' selected'; $spiral_pag = 1;}}; echo '>' . $i . '</option>'; };
+									break;
+								case "hexagon":
+									$hexagon_pag = 0;
+									for($i=1; $i<4; $i++){$calc = 3*$i*$i+3*$i+1; echo '<option id="pali_' . $calc . '" value="' . $calc  . '"'; if($pages_limit==$calc ){echo ' selected'; $hexagon_pag = 1;} else{if($i==3&&$hexagon_pag==0){echo ' selected'; $hexagon_pag = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "cube":
+									$cube_pag = 0;
+									for($i=0; $i<2; $i++){$calc = 6*$i*$i+12*$i+8; echo '<option id="pali_' . $calc . '" value="' . $calc  . '"'; if($pages_limit==$calc ){echo ' selected'; $cube_pag = 1;} else{if($i==1&&$cube_pag==0){echo ' selected'; $cube_pag = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "pyramid":
+									$pyramid_pag = 0;
+									for($i=1; $i<6; $i++){$calc = 2*$i*$i+2; echo '<option id="pali_' . $calc . '" value="' . $calc  . '"'; if($pages_limit==$calc ){echo ' selected'; $pyramid_pag = 1;} else{if($i==5&&$pyramid_pag==0){echo ' selected'; $pyramid_pag = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "circles":
+									$circles_pag = 0;
+									for($i=2; $i<6; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6; echo '<option id="pali_' . $calc . '" value="' . $calc . '"'; if($pages_limit==$calc){echo ' selected'; $circles_pag = 1;} else{if($i==5&&$circles_pag==0){echo ' selected'; $circles_pag = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "antenna":
+									$antenna_pag = 0;
+									for($i=2; $i<6; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6+4; echo '<option id="pali_' . $calc . '" value="' . $calc . '"'; if($pages_limit==$calc){echo ' selected'; $antenna_pag = 1;} else{if($i==5&&$antenna_pag==0){echo ' selected'; $antenna_pag = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "beam":
+									$beam_pag = 0;
+									for($i=5; $i<15; $i+=5){echo '<option id="pali_' . $i . '" value="' . $i . '"'; if($pages_limit==$i){echo ' selected'; $beam_pag = 1;} else{if($i==10&&$beam_pag==0){echo ' selected'; $beam_pag = 1;}}; echo '>' . $i . '</option>'; };
+									break;
+								case "axes":
+									$axes_pag = 0;
+									for($i=6; $i<54; $i+=6){echo '<option id="pali_' . $i . '" value="' . $i . '"'; if($pages_limit==$i){echo ' selected'; $axes_pag = 1;} else{if($i==48&&$axes_pag==0){echo ' selected'; $axes_pag = 1;}}; echo '>' . $i . '</option>'; };
+									break;
+								case "vcones":
+									$vcones_pag = 0;
+									for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="pali_' . $calc . '" value="' . $calc . '"'; if($pages_limit==$calc){echo ' selected'; $vcones_pag = 1;} else{if($i==4&&$vcones_pag==0){echo ' selected'; $vcones_pag = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "hcones":
+									$hcones_pag = 0;
+									for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="pali_' . $calc . '" value="' . $calc . '"'; if($pages_limit==$calc){echo ' selected'; $hcones_pag = 1;} else{if($i==4&&$hcones_pag==0){echo ' selected'; $hcones_pag = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "sandglass":
+									$sandglass_pag = 0;
+									for($i=2; $i<4; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="pali_' . $calc . '" value="' . $calc . '"'; if($pages_limit==$calc){echo ' selected'; $sandglass_pag = 1;} else{if($i==3&&$sandglass_pag==0){echo ' selected'; $sandglass_pag = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "square":
+									$square_pag = 0;
+									for($i=2; $i<8; $i++){echo '<option id="pali_' . $i*$i . '" value="' . $i*$i . '"'; if($pages_limit==$i*$i){echo ' selected'; $square_pag = 1;} else{if($i==7&&$square_pag==0){echo ' selected'; $square_pag = 1;}}; echo '>' . $i*$i . '</option>'; };
+									break;
+								case "fir":
+									$fir_pag = 0;
+									for($i=1; $i<5; $i++){$calc = (2*$i*$i+2*$i+1); echo '<option id="pali_' . $calc . '" value="' . $calc . '"'; if($pages_limit==$calc){echo ' selected'; $fir_pag = 1;} else{if($i==4&&$fir_pag==0){echo ' selected'; $fir_pag = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "triangle":
+									$triangle_pag = 0;
+									for($i=3; $i<11; $i++){$calc = (0.5*$i*$i+0.5*$i); echo '<option id="pali_' . $calc . '" value="' . $calc . '"'; if($pages_limit==$calc){echo ' selected'; $triangle_pag = 1;} else{if($i==10&&$triangle_pag==0){echo ' selected'; $triangle_pag = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "heart":
+									$heart_pag = 0;
+									for($i=12; $i<48; $i+=12){echo '<option id="pali_' . $i . '" value="' . $i . '"'; if($pages_limit==$i){echo ' selected'; $heart_pag = 1;} else{if($i==48&&$heart_pag==0){echo ' selected'; $heart_pag = 1;}}; echo '>' . ($i-$i/6) . '</option>'; };
+									break;
+								default:
+									$default_pag = 0;
+									for($i=5; $i<55; $i+=5){echo '<option id="pali_' . $i . '" value="' . $i . '"'; if($pages_limit==$i){echo ' selected'; $default_pag = 1;} else{if($i==50&&$default_pag==0){echo ' selected'; $default_pag = 1;}}; echo '>' . $i . '</option>'; };
+									echo '<option id="pali_55"'; if($pages_limit==''){echo ' selected';}; echo ' value="">all</option>';
+							}
 						?>
 						</select>
-					</label>  	
+					</label> 
 					<label style="margin: 2px 5px 0 0; width: 45px; line-height: 13px;" title="Number of authors to display" for="<?=$this->get_field_id('authors_limit'); ?>">
 						<span style="margin-right: 5px; font-weight: normal;">Number</span> 
 						<br> 							
 						<select id="<?=$this->get_field_id('authors_limit'); ?>" name="<?=$this->get_field_name('authors_limit'); ?>">
-							<?php 
-								for($i=5; $i<55; $i+=5){
-									echo '<option id="auli_' . $i . '" value="' . $i . '"'; if($authors_limit==$i){echo ' selected';}; echo '>' . $i . '</option>'; 
-								} 
-								echo '<option id="auli_55"'; if($authors_limit==''){echo ' selected';}; echo ' value="">all</option>';
+							<?php
+								switch($shape){
+								case "spiral":
+									$spiral_aut = 0;
+									for($i=8; $i<57; $i+=7){echo '<option id="auli_' . $i . '" value="' . $i . '"'; if($authors_limit==$i){echo ' selected'; $spiral_aut = 1;} else{if($i==50&&$spiral_aut==0){echo ' selected'; $spiral_aut = 1;}}; echo '>' . $i . '</option>'; }
+									break;
+								case "hexagon":
+									$hexagon_aut = 0;
+									for($i=1; $i<4; $i++){$calc = 3*$i*$i+3*$i+1;  echo '<option id="auli_' . $calc . '" value="' . $calc  . '"'; if($authors_limit==$calc ){echo ' selected'; $hexagon_aut = 1;} else{if($i==3&&$hexagon_aut==0){echo ' selected'; $hexagon_aut = 1;}}; echo '>' . $calc . '</option>'; }   
+									break;
+								case "cube":
+									$cube_aut = 0;
+									for($i=0; $i<2; $i++){$calc = 6*$i*$i+12*$i+8; echo '<option id="auli_' . $calc . '" value="' . $calc  . '"'; if($authors_limit==$calc ){echo ' selected'; $cube_aut = 1;} else{if($i==1&&$cube_aut==0){echo ' selected'; $cube_aut = 1;}}; echo '>' . $calc . '</option>'; } 
+									break;
+								case "pyramid":
+									$pyramid_aut = 0;
+									for($i=1; $i<6; $i++){$calc = 2*$i*$i+2; echo '<option id="auli_' . $calc . '" value="' . $calc  . '"'; if($authors_limit==$calc ){echo ' selected'; $pyramid_aut = 1;} else{if($i==5&&$pyramid_aut==0){echo ' selected'; $pyramid_aut = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "circles":
+									$circles_aut = 0;
+									for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6; echo '<option id="auli_' . $calc . '" value="' . $calc . '"'; if($authors_limit==$calc){echo ' selected'; $circles_aut = 1;} else{if($i==4&&$circles_aut==0){echo ' selected'; $circles_aut = 1;}}; echo '>' . $calc . '</option>'; }	
+									break;
+								case "antenna":
+									$antenna_aut = 0;
+									for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+3*$i*$i+$i)/6+4; echo '<option id="auli_' . $calc . '" value="' . $calc . '"'; if($authors_limit==$calc){echo ' selected'; $antenna_aut = 1;} else{if($i==4&&$antenna_aut==0){echo ' selected'; $antenna_aut = 1;}}; echo '>' . $calc . '</option>'; }	
+									break;
+								case "beam":
+									$beam_aut = 0;
+									for($i=5; $i<15; $i+=5){echo '<option id="auli_' . $i . '" value="' . $i . '"'; if($authors_limit==$i){echo ' selected'; $beam_aut = 1;} else{if($i==10&&$beam_aut==0){echo ' selected'; $beam_aut = 1;}}; echo '>' . $i . '</option>'; }
+									break;
+								case "axes":
+									$axes_aut = 0;
+									for($i=6; $i<54; $i+=6){echo '<option id="auli_' . $i . '" value="' . $i . '"'; if($authors_limit==$i){echo ' selected'; $axes_aut = 1;} else{if($i==48&&$axes_aut==0){echo ' selected'; $axes_aut = 1;}}; echo '>' . $i . '</option>'; }
+									break;
+								case "vcones":
+									$vcones_aut = 0;
+									for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="auli_' . $calc . '" value="' . $calc . '"'; if($authors_limit==$calc){echo ' selected'; $vcones_aut = 1;} else{if($i==4&&$vcones_aut==0){echo ' selected'; $vcones_aut = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "hcones":
+									$hcones_aut = 0;
+									for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="auli_' . $calc . '" value="' . $calc . '"'; if($authors_limit==$calc){echo ' selected'; $hcones_aut = 1;} else{if($i==4&&$hcones_aut==0){echo ' selected'; $hcones_aut = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "sandglass":
+									$sandglass_aut = 0;
+									for($i=2; $i<4; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="auli_' . $calc . '" value="' . $calc . '"'; if($authors_limit==$calc){echo ' selected'; $sandglass_aut = 1;} else{if($i==3&&$sandglass_aut==0){echo ' selected'; $sandglass_aut = 1;}}; echo '>' . $calc . '</option>'; };
+									break;
+								case "square":
+									$square_aut = 0;
+									for($i=2; $i<8; $i++){echo '<option id="auli_' . $i*$i . '" value="' . $i*$i . '"'; if($authors_limit==$i*$i){echo ' selected'; $square_aut = 1;} else{if($i==7&&$square_aut==0){echo ' selected'; $square_aut = 1;}}; echo '>' . $i*$i . '</option>'; }
+									break;
+								case "fir":
+									$fir_aut = 0;
+									for($i=1; $i<5; $i++){$calc = (2*$i*$i+2*$i+1); echo '<option id="auli_' . $calc . '" value="' . $calc . '"'; if($authors_limit==$calc){echo ' selected'; $fir_aut = 1;} else{if($i==4&&$fir_aut==0){echo ' selected'; $fir_aut = 1;}}; echo '>' . $calc . '</option>'; }
+									break;
+								case "triangle":
+									$triangle_aut = 0;
+									for($i=3; $i<11; $i++){$calc = (0.5*$i*$i+0.5*$i); echo '<option id="auli_' . $calc . '" value="' . $calc . '"'; if($authors_limit==$calc){echo ' selected'; $triangle_aut = 1;} else{if($i==10&&$triangle_aut==0){echo ' selected'; $triangle_aut = 1;}}; echo '>' . $calc . '</option>'; }
+									break;
+								case "heart":
+									$heart_aut = 0;
+									for($i=12; $i<48; $i+=12){echo '<option id="auli_' . $i . '" value="' . $i . '"'; if($authors_limit==$i){echo ' selected'; $heart_aut = 1;} else{if($i==48&&$heart_aut==0){echo ' selected'; $heart_aut = 1;}}; echo '>' . ($i-$i/6) . '</option>'; }
+									break;
+								default:
+									$default_aut = 0;
+									for($i=5; $i<55; $i+=5){echo '<option id="auli_' . $i . '" value="' . $i . '"'; if($authors_limit==$i){echo ' selected'; $default_aut = 1;} else{if($i==50&&$default_aut==0){echo ' selected'; $default_aut = 1;}}; echo '>' . $i . '</option>'; };
+									echo '<option id="auli_55"'; if($authors_limit==''){echo ' selected';}; echo ' value="">all</option>';
+							}
 							?>
 						</select>
-					</label>  	
+					</label>
 					<label style="width: 173px; margin: 2px 0 0 0; line-height: 13px;" title="Exclude one or more authors from the results. Enter a comma-separated list of authors IDs." for="<?=$this->get_field_id('exclude'); ?>">
 						Exclude 
 						<input style="margin-top: 0; width: 173px;"
@@ -417,7 +955,9 @@
 		</table>	
 		<span>WEIGHT</span>
 		<br>
-		<div style="float: left; margin: 20px 7px 0 0;">
+		<div style="float: left; margin: 2px 7px 0 0;">
+			Status
+			<br>
 			<input style="margin: 3px 1px 0 0;" title="Switches on tag weighting. Subject to weighting could be all types of Cloud's content except Menu and Pages." class="radio" id="<?=$this->get_field_id('weight'); ?>"
 			name="<?=$this->get_field_name('weight'); ?>" type="radio" value="true"
 			<?php if( $weight == "true" ){ echo ' checked="checked"'; } ?>>on
@@ -442,24 +982,24 @@
 			Weight<br>Factor
 			<br>
 			<select id="<?=$this->get_field_id('weight_size'); ?>" name="<?=$this->get_field_name('weight_size'); ?>">
-				<?php for($i=50; $i<505; $i+=5){echo '<option id="ws_' . $i . '" value="' . $i/100 . '"'; if($weight_size==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>		
+				<?php for($i=50; $i<505; $i+=5){echo '<option id="ws_' . $i . '" value="' . $i/100 . '"'; if($weight_size==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
 		</label>
 		<label style="margin: 0 7px 0 0; float: left;" title="Minimal font size when weighted sizing is enabled." for="<?=$this->get_field_id('weight_size_min'); ?>">
 			Weight<br>Size Min
 			<br>
 			<select id="<?=$this->get_field_id('weight_size_min'); ?>" name="<?=$this->get_field_name('weight_size_min'); ?>">
-				<?php for($i=6; $i<17; $i++){echo '<option id="wsmi_' . $i . '" value="' . $i . '"'; if($weight_size_min==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>					
+				<?php for($i=6; $i<17; $i++){echo '<option id="wsmi_' . $i . '" value="' . $i . '"'; if($weight_size_min==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 			</select>px
-		</label>		
+		</label>
 		<label title="Maximal font size when weighted sizing is enabled." for="<?=$this->get_field_id('weight_size_max'); ?>">
 			Weight<br>Size Max
 			<br>
 			<select id="<?=$this->get_field_id('weight_size_max'); ?>" name="<?=$this->get_field_name('weight_size_max'); ?>">
-				<?php for($i=18; $i<33; $i++){echo '<option id="wsm_' . $i . '" value="' . $i . '"'; if($weight_size_max==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>								
+				<?php for($i=18; $i<33; $i++){echo '<option id="wsm_' . $i . '" value="' . $i . '"'; if($weight_size_max==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 			</select>px
 		</label>
-		<div class="thin-spacer"></div>				
+		<div class="thin-spacer"></div>
 		<div style="float: left;" title="This is the link attribute to take the tag weight from. Create your links with <span class='green'>data-weight</span> to embed custom data. If this option is <span class='green'>off</span> the weight will be taken from the calculated link font size.">
 			Weight from 'data-weight' attribute
 			<br>
@@ -471,14 +1011,14 @@
 			name="<?=$this->get_field_name('weight_from'); ?>" type="radio" value=""
 			<?php if( $weight_from == "" ){ echo ' checked="checked"'; } ?>>off
 		</div>	
-		<div class="divider"></div>	
+		<div class="divider"></div>
 		<div style="float: left; margin: 0; height: 40px;" title="Type of highlight to use">
 			<span>OUTLINE METHOD</span>
 			<br>
 			<div class="thin-spacer"></div>
 			<input title="An outline at the same depth as the active tag" class="radio" id="<?=$this->get_field_id('outline_method'); ?>"
 			name="<?=$this->get_field_name('outline_method'); ?>" type="radio" value="outline"
-			<?php if( $outline_method == "outline" ){ echo ' checked="checked"'; } ?>>outline							
+			<?php if( $outline_method == "outline" ){ echo ' checked="checked"'; } ?>>outline
 				
 			<input title="Old-style outline on top of all tags" class="radio" id="<?=$this->get_field_id('outline_method'); ?>"
 			name="<?=$this->get_field_name('outline_method'); ?>" type="radio" value="classic"
@@ -493,11 +1033,11 @@
 			<?php if( $outline_method == "colour" ){ echo ' checked="checked"'; } ?>>color
 				
 			<input title="Increases the size of the tag, using the <span class='green'>outlineIncrease</span> option for the amount." class="radio" id="<?=$this->get_field_id('outline_method'); ?>"
-			name="<?=$this->get_field_name('outline_method'); ?>" type="radio" value="size"	
+			name="<?=$this->get_field_name('outline_method'); ?>" type="radio" value="size"
 			<?php if( $outline_method == "size" ){ echo ' checked="checked"'; } ?>>size
 			
 			<input title="Increases the size of the tag, using the <span class='green'>outlineIncrease</span> option for the amount." class="radio" id="<?=$this->get_field_id('outline_method'); ?>"
-			name="<?=$this->get_field_name('outline_method'); ?>" type="radio" value="none"	
+			name="<?=$this->get_field_name('outline_method'); ?>" type="radio" value="none"
 			<?php if( $outline_method == "none" ){ echo ' checked="checked"'; } ?>>none
 		</div>
 	</div>
@@ -510,21 +1050,21 @@
 			Radius X 
 			<br>
 			<select id="<?=$this->get_field_id('radius_x'); ?>" name="<?=$this->get_field_name('radius_x'); ?>">
-				<?php for($i=0; $i<1005; $i+=5){echo '<option id="rx_' . $i . '" value="' . $i/100 . '"'; if($radius_x==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				<?php for($i=0; $i<1205; $i+=5){echo '<option id="rx_' . $i . '" value="' . $i/100 . '"'; if($radius_x==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
-		</label>				
+		</label>
 		<label style="width: 90px;" title="Initial size of cloud from center to top and bottom." for="<?=$this->get_field_id('radius_y'); ?>">
 			Radius Y 
 			<br>
 			<select id="<?=$this->get_field_id('radius_y'); ?>" name="<?=$this->get_field_name('radius_y'); ?>">
-				<?php for($i=0; $i<1005; $i+=5){echo '<option id="ry_' . $i . '" value="' . $i/100 . '"'; if($radius_y==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				<?php for($i=0; $i<1205; $i+=5){echo '<option id="ry_' . $i . '" value="' . $i/100 . '"'; if($radius_y==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
-		</label>				
-		<div style="width: 90px; float: left;<?php if($shape == 'spiral'||$shape == 'hexagon') {echo ' visibility: hidden;';}; ?>" title="Initial size of cloud from center to front and back." id="cont_<?=$this->get_field_id('radius_z'); ?>" <?php if($shape == 'spiral'||$shape == 'hexagon') {echo '; visibility: hidden;';}; ?>>
-			Radius Z 
+		</label>
+		<div style="width: 90px; float: left;<?php if($shape == 'spiral'||$shape == 'hexagon'||$shape == 'circles'||$shape == 'beam') {echo ' visibility: hidden;';}; ?>" title="Initial size of cloud from center to front and back." id="cont_<?=$this->get_field_id('radius_z'); ?>">
+			Radius Z
 			<br>
 			<select id="<?=$this->get_field_id('radius_z'); ?>" name="<?=$this->get_field_name('radius_z'); ?>">
-				<?php for($i=0; $i<1005; $i+=5){echo '<option id="rz_' . $i . '" value="' . $i/100 . '"'; if($radius_z==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				<?php for($i=0; $i<1205; $i+=5){echo '<option id="rz_' . $i . '" value="' . $i/100 . '"'; if($radius_z==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
 		</div> 
 		<label title="Controls the perspective." style="width: 58px;" for="<?=$this->get_field_id('depth'); ?>">
@@ -608,57 +1148,42 @@
 		</label>
 
 	</div>
-	<h3><span class="front-title">cloud:</span> SPEED & OPACITY</h3>
+	<h3><span class="front-title">cloud:</span> SPEED</h3>
 	<div class="section_content" style="padding: 0 2px 5px;">
-		<div style="width: 128px; float: left;" title="Starting rotation speed, with horizontal and vertical values as an array, e.g. <span class='green'>[0.5,-0.3]</span>. Values are multiplied by <span class='green'>maxSpeed</span>.">
+		<div style="width: 192px; float: left;" title="Starting rotation speed around axes with values for each one, e.g. <span class='green'>[0.5,-0.3, 0.1]</span>. Values are multiplied by <span class='green'>maxSpeed</span>.">
 			<div style="font-weight: bold; padding: 5px 0 0;">SPEED</div>
 			<div class="thin-spacer"></div>
 			<div style="float: left; padding: 0 1px 1px 1px; border: 1px dotted #aaa; border-radius: 5px;">
-				Initial Speed [x, y]
+				Initial Speed [x, y, z]
 				<br>
-				<select id="<?=$this->get_field_id('initial_x'); ?>" name="<?=$this->get_field_name('initial_x'); ?>">		
-					<?php for($i=-100; $i<101; $i++){echo '<option id="inx_' . $i . '" value="' . $i/100 . '"'; if($initial_x==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>							
-				</select><select id="<?=$this->get_field_id('initial_y'); ?>" name="<?=$this->get_field_name('initial_y'); ?>">	
-					<?php for($i=-100; $i<101; $i++){echo '<option id="iny_' . $i . '" value="' . $i/100 . '"'; if($initial_y==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>							
+				<select id="<?=$this->get_field_id('initial_x'); ?>" name="<?=$this->get_field_name('initial_x'); ?>">
+					<?php for($i=-100; $i<101; $i++){echo '<option id="inx_' . $i . '" value="' . $i/100 . '"'; if($initial_x==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				</select><select id="<?=$this->get_field_id('initial_y'); ?>" name="<?=$this->get_field_name('initial_y'); ?>">
+					<?php for($i=-100; $i<101; $i++){echo '<option id="iny_' . $i . '" value="' . $i/100 . '"'; if($initial_y==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				</select><select id="<?=$this->get_field_id('initial_z'); ?>" name="<?=$this->get_field_name('initial_z'); ?>">
+					<?php for($i=-100; $i<101; $i++){echo '<option id="inz_' . $i . '" value="' . $i/100 . '"'; if($initial_z==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 				</select>
 			</div>
 		</div>
-		<label style="width: 68px; padding: 25px 0 0;" title="Minimal speed of rotation when mouse leaves canvas." for="<?=$this->get_field_id('min_speed'); ?>">
+		<label style="width: 68px; padding: 28px 5px 0 2px;" title="Minimal speed of rotation when mouse leaves canvas." for="<?=$this->get_field_id('min_speed'); ?>">
 			Min Speed
 			<br>
 			<select id="<?=$this->get_field_id('min_speed'); ?>" name="<?=$this->get_field_name('min_speed'); ?>">
 				<?php for($i=0; $i<55; $i+=5){echo '<option id="mis_' . $i . '" value="' . $i/1000 . '"'; if($min_speed==$i/1000){echo ' selected';}; echo '>' . $i/1000 . '</option>'; } ?>
 			</select>
 		</label>	
-		<label style="width: 68px; padding: 25px 0 0;" title="Maximum speed of rotation: This setting is just a multiplier of speed." for="<?=$this->get_field_id('max_speed'); ?>">
+		<label style="width: 68px; padding: 28px 0 0;" title="Maximum speed of rotation: This setting is just a multiplier of speed." for="<?=$this->get_field_id('max_speed'); ?>">
 			Max Speed
 			<br>
 			<select id="<?=$this->get_field_id('max_speed'); ?>" name="<?=$this->get_field_name('max_speed'); ?>">
 				<?php for($i=5; $i<105; $i+=5){echo '<option id="mas_' . $i . '" value="' . $i/1000 . '"'; if($max_speed==$i/1000){echo ' selected';}; echo '>' . $i/1000 . '</option>'; } ?>
 			</select>
 		</label>
-		<label style="padding: 25px 0 0;" title="Deceleration rate when mouse leaves canvas" for="<?=$this->get_field_id('deceleration'); ?>">
+		<label style="margin: 5px 0 0" title="Deceleration rate when mouse leaves canvas" for="<?=$this->get_field_id('deceleration'); ?>">
 			Deceleration
 			<br>
 			<select id="<?=$this->get_field_id('deceleration'); ?>" name="<?=$this->get_field_name('deceleration'); ?>">
 				<?php for($i=75; $i<100; $i++){echo '<option id="de_' . $i . '" value="' . $i/100 . '"'; if($deceleration==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
-			</select>
-		</label>
-		<div class="divider"></div>
-		<span style="float: left;">OPACITY</span>
-		<div class="thin-spacer"></div>
-		<label style="width: 80px;" title="Minimal opacity of tags at back of cloud." for="<?=$this->get_field_id('min_brightness'); ?>">
-			Min Opacity
-			<br>
-			<select id="<?=$this->get_field_id('min_brightness'); ?>" name="<?=$this->get_field_name('min_brightness'); ?>">
-				<?php for($i=0; $i<105; $i+=5){echo '<option id="mib_' . $i . '" value="' . $i/100 . '"'; if($min_brightness==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>					
-			</select>
-		</label> 
-		<label title="Maximal opacity of tags at front of cloud." for="<?=$this->get_field_id('max_brightness'); ?>">
-			Max Opacity
-			<br>
-			<select id="<?=$this->get_field_id('max_brightness'); ?>" name="<?=$this->get_field_name('max_brightness'); ?>">
-				<?php for($i=0; $i<105; $i+=5){echo '<option id="mab_' . $i . '" value="' . $i/100 . '"'; if($max_brightness==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>					
 			</select>
 		</label>
 	</div>
@@ -762,10 +1287,10 @@
 					<br>
 					<input class="radio" id="<?=$this->get_field_id('freeze_decel'); ?>"
 					name="<?=$this->get_field_name('freeze_decel'); ?>" type="radio" value="false"
-					<?php if( $freeze_decel == "false" ){ echo ' checked="checked"'; } ?>>off						
+					<?php if( $freeze_decel == "false" ){ echo ' checked="checked"'; } ?>>off
 				</div>
 			</div>
-			<label for="<?=$this->get_field_id('lock'); ?>" title="Limits rotation of the cloud using the mouse:<br><span class='green'>x-axis</span> - limits rotation to the x-axis;<br><span class='green'>y-axis</span> - limits rotation to the y-axis;<br><span class='green'>both</span> - prevents the cloud rotating in response to the mouse - the cloud will only move if the <span class='green'>initial</span> option is used to give it a starting speed;<br><span class='green'>none</span> - leaves the cloud unlocked.">
+			<label for="<?=$this->get_field_id('lock'); ?>" title="Limits rotation of the cloud using the mouse:<br><span class='green'>x-axis</span> - limits rotation to the x-axis;<br><span class='green'>y-axis</span> - limits rotation to the y-axis;<br><span class='green'>both</span> - locks the cloud in response to the mouse. It will only move if the <span class='green'>initial</span> option gives it a starting speed.<br><b>N.B.</b> Since Z rotation can not be controlled by mouse it will be locked anyway.<br><span class='green'>none</span> - leaves the cloud unlocked.">
 				Lock
 				<br>
 				Rotation
@@ -778,10 +1303,10 @@
 				</select>
 			</label>
 			<div class="thick-spacer"></div>
-			<div style="border: 1px dotted #aaa; border-radius: 10px; display: block; float: left; padding: 2px 0 2px 2px; margin: 0 15px 0 0;">	
+			<div style="border: 1px dotted #aaa; border-radius: 10px; display: block; float: left; padding: 2px 0 2px 2px; margin: 0 15px 0 0;">
 				<div style="float: left;">
 					Drag<br>Control
-					<div title="When enabled, cloud moves when dragged instead of based on mouse position. Combine with the  <span class='green'>Drag Threshold</span> option on the right."">
+					<div title="When enabled, cloud moves when dragged instead of based on mouse position. Combine with the  <span class='green'>Drag Threshold</span> option on the right.">
 						<input class="radio" id="<?=$this->get_field_id('drag_ctrl'); ?>"
 						name="<?=$this->get_field_name('drag_ctrl'); ?>" type="radio" value="true"
 						<?php if( $drag_ctrl == "true" ){ echo ' checked="checked"'; } ?>>on
@@ -820,7 +1345,7 @@
 					<label title="Scaling factor of text when converting to image in <span class='green'>txtOpt</span> mode. Combine with the  <span class='green'>Text Optimisation</span> option on the left." for="<?=$this->get_field_id('text_scale'); ?>">
 						Text<br>Scale
 						<br>
-						<select id="<?=$this->get_field_id('text_scale'); ?>" name="<?=$this->get_field_name('text_scale'); ?>">	
+						<select id="<?=$this->get_field_id('text_scale'); ?>" name="<?=$this->get_field_name('text_scale'); ?>">
 							<?php for($i=1; $i<3.5; $i+=0.5){echo '<option id="txts_' . $i . '" value="' . $i . '"'; if($text_scale==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 						</select>
 					</label>
@@ -965,7 +1490,7 @@
 			</div>
 			<div style="float: left; padding: 0 16px 0 0;">
 				<input title="Help is available for the object under the cursor. Often rendered as a question mark or a balloon." class="radio" id="<?=$this->get_field_id('active_cursor'); ?>"
-				name="<?=$this->get_field_name('active_cursor'); ?>" type="radio" value="help"	
+				name="<?=$this->get_field_name('active_cursor'); ?>" type="radio" value="help"
 				<?php if( $active_cursor == "help" ){ echo ' checked="checked"'; } ?>>help
 				<br>
 				
@@ -980,7 +1505,7 @@
 			</div>
 			<div style="float: left; padding: 0 16px 0 0;">
 				<input title="The cursor indicates that the requested action will not be executed." class="radio" id="<?=$this->get_field_id('active_cursor'); ?>"
-				name="<?=$this->get_field_name('active_cursor'); ?>" type="radio" value="not-allowed"		
+				name="<?=$this->get_field_name('active_cursor'); ?>" type="radio" value="not-allowed"
 				<?php if( $active_cursor == "not-allowed" ){ echo ' checked="checked"'; } ?>>not-allowed
 				<br> 
 				
@@ -995,7 +1520,7 @@
 			</div>
 			<div style="float: left;">
 				<input title="Indicates text that may be selected. Often rendered as an I-beam." class="radio" id="<?=$this->get_field_id('active_cursor'); ?>"
-				name="<?=$this->get_field_name('active_cursor'); ?>" type="radio" value="text"	
+				name="<?=$this->get_field_name('active_cursor'); ?>" type="radio" value="text"
 				<?php if( $active_cursor == "text" ){ echo ' checked="checked"'; } ?>>text
 				<br> 
 				
@@ -1045,7 +1570,7 @@
 			Opacity
 			<br>
 			<select id="<?=$this->get_field_id('cf_opacity'); ?>" name="<?=$this->get_field_name('cf_opacity'); ?>">
-				<?php for($i=5; $i<105; $i+=5){echo '<option id="cfo_' . $i . '" value="' . $i/100 . '"'; if($cf_opacity==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>					
+				<?php for($i=5; $i<105; $i+=5){echo '<option id="cfo_' . $i . '" value="' . $i/100 . '"'; if($cf_opacity==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
 		</label>
 		<label style="padding: 15px 0 0 8px; text-align: center;">
@@ -1095,15 +1620,15 @@
 			<label style="margin: 0 4px 0 0;" title="Border width of text object: 0 for no border." for="<?=$this->get_field_id('cont_border'); ?>">
 				Border
 				<br>
-				<select id="<?=$this->get_field_id('cont_border'); ?>" name="<?=$this->get_field_name('cont_border'); ?>">	
-					<?php for($i=0; $i<4; $i++){echo '<option id="cntb_' . $i . '" value="' . $i . '"'; if($cont_border==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>	
+				<select id="<?=$this->get_field_id('cont_border'); ?>" name="<?=$this->get_field_name('cont_border'); ?>">
+					<?php for($i=0; $i<4; $i++){echo '<option id="cntb_' . $i . '" value="' . $i . '"'; if($cont_border==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 				</select>px
 			</label>
 			<label style="margin: 0 4px 0 0;" title="Height of the font" for="<?=$this->get_field_id('font_h'); ?>">
 				Font Size
 				<br>
-				<select id="<?=$this->get_field_id('font_h'); ?>" name="<?=$this->get_field_name('font_h'); ?>">	
-					<?php for($i=10; $i<25; $i++){echo '<option id="fnth_' . $i . '" value="' . $i . '"'; if($font_h==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>	
+				<select id="<?=$this->get_field_id('font_h'); ?>" name="<?=$this->get_field_name('font_h'); ?>">
+					<?php for($i=10; $i<25; $i++){echo '<option id="fnth_' . $i . '" value="' . $i . '"'; if($font_h==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 				</select>px
 			</label>
 			<div style="float: left;" title="Choose weight of text.">
@@ -1263,8 +1788,12 @@
 			</label>
 		</div>
 	</div>
-	<h3><span class="front-title">tags:</span> COLORS</h3>
+	<h3><span class="front-title">tags:</span> COLORS & OPACITY</h3>
 	<div class="section_content" style="padding: 0 1px 5px;">
+		<div class="divider"></div>
+		<span style="float: left;">COLORS</span>
+		<br>
+		<div class="thin-spacer"></div>
 		<div style="padding-top: 5px;">
 			<label style="height: 55px;" for="<?=$this->get_field_id('text_color'); ?>">
 				Tag Color
@@ -1448,6 +1977,24 @@
 					</div>
 				</div>
 			</label>
+			<div class="divider"></div>
+			<span style="float: left;">OPACITY</span>
+			<br>
+			<div class="thin-spacer"></div>
+			<label style="width: 80px;" title="Minimal opacity of tags at back of cloud." for="<?=$this->get_field_id('min_brightness'); ?>">
+				Min Opacity
+				<br>
+				<select id="<?=$this->get_field_id('min_brightness'); ?>" name="<?=$this->get_field_name('min_brightness'); ?>">
+					<?php for($i=0; $i<105; $i+=5){echo '<option id="mib_' . $i . '" value="' . $i/100 . '"'; if($min_brightness==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				</select>
+			</label> 
+			<label title="Maximal opacity of tags at front of cloud." for="<?=$this->get_field_id('max_brightness'); ?>">
+				Max Opacity
+				<br>
+				<select id="<?=$this->get_field_id('max_brightness'); ?>" name="<?=$this->get_field_name('max_brightness'); ?>">
+					<?php for($i=0; $i<105; $i+=5){echo '<option id="mab_' . $i . '" value="' . $i/100 . '"'; if($max_brightness==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				</select>
+			</label>
 		</div>
 	</div>
 	<h3><span class="front-title">tags:</span> SIZES</h3>
@@ -1457,29 +2004,29 @@
 				Font Height
 				<br>
 				<select id="<?=$this->get_field_id('text_height'); ?>" name="<?=$this->get_field_name('text_height'); ?>">	
-					<?php for($i=6; $i<31; $i++){echo '<option id="txh_' . $i . '" value="' . $i . '"'; if($text_height==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>	
+					<?php for($i=6; $i<31; $i++){echo '<option id="txh_' . $i . '" value="' . $i . '"'; if($text_height==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 				</select>px
 			</label>
 			<label style="width: 85px;" title="Amount of space around text and inside background" for="<?=$this->get_field_id('padding'); ?>">
 				Padding
 				<br>
 				<select id="<?=$this->get_field_id('padding'); ?>" name="<?=$this->get_field_name('padding'); ?>">	
-					<?php for($i=1; $i<11; $i++){echo '<option id="pa_' . $i . '" value="' . $i . '"'; if($padding==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>	
+					<?php for($i=1; $i<11; $i++){echo '<option id="pa_' . $i . '" value="' . $i . '"'; if($padding==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 				</select>px
 			</label>
 			<label style="width: 85px;" title="If greater than 0, breaks the tag into multiple lines at word boundaries when the line would be longer than this value. Lines are automatically broken at line break tags." for="<?=$this->get_field_id('split_width'); ?>">
 				Split Width
 				<br>
-				<select id="<?=$this->get_field_id('split_width'); ?>" name="<?=$this->get_field_name('split_width'); ?>">						
+				<select id="<?=$this->get_field_id('split_width'); ?>" name="<?=$this->get_field_name('split_width'); ?>">
 					<option id="spw_0" value="0" <?php if( $split_width == "0" ){ echo ' selected'; } ?>>0</option>
-					<?php for($i=50; $i<155; $i+=5){echo '<option id="spw_' . $i . '" value="' . $i . '"'; if($split_width==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>					
+					<?php for($i=50; $i<155; $i+=5){echo '<option id="spw_' . $i . '" value="' . $i . '"'; if($split_width==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 				</select>px
 			</label>
 			<label style="width: 80px;" title="Amount to scale images by. Depending on <span class='green'>Content</span> the default of <span class='green'>1.0</span> uses:<br> - avatar size 96x96px (<span class='green'>Authors</span>, <span class='green'>Links</span> & <span class='green'>Menu</span>);<br> - thumbnail size 120x120px (<span class='green'>Pages</span> & <span class='green'>Recent Posts</span>)." for="<?=$this->get_field_id('image_scale'); ?>">
 				Image Scale
 				<br>
 				<select id="<?=$this->get_field_id('image_scale'); ?>" name="<?=$this->get_field_name('image_scale'); ?>">
-					<?php for($i=25; $i<1525; $i+=25){echo '<option id="ims_' . $i . '" value="' . $i/1000 . '"'; if($image_scale==$i/1000){echo ' selected';}; echo '>' . $i/1000 . '</option>'; } ?>					
+					<?php for($i=25; $i<1525; $i+=25){echo '<option id="ims_' . $i . '" value="' . $i/1000 . '"'; if($image_scale==$i/1000){echo ' selected';}; echo '>' . $i/1000 . '</option>'; } ?>
 				</select>
 			</label>
 		</div>
@@ -1487,30 +2034,30 @@
 		<label style="margin: 0 5px 0 0;" title="Thickness of tag border, <span class='green'>0</span> for no border." for="<?=$this->get_field_id('bg_outline_thickness'); ?>">
 			Border
 			<br>
-			<select id="<?=$this->get_field_id('bg_outline_thickness'); ?>" name="<?=$this->get_field_name('bg_outline_thickness'); ?>">						
-				<?php for($i=0; $i<11; $i++){echo '<option id="bgt_' . $i . '" value="' . $i . '"'; if($bg_outline_thickness==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>					
+			<select id="<?=$this->get_field_id('bg_outline_thickness'); ?>" name="<?=$this->get_field_name('bg_outline_thickness'); ?>">
+				<?php for($i=0; $i<11; $i++){echo '<option id="bgt_' . $i . '" value="' . $i . '"'; if($bg_outline_thickness==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 			</select>px 
 		</label>
 		<label style="width: 81px;" title="Radius for rounded corners of tag border" for="<?=$this->get_field_id('bg_radius'); ?>">
 			Border Radius
 			<br>
-			<select id="<?=$this->get_field_id('bg_radius'); ?>" name="<?=$this->get_field_name('bg_radius'); ?>">						
-				<?php for($i=0; $i<21; $i++){echo '<option id="bgr_' . $i . '" value="' . $i . '"'; if($bg_radius==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>					
+			<select id="<?=$this->get_field_id('bg_radius'); ?>" name="<?=$this->get_field_name('bg_radius'); ?>">
+				<?php for($i=0; $i<21; $i++){echo '<option id="bgr_' . $i . '" value="' . $i . '"'; if($bg_radius==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 			<select>px
 		</label>
 		<div style="float: left; margin: 0 4px 0 0; padding: 0 0 2px 2px; border: 1px dotted #aaa; border-radius: 5px;" title="X and Y offset of the tag shadow">
 			Shadow Offset [x, y]
 			<br>
-			<select id="<?=$this->get_field_id('shadow_offset_x'); ?>" name="<?=$this->get_field_name('shadow_offset_x'); ?>">						
-				<?php for($i=-5; $i<6; $i++){echo '<option id="sox_' . $i . '" value="' . $i . '"'; if($shadow_offset_x==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>							
-			</select>px<select id="<?=$this->get_field_id('shadow_offset_y'); ?>" name="<?=$this->get_field_name('shadow_offset_y'); ?>">						
-				<?php for($i=-5; $i<6; $i++){echo '<option id="soy_' . $i . '" value="' . $i . '"'; if($shadow_offset_y==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>							
+			<select id="<?=$this->get_field_id('shadow_offset_x'); ?>" name="<?=$this->get_field_name('shadow_offset_x'); ?>">
+				<?php for($i=-5; $i<6; $i++){echo '<option id="sox_' . $i . '" value="' . $i . '"'; if($shadow_offset_x==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
+			</select>px<select id="<?=$this->get_field_id('shadow_offset_y'); ?>" name="<?=$this->get_field_name('shadow_offset_y'); ?>">	
+				<?php for($i=-5; $i<6; $i++){echo '<option id="soy_' . $i . '" value="' . $i . '"'; if($shadow_offset_y==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 			</select>px
 		</div>
 		<label style="float: left; width: 70px;" title="Amount of tag shadow blurring" for="<?=$this->get_field_id('shadow_blur'); ?>">
 			Shadow Blur
 			<select id="<?=$this->get_field_id('shadow_blur'); ?>" name="<?=$this->get_field_name('shadow_blur'); ?>">	
-				<?php for($i=0; $i<6; $i++){echo '<option id="shb_' . $i . '" value="' . $i . '"'; if($shadow_blur==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>												
+				<?php for($i=0; $i<6; $i++){echo '<option id="shb_' . $i . '" value="' . $i . '"'; if($shadow_blur==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 			</select>px
 		</label>	
 		<div class="thick-spacer"></div>
@@ -1519,29 +2066,29 @@
 			Outline
 			<br>
 			<select id="<?=$this->get_field_id('outline_thickness'); ?>" name="<?=$this->get_field_name('outline_thickness'); ?>">
-				<?php for($i=0; $i<11; $i++){echo '<option id="out_' . $i . '" value="' . $i . '"'; if($outline_thickness==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>					
+				<?php for($i=0; $i<11; $i++){echo '<option id="out_' . $i . '" value="' . $i . '"'; if($outline_thickness==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 			</select>px 
 		</label>	
 		<label style="width: 85px;" title="Radius for rounded corners on outline box" for="<?=$this->get_field_id('outline_radius'); ?>">
 			Outline<br>Radius
 			<br>
-			<select id="<?=$this->get_field_id('outline_radius'); ?>" name="<?=$this->get_field_name('outline_radius'); ?>">						
-				<?php for($i=0; $i<21; $i++){echo '<option id="our_' . $i . '" value="' . $i . '"'; if($outline_radius==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>					
+			<select id="<?=$this->get_field_id('outline_radius'); ?>" name="<?=$this->get_field_name('outline_radius'); ?>">	
+				<?php for($i=0; $i<21; $i++){echo '<option id="our_' . $i . '" value="' . $i . '"'; if($outline_radius==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 			<select>px
 		</label>
 		<label style="width: 85px;" title="Distance of outline from text when <span class='green'>Outline Method</span> is <span class='green'>outline</span> or <span class='green'>clasic</span>. This also increases the size of the active area around the tag." for="<?=$this->get_field_id('outline_offset'); ?>">
 			Outline<br>Offset
 			<br>
-			<select id="<?=$this->get_field_id('outline_offset'); ?>" name="<?=$this->get_field_name('outline_offset'); ?>">						
-				<?php for($i=0; $i<11; $i++){echo '<option id="ouo_' . $i . '" value="' . $i . '"'; if($outline_offset==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>					
+			<select id="<?=$this->get_field_id('outline_offset'); ?>" name="<?=$this->get_field_name('outline_offset'); ?>">
+				<?php for($i=0; $i<11; $i++){echo '<option id="ouo_' . $i . '" value="' . $i . '"'; if($outline_offset==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 			</select>px 
 		</label>	
 		<label title="Number of pixels to increase size of tag by for the <span class='green'>size</span> outline method." for="<?=$this->get_field_id('outline_increase'); ?>">
 			Outline<br>Increase<br>
-			<select id="<?=$this->get_field_id('outline_increase'); ?>" name="<?=$this->get_field_name('outline_increase'); ?>">						
-				<?php for($i=0; $i<11; $i++){echo '<option id="oui_' . $i . '" value="' . $i . '"'; if($outline_increase==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>					
+			<select id="<?=$this->get_field_id('outline_increase'); ?>" name="<?=$this->get_field_name('outline_increase'); ?>">
+				<?php for($i=0; $i<11; $i++){echo '<option id="oui_' . $i . '" value="' . $i . '"'; if($outline_increase==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 			</select>px
-		</label>				
+		</label>	
 	</div>
 	<h3><span class="front-title">tags:</span> MIXED IMAGE & TEXT</h3>
 	<div class="section_content" style="padding: 5px 1px 0;">
@@ -1571,11 +2118,11 @@
 			<label style="margin: 0 17px 0 0;" title="Distance between image and text when using an <span class='green'>Tag Mode</span> of <span class='green'>both</span>." for="<?=$this->get_field_id('image_padding'); ?>">
 				Image<br>Padding
 				<br>
-				<select id="<?=$this->get_field_id('image_padding'); ?>" name="<?=$this->get_field_name('image_padding'); ?>">	
+				<select id="<?=$this->get_field_id('image_padding'); ?>" name="<?=$this->get_field_name('image_padding'); ?>">
 					<?php for($i=1; $i<6; $i++){echo '<option id="impa_' . $i . '" value="' . $i . '"'; if($image_padding==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>	
 				</select>px
 			</label>
-			<div style="float: left; border: 1px dotted #aaa; border-radius: 5px; padding: 0 2px;" title="Amount to scale images by.">For <b>Image Scale</b><br>go to <b>SIZES</b><br>section above.</div>		
+			<div style="float: left; border: 1px dotted #aaa; border-radius: 5px; padding: 0 2px;" title="Amount to scale images by.">For <b>Image Scale</b><br>go to <b>SIZES</b><br>section above.</div>
 		</div>
 		<div style="padding-top: 5px; display: inline-block;">
 			<label style="margin: 0 20px 5px 0;" title="Horizontal image alignment" for="<?=$this->get_field_id('image_align'); ?>">
@@ -1613,7 +2160,7 @@
 					<option value="middle" <?php if( $text_valign == "middle" ){ echo ' selected'; } ?>>middle</option>
 					<option value="bottom" <?php if( $text_valign == "bottom" ){ echo ' selected'; } ?>>bottom</option>
 				</select>
-			</label>				
+			</label>
 		</div>
 	</div>
 	<h3><span class="front-title">tags:</span> FONTS</h3>
@@ -1628,11 +2175,11 @@
 				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Arial" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Arial" ){ echo ' selected'; }} ?>>Arial</option>
 				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Arial Black" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Arial Black" ){ echo ' selected'; }} ?>>Arial Black</option>
 				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Arial Narrow" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Arial Narrow" ){ echo ' selected'; }} ?>>Arial Narrow</option>
-				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Avant Garde" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Avant Garde" ){ echo ' selected'; }} ?>>Avant Garde</option>										
-				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Calibri" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Calibri" ){ echo ' selected'; }} ?>>Calibri</option>										
-				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Candara" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Candara" ){ echo ' selected'; }} ?>>Candara</option>										
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Avant Garde" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Avant Garde" ){ echo ' selected'; }} ?>>Avant Garde</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Calibri" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Calibri" ){ echo ' selected'; }} ?>>Calibri</option>
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Candara" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Candara" ){ echo ' selected'; }} ?>>Candara</option>
 				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Century Gothic" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Century Gothic" ){ echo ' selected'; }} ?>>Century Gothic</option>
-				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Comic Sans MS" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Comic Sans MS" ){ echo ' selected'; }} ?>>Comic Sans MS</option>										
+				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Comic Sans MS" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Comic Sans MS" ){ echo ' selected'; }} ?>>Comic Sans MS</option>
 				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Franklin Gothic Medium" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Franklin Gothic Medium" ){ echo ' selected'; }} ?>>Franklin Gothic Medium</option>
 				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Futura" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Futura" ){ echo ' selected'; }} ?>>Futura</option>
 				<option style="background: #f1f1f1;" title="Sans Serif Family"	value="Geneva" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Geneva" ){ echo ' selected'; }} ?>>Geneva</option>
@@ -1640,7 +2187,7 @@
 				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Helvetica" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Helvetica" ){ echo ' selected'; }} ?>>Helvetica</option>
 				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Impact" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Impact" ){ echo ' selected'; }} ?>>Impact</option>
 				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Lucida Grande" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Lucida Grande" ){ echo ' selected'; }} ?>>Lucida Grande</option>
-				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Lucida Sans Unicode" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Lucida Sans Unicode" ){ echo ' selected'; }} ?>>Lucida Sans Unicode</option>												
+				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Lucida Sans Unicode" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Lucida Sans Unicode" ){ echo ' selected'; }} ?>>Lucida Sans Unicode</option>
 				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Optima" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Optima" ){ echo ' selected'; }} ?>>Optima</option>
 				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Segoe UI" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Segoe UI" ){ echo ' selected'; }} ?>>Segoe UI</option>
 				<option style="background: #f1f1f1;" title="Sans Serif Family" value="Tahoma" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Tahoma" ){ echo ' selected'; }} ?>>Tahoma</option>
@@ -1659,7 +2206,7 @@
 				<option title="Serif Family" value="Hoefler Text" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Hoefler Text" ){ echo ' selected'; }} ?>>Hoefler Text</option>
 				<option title="Serif Family" value="Lucida Bright" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Lucida Bright" ){ echo ' selected'; }} ?>>Lucida Bright</option>
 				<option title="Serif Family" value="Palatino" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Palatino" ){ echo ' selected'; }} ?>>Palatino</option>
-				<option title="Serif Family" value="Palatino Linotype" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Palatino Linotype" ){ echo ' selected'; }} ?>>Palatino Linotype</option>										
+				<option title="Serif Family" value="Palatino Linotype" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Palatino Linotype" ){ echo ' selected'; }} ?>>Palatino Linotype</option>
 				<option title="Serif Family" value="Perpetua" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Perpetua" ){ echo ' selected'; }} ?>>Perpetua</option>
 				<option title="Serif Family" value="Rockwell" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Rockwell" ){ echo ' selected'; }} ?>>Rockwell</option>
 				<option title="Serif Family" value="Rockwell Extra Bold" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Rockwell Extra Bold" ){ echo ' selected'; }} ?>>Rockwell Extra Bold</option>
@@ -1667,12 +2214,12 @@
 				<option style="background: #f1f1f1;" title="Monospaced Family" value="Andale Mono" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Andale Mono" ){ echo ' selected'; }} ?>>Andale Mono</option>
 				<option style="background: #f1f1f1;" title="Monospaced Family" value="Consolas" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Consolas" ){ echo ' selected'; }} ?>>Consolas</option>
 				<option style="background: #f1f1f1;" title="Monospaced Family" value="Courier New" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Courier New" ){ echo ' selected'; }} ?>>Courier New</option>
-				<option style="background: #f1f1f1;" title="Monospaced Family"	value="Lucida Console" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Lucida Console" ){ echo ' selected'; }} ?>>Lucida Console</option>
-				<option style="background: #f1f1f1;" title="Monospaced Family"	value="Lucida Sans Typewriter" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Lucida Sans Typewriter" ){ echo ' selected'; }} ?>>Lucida Sans Typewriter</option>
-				<option style="background: #f1f1f1;" title="Monospaced Family"	value="Monaco" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Monaco" ){ echo ' selected'; }} ?>>Monaco</option>
+				<option style="background: #f1f1f1;" title="Monospaced Family" value="Lucida Console" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Lucida Console" ){ echo ' selected'; }} ?>>Lucida Console</option>
+				<option style="background: #f1f1f1;" title="Monospaced Family" value="Lucida Sans Typewriter" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Lucida Sans Typewriter" ){ echo ' selected'; }} ?>>Lucida Sans Typewriter</option>
+				<option style="background: #f1f1f1;" title="Monospaced Family" value="Monaco" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Monaco" ){ echo ' selected'; }} ?>>Monaco</option>
 				<option title="Fantasy Family" value="Copperplate" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Copperplate" ){ echo ' selected'; }} ?>>Copperplate</option>
 				<option title="Fantasy Family" value="Papyrus" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Papyrus" ){ echo ' selected'; }} ?>>Papyrus</option>
-				<option style="background: #f1f1f1;" title="Script Family" value="Brush Script MT" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Brush Script MT" ){ echo ' selected'; }} ?>>Brush Script MT</option>		
+				<option style="background: #f1f1f1;" title="Script Family" value="Brush Script MT" <?php for($i=0; $i <= count($multiple_fonts)-1; $i++){if( $multiple_fonts[$i] == "Brush Script MT" ){ echo ' selected'; }} ?>>Brush Script MT</option>
 			</select>			
 		</label>
 <?php
@@ -1687,7 +2234,7 @@
 <?php
 				foreach ($items as $font){
 					echo '<option value="'.$font->{'family'}.'"';
-					for($i=0; $i <= count($multiple_fonts_g)-1; $i++){				
+					for($i=0; $i <= count($multiple_fonts_g)-1; $i++){
 						if ($multiple_fonts_g[$i] == $font->{'family'}) {echo 'selected'; };
 					}
 					echo '>'.$font->{'family'}.'</option>';
@@ -1705,7 +2252,7 @@
 			<span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Guide (opens in a new tab)
 		</h3>
 		<div id="accordion-3">
-			<?php include 'help/s.tips.php'; ?>	
+			<?php include 'help/s.tips.php'; ?>
 		</div>
 	</div>
 </div>
