@@ -1,9 +1,6 @@
 // 3D WP Tag Cloud-S: JS Functions
 					
 jQuery(function(){    
-//----- Time out for loading Google Fonts ----
-	setTimeout(function() {
-	
 //----- Preparing variables for various purposes -----
 		var container = ['uni_tags_container_<?= $inst_id; ?>'];
 		var content = ['<?= $taxonomy; ?>'];
@@ -207,7 +204,12 @@ jQuery(function(){
 		
 //----- Freezing animation till loading next page -----
 		jQuery('#uni_tags_container_<?= $inst_id; ?> a').click(function(){
-				TagCanvas.Pause('tag_canvas_<?=$inst_id; ?>');
+			TagCanvas.Pause('tag_canvas_<?=$inst_id; ?>');
 		});	
-	}, 0);
+		
+//----- Attempt to fix Google Chrome issue with Google Fonts -----
+		jQuery.fn.redraw = function() {
+			return this.hide(0, function(){jQuery(this).show()});
+		};
+		jQuery('body').redraw();
 });

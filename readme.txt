@@ -2,7 +2,7 @@
 Contributors: hityr5yr, bisko
 Tags: tag cloud, 3D, widget, HTML5, canvas, cloud, tags, links, recent posts, menu, images
 Requires at least: 3.9
-Tested up to: 4.2
+Tested up to: 4.2.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -44,6 +44,9 @@ in the cloud is adjustable. The plugin automatically includes WP Links panel for
 
 
 == Changelog ==
+
+= 4.0.1 =
+1. Fixed bug in Center Function for text.
 
 = 4.0 =
 1. Added new shapes: 3D axes, Balls, Blossom, Bulb, Christmas fir, Candy, Capsul, Concentric circles, Cube, Egg, Glass, Globe of rings, Heart, Knot, Lemon, 

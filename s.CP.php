@@ -22,7 +22,7 @@
 		var check = '<?= $check_widget_1; ?>';
 		if(check != ''){
 		jQuery('#accordion-1, #wihead').tooltip({content: function() {var element = jQuery( this ); var html_text=element.attr('title'); return html_text;}, position: {  my: 'left top+20',  at: 'left bottom'}}); 
-		jQuery(function() {jQuery( "#accordion-1" ).accordion({heightStyle: "content", collapsible: true, active: false}); jQuery( "#accordion-3, #accordion-6" ).accordion({heightStyle: "content", collapsible: true, active: false});});
+		jQuery(function() {jQuery( "#accordion-1, #accordion-3, #accordion-6" ).accordion({heightStyle: "content", collapsible: true, active: false});});
 		};
 	 });
 // Check for 2d shape selection and hiding Radius Z 
