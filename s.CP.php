@@ -254,6 +254,7 @@
 		<div class="section_content" style="margin: 5px 0; padding: 0 0 5px; border-bottom: 1px solid #aaa;">
 			<select style="margin: 0 0 5px!important;" id="<?=$this->get_field_id('shape'); ?>" name="<?=$this->get_field_name('shape'); ?>" onchange="check43d(this.value)";>
 				<option value="axes" <?php if( $shape == "axes" ){ echo ' selected'; } ?>>3D Axes*</option>
+				<option value="spiral3" <?php if( $shape == "spiral3" ){ echo ' selected'; } ?>>3D Spiral</option>
 				<option value="balls" <?php if( $shape == "balls" ){ echo ' selected'; } ?>>Balls</option>
 				<option value="blossom" <?php if( $shape == "blossom" ){ echo ' selected'; } ?>>Blossom</option>
 				<option value="bulb" <?php if( $shape == "bulb" ){ echo ' selected'; } ?>>Bulb</option>
@@ -281,10 +282,10 @@
 				<option value="tire" <?php if( $shape == "tire" ){ echo ' selected'; } ?>>Tire</option>
 				<option value="tower" <?php if( $shape == "tower" ){ echo ' selected'; } ?>>Tower of rings</option>
 				<option value="vcylinder" <?php if( $shape == "vcylinder" ){ echo ' selected'; } ?>>Vertical Cylinder</option>
+				<option style="background: #ccc;" value="spiral" <?php if( $shape == "spiral" ){ echo ' selected'; } ?>>2D Spiral*</option>
 				<option style="background: #ccc;" value="circles" <?php if( $shape == "circles" ){ echo ' selected'; } ?>>Concentric Circles*</option>
 				<option style="background: #ccc;" value="heart" <?php if( $shape == "heart" ){ echo ' selected'; } ?>>Heart</option>
 				<option style="background: #ccc;" value="hexagon" <?php if( $shape == "hexagon" ){ echo ' selected'; } ?>>Hexagon (Bee Cell)*</option>
-				<option style="background: #ccc;" value="spiral" <?php if( $shape == "spiral" ){ echo ' selected'; } ?>>Spiral*</option>
 				<option style="background: #ccc;" value="square" <?php if( $shape == "square" ){ echo ' selected'; } ?>>Square*</option>
 				<option style="background: #ccc;" value="triangle" <?php if( $shape == "triangle" ){ echo ' selected'; } ?>>Triangle*</option>
 				<option style="background: #aaa;" value="beam" <?php if( $shape == "beam" ){ echo ' selected'; } ?>>Lighthouse Beam*</option>

@@ -8,17 +8,17 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 
 
-3D WP Tag Cloud-S (formerly known as My WP TagCanvas) draws and animates a HTML5 canvas based tag cloud. 
+3D WP Tag Cloud-S draws and animates a HTML5 canvas based tag cloud. 
 
 
 == Description ==
 
 Description: This is the Single Cloud variation of 3D WP Tag Cloud. It Creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Plugin may rotate 
-Pages, Recent Posts, External Links (blogroll), Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Supports following shapes: 3D AXES, parabolic 
-ANTENNA, lighthouse BEAM, BALLS, BLOSSOM, BULB, CANDY, CAPSULE, concentric CIRCLES,  CUBE, CYLINDER that starts off horizontal, CYLINDER that starts off vertical, EGG, Christmas FIR, 
-GLASS, GLOBE of rings, HEART, HEXAGON (bee cell), KNOT, LEMON, PEG TOP that starts off horizontal, PEG TOP that starts off vertical, PYRAMID (tetrahedron), RING that starts off 
-horizontal, RING that starts off vertical, ROLLER of rings, SANDGLASS, SPHERE, SPIRAL, SQUARE, STAIRECASE, STOOL, TIRE , TOWER of rings and TRIANGLE. Able to rotate clouds around all 
-three axes. Option values are preset and don't have to be typed but selected. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content. 
+Pages, Recent Posts, External Links (blogroll), Menus, Blog Archives, List of Authors and of course Post Tags and Post Categories. Supports following shapes: 2D SPIRAL, 3D AXES, 
+3D SPIRAL, parabolic ANTENNA, lighthouse BEAM, BALLS, BLOSSOM, BULB, CANDY, CAPSULE, concentric CIRCLES,  CUBE, CYLINDER that starts off horizontal, CYLINDER that starts off vertical, 
+EGG, Christmas FIR, GLASS, GLOBE of rings, HEART, HEXAGON (bee cell), KNOT, LEMON, PEG TOP that starts off horizontal, PEG TOP that starts off vertical, PYRAMID (tetrahedron), RING 
+that starts off horizontal, RING that starts off vertical, ROLLER of rings, SANDGLASS, SPHERE, SQUARE, STAIRECASE, STOOL, TIRE , TOWER of rings and TRIANGLE. Able to rotate clouds 
+around all three axes. Option values are preset and don't have to be typed but selected. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content. 
 Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. In case of Recent posts, Pages, Menu, List of Authors and External Links 
 (blogroll) tags may consist of both image and text. It gives an option to put images and/or text in the center of the cloud. It accepts background images as well. The Number of tags 
 in the cloud is adjustable. The plugin automatically includes WP Links panel for users who started using WP since v 3.5, when Links Manager and blogroll were made hidden by default. 
@@ -45,13 +45,17 @@ in the cloud is adjustable. The plugin automatically includes WP Links panel for
 
 == Changelog ==
 
+= 4.1 =
+1. Added new shape: 3D spiral.
+2. Fixed bug in Blossom Shape.
+
 = 4.0.1 =
 1. Fixed bug in Center Function for text.
 
 = 4.0 =
-1. Added new shapes: 3D axes, Balls, Blossom, Bulb, Christmas fir, Candy, Capsul, Concentric circles, Cube, Egg, Glass, Globe of rings, Heart, Knot, Lemon, 
+1. Added new shapes: 3D axes, Balls, Blossom, Bulb, Christmas fir, Candy, Capsule, Concentric circles, Cube, Egg, Glass, Globe of rings, Heart, Knot, Lemon, 
 Lighthouse beam, Parabolic antenna, Peg top that starts off horizontal, Peg top that starts off vertical, Roller of rings, Sandglass, Square, Stool, Starecase, 
-Tire, Tower of rings and Triangle and Triangle pyramid.
+Tire, Tower of rings, Triangle and Triangle pyramid.
 2. Added new tips.
 3. Extended range of some size options.
 4. Fixed bug in Center Function for images.
