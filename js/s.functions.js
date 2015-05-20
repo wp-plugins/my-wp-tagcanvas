@@ -1,6 +1,17 @@
 // 3D WP Tag Cloud-S: JS Functions
 					
 jQuery(function(){    
+//----- Filling up tag container in case of Page/Post Links content -----
+		var pplinks = '<?= $taxonomy; ?>';
+		var conid = '<?= $conid; ?>';
+		if(pplinks == 'pp_links'){
+			if(conid == ''){conid='#post-<?php the_ID(); ?>';}
+			else{conid='#'+conid;}
+			jQuery(conid).find('a').each(function() {
+				var link = jQuery(this).clone();
+				jQuery('#uni_tags_container_<?= $inst_id; ?>').append(link);
+			});
+		}
 //----- Preparing variables for various purposes -----
 		var container = ['uni_tags_container_<?= $inst_id; ?>'];
 		var content = ['<?= $taxonomy; ?>'];
@@ -66,14 +77,14 @@ jQuery(function(){
 			}							
 			}
 			
-//----- Distributing multiple fonts on random way -----
+//----- Distributing multiple fonts randomly -----
 			if(mf_array[0]!=''){
 				for (var j = 0; j < any_type_tags.length; j++) { 
 					jQuery('#'+container[i]+' a').eq(j).css({'font-family':mf_array[Math.floor(Math.random()*mf_array.length)]});
 				}
 			}
 
-//----- Distributing multiple colors on random way -----
+//----- Distributing multiple colors randomly -----
 			if(multiple_colors!=''){
 				for (var j = 0; j < mc_array.length; j++) {
 					mc_array[j] = '#'+ mc_array[j];
@@ -83,7 +94,7 @@ jQuery(function(){
 				}
 			}
 
-//----- Distributing multiple backgrounds on random way -----
+//----- Distributing multiple backgrounds randomly -----
 			if(multiple_bg!=''){
 				for (var j = 0; j < mb_array.length; j++) {
 					mb_array[j] = '#'+ mb_array[j];

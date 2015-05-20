@@ -16,6 +16,7 @@
 			$cf_opacity = $instance['cf_opacity'];
 			$cf_rotation = $instance['cf_rotation'];
 			$cf_url = $instance['cf_url'];
+			$conid = $instance['conid'];
 			$cont_border = $instance['cont_border'];
 			$exclude = $instance['exclude'];
 			$font_cf = $instance['font_cf'];
