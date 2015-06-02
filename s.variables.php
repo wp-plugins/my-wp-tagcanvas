@@ -32,6 +32,7 @@
 			$multiple_colors = $instance['multiple_colors'];
 			$multiple_fonts = $instance['multiple_fonts'];
 			$multiple_fonts_g = $instance['multiple_fonts_g'];
+			$my_shape_url = $instance['my_shape_url'];
 			$pages_limit = $instance['pages_limit'];
 			$recent_posts = $instance['recent_posts'];
 			$rp_category_id = $instance['rp_category_id'];
@@ -80,6 +81,7 @@
 			$max_speed = $instance['max_speed'];
 			$min_brightness = $instance['min_brightness'];
 			$min_speed = $instance['min_speed'];
+			$min_tags = $instance['min_tags'];
 			$no_mouse = $instance['no_mouse'];
 			$no_select = $instance['no_select'];
 			$no_tags_msg = $instance['no_tags_msg'];
@@ -92,11 +94,13 @@
 			$outline_radius = $instance['outline_radius'];
 			$outline_thickness = $instance['outline_thickness'];
 			$padding = $instance['padding'];
+			$pinch_zoom = $instance['pinch_zoom'];
 			$pulsate_time = $instance['pulsate_time'];
 			$pulsate_to = $instance['pulsate_to'];
 			$radius_x = $instance['radius_x'];
 			$radius_y = $instance['radius_y'];
 			$radius_z = $instance['radius_z'];
+			$repeat_tags = $instance['repeat_tags'];
 			$reverse = $instance['reverse'];
 			$shadow = $instance['shadow'];
 			$shadow_blur = $instance['shadow_blur'];

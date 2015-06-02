@@ -2,8 +2,8 @@
 /*
 Plugin Name: 3D WP Tag Cloud-S
 Plugin URI: http://peter.bg/archives/7373
-Description: This is the Single Cloud variation of 3D WP Tag Cloud. It Creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Plugin may rotate Pages, Recent Posts, External Links (blogroll), Menus, Blog Archives, List of Authors, Current Page/Post Links, Links from a custom HTML container and of course Post Tags and Post Categories. Supports following shapes: 2D SPIRAL, 3D AXES, 3D SPIRAL, parabolic ANTENNA, lighthouse BEAM, BALLS, BLOSSOM, BULB, CANDY, CAPSULE, concentric CIRCLES, CUBE, CYLINDER that starts off horizontal, CYLINDER that starts off vertical, EGG, Christmas FIR, GLASS, GLOBE of rings, HEART, HEXAGON (bee cell), KNOT, LEMON, LOVE, PEG TOP that starts off horizontal, PEG TOP that starts off vertical, PYRAMID (tetrahedron), RING that starts off horizontal, RING that starts off vertical, RINGS knotwork, ROLLER of rings, SANDGLASS, SPHERE, SQUARE, STAIRECASE, STOOL, TIRE , TOWER of rings and TRIANGLE. Able to rotate clouds around all three axes. Option values are preset and don't have to be typed but selected. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content. Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. In case of Recent posts, Pages, Menu, List of Authors, External Links (blogroll), Page/Post Links and custom HTML container tags may consist of both image and text. It gives an option to put images and/or text in the center of the cloud. It accepts background images as well. The Number of tags in the cloud is adjustable. The plugin automatically includes WP Links panel for users who started using WP since v 3.5, when Links Manager and blogroll were made hidden by default. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.6.1 and includes all its 80+ options in the Control Panel settings.
-Version: 4.2
+Description: This is the Single Cloud variation of 3D WP Tag Cloud. It Creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Plugin may rotate Pages, Recent Posts, External Links (blogroll), Menus, Blog Archives, List of Authors, Current Page/Post Links, Links from a custom HTML container and of course Post Tags and Post Categories. Supports following shapes: 2D SPIRAL, 3D AXES, parabolic ANTENNA, lighthouse BEAM, BALLS, BLOSSOM, BULB, CANDY, CAPSULE, concentric CIRCLES, CUBE, CYLINDER that starts off horizontal, CYLINDER that starts off vertical, DNA, EGG, Christmas FIR, GLASS, GLOBE of rings, HEART, HEXAGON (bee cell), KNOT, LEMON, LOVE, PEG TOP that starts off horizontal, PEG TOP that starts off vertical, PYRAMID (tetrahedron), RING that starts off horizontal, RING that starts off vertical, RINGS knotwork, ROLLER of rings, SANDGLASS, SPHERE, SPRING, SQUARE, STAIRECASE, STOOL, TIRE , TOWER of rings and TRIANGLE. Able to rotate clouds around all three axes. Option values are preset and don't have to be typed but selected. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content. Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. In case of Recent posts, Pages, Menu, List of Authors, External Links (blogroll), Page/Post Links and custom HTML container tags may consist of both image and text. It gives an option to put images and/or text in the center of the cloud. It accepts background images as well. The Number of tags in the cloud is adjustable. The plugin automatically includes WP Links panel for users who started using WP since v 3.5, when Links Manager and blogroll were made hidden by default. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.7 and includes all its 80+ options in the Control Panel settings.
+Version: 4.3
 Author: Peter Petrov
 Author URI: http://peter.bg
 Update Server: http://peter.bg/
@@ -26,7 +26,7 @@ License: LGPL v3
 			extract($args);
 			$inst_id = mt_rand(0,999999);
 //  Registration of TagCanvas.js & including an external file	
-			wp_register_script('jq-tagcloud', plugin_dir_url( __FILE__ ) . 'js/3D.WP.tagcanvas.js', array('jquery'), '2.6.1',true);
+			wp_register_script('jq-tagcloud', plugin_dir_url( __FILE__ ) . 'js/3D.WP.tagcanvas.js', array('jquery'), '2.7',true);
 			wp_enqueue_script('jq-tagcloud');
 			include 's.variables.php';
 			echo $before_widget;
@@ -40,8 +40,9 @@ License: LGPL v3
 				WebFont.load({google: {families: ['<?= $google_font; ?>']}});
 				WebFont.load({google: {families: ['<?= $font_cf; ?>']}});
 			</script>
-<!-- Loading User's Center Function file -->
+<!-- Loading User's Center Function & Shape Function files -->
 			<script type="text/javascript" src="<?= $cf_url; ?>"></script>
+			<script type="text/javascript" src="<?= $my_shape_url; ?>"></script>
 <?php		
 
 	if( $title ) {
@@ -150,6 +151,7 @@ License: LGPL v3
 		$tag_option['multiple_colors'] = $new_instance['multiple_colors'];
 		$tag_option['multiple_fonts'] = $new_instance['multiple_fonts'];
 		$tag_option['multiple_fonts_g'] = $new_instance['multiple_fonts_g'];
+		$tag_option['my_shape_url'] = $new_instance['my_shape_url'];
 		$tag_option['pages_limit'] = $new_instance['pages_limit'];
 		$tag_option['rp_category_id'] = $new_instance['rp_category_id'];
 		$tag_option['recent_posts'] = $new_instance['recent_posts'];
@@ -197,7 +199,8 @@ License: LGPL v3
 		$tag_option['max_brightness'] = $new_instance['max_brightness'];
 		$tag_option['max_speed'] = $new_instance['max_speed'];
 		$tag_option['min_brightness'] = $new_instance['min_brightness'];
-		$tag_option['min_speed'] = $new_instance['min_speed']; 
+		$tag_option['min_speed'] = $new_instance['min_speed'];
+		$tag_option['min_tags'] = $new_instance['min_tags']; 
 		$tag_option['no_mouse'] = $new_instance['no_mouse'];
 		$tag_option['no_select'] = $new_instance['no_select']; 
 		$tag_option['no_tags_msg'] = $new_instance['no_tags_msg']; 
@@ -210,11 +213,13 @@ License: LGPL v3
 		$tag_option['outline_radius'] = $new_instance['outline_radius'];
 		$tag_option['outline_thickness'] = $new_instance['outline_thickness'];
 		$tag_option['padding'] = $new_instance['padding'];
+		$tag_option['pinch_zoom'] = $new_instance['pinch_zoom'];
 		$tag_option['pulsate_time'] = $new_instance['pulsate_time'];
 		$tag_option['pulsate_to'] = $new_instance['pulsate_to'];
 		$tag_option['radius_x'] = $new_instance['radius_x']; 
 		$tag_option['radius_y'] = $new_instance['radius_y']; 
 		$tag_option['radius_z'] = $new_instance['radius_z'];
+		$tag_option['repeat_tags'] = $new_instance['repeat_tags'];
 		$tag_option['reverse'] = $new_instance['reverse'];
 		$tag_option['shadow'] = $new_instance['shadow'];
 		$tag_option['shadow_blur'] = $new_instance['shadow_blur'];
@@ -286,6 +291,7 @@ License: LGPL v3
 			'multiple_colors' => '280000, 003333, 00008b, 000066, 000000',
 			'multiple_fonts' => 'Arial',
 			'multiple_fonts_g' => '',
+			'my_shape_url' => '',
 			'pages_limit' => '',
 			'recent_posts' => '10',
 			'rp_category_id' => '',
@@ -334,6 +340,7 @@ License: LGPL v3
 			'max_speed' => '0.05',
 			'min_brightness' => '0.1',
 			'min_speed' => '0',
+			'min_tags' => '0',
 			'no_mouse' => 'false',
 			'no_select' => 'false',
 			'no_tags_msg' => 'true',
@@ -346,11 +353,13 @@ License: LGPL v3
 			'outline_radius' => '10',
 			'outline_thickness' => '2',
 			'padding' => '5',
+			'pinch_zoom' => 'false',
 			'pulsate_time' => '1',
 			'pulsate_to' => '0',
 			'radius_x' => '1',
 			'radius_y' => '1',
 			'radius_z' => '1',
+			'repeat_tags' => '0',
 			'reverse' => 'true',
 			'shadow' => '000000',
 			'shadow_blur' => '0',

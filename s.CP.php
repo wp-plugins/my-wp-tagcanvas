@@ -253,15 +253,16 @@
 	<h3><span class="front-title">cloud:</span> SHAPE, CONTENT, WEIGHT, OUTLINE</h3>
 	<div class="section_content" style="padding-bottom: 0;">
 		<span>SHAPE</span>
-		<div class="section_content" style="margin: 5px 0; padding: 0 0 5px; border-bottom: 1px solid #aaa;">
+		<div class="section_content" style="margin: 5px 0; padding: 0;">
 			<select style="margin: 0 0 5px!important;" id="<?=$this->get_field_id('shape'); ?>" name="<?=$this->get_field_name('shape'); ?>" onchange="check43d(this.value)";>
+				<option style="background: #777; color: #fff;" value="my_shape" <?php if( $shape == "my_shape" ){ echo ' selected'; } ?>>My Shape</option>
 				<option value="axes" <?php if( $shape == "axes" ){ echo ' selected'; } ?>>3D Axes*</option>
-				<option value="spiral3" <?php if( $shape == "spiral3" ){ echo ' selected'; } ?>>3D Spiral</option>
 				<option value="balls" <?php if( $shape == "balls" ){ echo ' selected'; } ?>>Balls</option>
 				<option value="blossom" <?php if( $shape == "blossom" ){ echo ' selected'; } ?>>Blossom</option>
 				<option value="bulb" <?php if( $shape == "bulb" ){ echo ' selected'; } ?>>Bulb</option>
 				<option value="candy" <?php if( $shape == "candy" ){ echo ' selected'; } ?>>Candy</option>
 				<option value="capsule" <?php if( $shape == "capsule" ){ echo ' selected'; } ?>>Capsule</option>
+				<option value="dna" <?php if( $shape == "dna" ){ echo ' selected'; } ?>>DNA</option>
 				<option value="egg" <?php if( $shape == "egg" ){ echo ' selected'; } ?>>Egg</option>
 				<option value="fir" <?php if( $shape == "fir" ){ echo ' selected'; } ?>>Chrismas Fir*</option>
 				<option value="cube" <?php if( $shape == "cube" ){ echo ' selected'; } ?>>Cube*</option>
@@ -280,6 +281,7 @@
 				<option value="roller" <?php if( $shape == "roller" ){ echo ' selected'; } ?>>Roller of rings</option>
 				<option value="sandglass" <?php if( $shape == "sandglass" ){ echo ' selected'; } ?>>Sandglass*</option>
 				<option value="sphere" <?php if( $shape == "sphere" ){ echo ' selected'; } ?>>Sphere</option>
+				<option value="spiral3" <?php if( $shape == "spiral3" ){ echo ' selected'; } ?>>Spring</option>
 				<option value="stairs" <?php if( $shape == "stairs" ){ echo ' selected'; } ?>>Staircase</option>
 				<option value="stool" <?php if( $shape == "stool" ){ echo ' selected'; } ?>>Stool</option>
 				<option value="pyramid" <?php if( $shape == "pyramid" ){ echo ' selected'; } ?>>Tetrahedron (Triangle Pyramid)*</option>
@@ -299,10 +301,39 @@
 				<span class="color" style="padding: 0; border: 1px solid #444; font-size: 10px; color: #fff;">██</span> 3D Shape, 
 				<span class="color" style="padding: 0; border: 1px solid #444; font-size: 10px; color: #ccc;">██</span> 2D Shape,
 				<span class="color" style="padding: 0; border: 1px solid #444; font-size: 10px; color: #aaa;">██</span> 1D Shape, 
+				<span class="color" style="padding: 0; border: 1px solid #444; font-size: 10px; color: #777;">██</span> Custom Shape, 
 				<b style="font-size: 26px; line-height: 5px; position: relative; top: 10px;">*</b> Specific set of tag numbers (in 'Number' fields below).<br>
 				<div class="thin-spacer"></div>
-				See <span style='font-weight: bold; color: #dc143c;'>GUIDE & TIPS</span> > <span style='font-weight: bold; color: #444;'>Shape Tips</span> 
-				for advices on selection.
+				N.B. See <span style='font-weight: bold; color: #dc143c;'>GUIDE & TIPS</span> > <span style='font-weight: bold; color: #444;'>Shape Tips</span> 
+				for tips on selection.
+			</div>
+		</div>
+		<div style="display: inline-block; border-bottom: 1px solid #aaa; margin: 0 0 5px;" title="My Shape Function takes 4 standard arguments:<br><span class='green'>n</span> - number of tags to position,<br><span class='green'>xr</span> - X radius,<br><span class='green'>yr</span> - Y radius and<br><span class='green'>zr</span> - Z radius.<br>The function must return an array containing <span class='green'>n</span> entries, each entry being an array of X,Y,Z coordinates, e.g. for n == 2, the array returned could be  [[1,2,3], [3,1,5]].<br>N.B. X is left-right, Y is top-bottom & Z is front-back.">
+			<span>My Shape Function</span>
+			<br>
+			<div style="text-align: justify; display: inline-block; margin: 0 0 5px 0; float: left;">
+				'My Shape' option from the above dropdown menu needs a js file with your my_shape() named function.
+			</div>
+			<label style="width: 100%; margin: 0 0 5px; display: inline-block;" title="URL of a js file containing your <span class='green'>my_shape()</span> function. For example:<br><span>http://your-domain.com/your-js-folder/your-file.js</span>.,<br>If  the selected shape is <span class='green'>My Shape</span> and no URL is entered, plugin loads the default shape (<span class='green'>Cube</span>)." for="<?=$this->get_field_id('my_shape_url'); ?>">
+				URL 
+				<input style="width: 100%;"
+				id="<?=$this->get_field_id('my_shape_url'); ?>"
+				name="<?=$this->get_field_name('my_shape_url'); ?>" type="text"
+				value="<?php echo $my_shape_url; ?>" /> 
+			</label>
+			<div style="clear: both;">
+			N.B. See below a function example (Sphere):
+			</div>
+			<div style="padding: 5px 0 5px 2px; background: #ccc; font-family: monospace, serif; font-size: 10px; border-radius: 10px; display: inline-block; margin: 0 0 5px 0; float: left;">
+				function my_shape(n, xr, yr, zr){<br>
+				  &nbsp;var i, y, r, p=[], inc=Math.PI*(3-Math.sqrt(5)), off=2/n;<br>
+				  &nbsp;for(i = 0; i &lt; n; ++i) {<br>
+				  &nbsp; y = i*off-1+(off/2);<br>
+				  &nbsp; r = Math.sqrt(1-y*y);<br>
+				  &nbsp; p.push([Math.cos(i*inc)*r*xr, y*yr, Math.sin(i*inc)*r*zr]);<br>
+				  &nbsp;}<br>
+				  &nbsp;return p;<br>
+				}<br>
 			</div>
 		</div>
 		<table>
@@ -983,8 +1014,22 @@
 			</tr>
 			<tr>
 				<td colspan="2" style="border-bottom: 1px solid #aaa;">
-					<div class="thin-spacer"></div>
-					<div style="text-align: center;" title="Displays “No tags” instead of an empty canvas when there are no tags available.">
+					<div class="thick-spacer"></div>
+					<div style="float: left; margin: 0 53px 0 0;" title="The minimum number of tags to show in the cloud. If the number of links available is lower than this value, the list will be repeated. The <span class='green'>Repeat Tags</span> option takes precedence over <span class='green'>Min Tags</span>. Shapes marked with an asterisk (*) may use the nearest downward value.">
+						Min Tags
+						<br>
+						<select id="<?=$this->get_field_id('min_tags'); ?>" name="<?=$this->get_field_name('min_tags'); ?>">
+							<?php for($i=0; $i<201; $i++){echo '<option id="mint_' . $i . '" value="' . $i . '"'; if($min_tags==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
+						</select>
+					</div>
+					<div style="float: left; margin: 0 53px 0 0;" title="The number of times to repeat the list of tags in the cloud. This option overrides the <span class='green'>Min Tags</span> option. Shapes marked with an asterisk (*) may use the nearest downward to the result value.">
+						Repeat Tags
+						<br>
+						<select id="<?=$this->get_field_id('repeat_tags'); ?>" name="<?=$this->get_field_name('repeat_tags'); ?>">
+							<?php for($i=0; $i<65; $i++){echo '<option id="rept_' . $i . '" value="' . $i . '"'; if($repeat_tags==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
+						</select>
+					</div>
+					<div style="float: left;" title="Displays “No tags” instead of an empty canvas when there are no tags available.">
 						No Tags Message
 						<br>
 						<input style="margin: 0 1px 0 0;" class="radio" id="<?=$this->get_field_id('no_tags_msg'); ?>"
@@ -1151,40 +1196,55 @@
 			</select>
 		</label> 
 		<div style="font-weight: bold; padding: 5px 0 0 0; margin: 5px 0 0 0; border-top: 1px solid #aaa; width: 100%; display: inline-block;">ZOOM</div>
-		<div style="float: left; margin: 5px 11px 0 0;" title="Enables zooming the cloud in and out using the mouse wheel or scroll gesture">
+		<div style="float: left; margin: 6px 5px 0 0;" title="Set to <span class='green'>on</span> to enable zooming in and out of the cloud by pinching on touchscreen devices.">
 			<div>
-				Wheel Zoom
+				Pinch Zoom
 			</div>
 			<div  style="float: left;">
-				<input class="radio" id="<?=$this->get_field_id('wheel_zoom'); ?>"
-				name="<?=$this->get_field_name('wheel_zoom'); ?>" type="radio" value="true"
-				<?php if( $wheel_zoom == "true" ){ echo ' checked="checked"'; } ?>>on
-				<input class="radio" id="<?=$this->get_field_id('wheel_zoom'); ?>"
-				name="<?=$this->get_field_name('wheel_zoom'); ?>" type="radio" value="false"
-				<?php if( $wheel_zoom == "false" ){ echo ' checked="checked"'; } ?>>off
+				<input class="radio" id="<?=$this->get_field_id('pinch_zoom'); ?>"
+				name="<?=$this->get_field_name('pinch_zoom'); ?>" type="radio" value="true"
+				<?php if( $pinch_zoom == "true" ){ echo ' checked="checked"'; } ?>>on
+				<input class="radio" id="<?=$this->get_field_id('pinch_zoom'); ?>"
+				name="<?=$this->get_field_name('pinch_zoom'); ?>" type="radio" value="false"
+				<?php if( $pinch_zoom == "false" ){ echo ' checked="checked"'; } ?>>off
 			</div>
 		</div>
-		<label title="Minimal zoom value" style="margin: 5px 7px 0 0;" for="<?=$this->get_field_id('zoom_min'); ?>">
-			Zoom Min
-			<br>
-			<select id="<?=$this->get_field_id('zoom_min'); ?>" name="<?=$this->get_field_name('zoom_min'); ?>">
-				<?php for($i=3; $i<11; $i++){echo '<option id="zomi_' . $i . '" value="' . $i/10 . '"'; if($zoom_min==$i/10){echo ' selected';}; echo '>' . $i/10 . '</option>'; } ?>
-			</select>
-		</label>  
-		<label title="Maximal zoom value" style="margin: 5px 7px 0 0;" for="<?=$this->get_field_id('zoom_max'); ?>">
-			Zoom Max
-			<br>
-			<select id="<?=$this->get_field_id('zoom_max'); ?>" name="<?=$this->get_field_name('zoom_max'); ?>">
-				<?php for($i=20; $i<41; $i++){echo '<option id="zoma_' . $i . '" value="' . $i/10 . '"'; if($zoom_max==$i/10){echo ' selected';}; echo '>' . $i/10 . '</option>'; } ?>
-			</select>
-		</label>
-		<label style="margin: 5px 7px 0 0;" title="The amount that the zoom is changed by with each movement of the mouse wheel." for="<?=$this->get_field_id('zoom_step'); ?>">
-			Zoom Step
-			<br>
-			<select id="<?=$this->get_field_id('zoom_step'); ?>" name="<?=$this->get_field_name('zoom_step'); ?>">
-				<?php for($i=1; $i<11; $i++){echo '<option id="zos_' . $i . '" value="' . $i/100 . '"'; if($zoom_step==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
-			</select>
-		</label>
+		<div style="border: 1px dotted #aaa; border-radius: 10px; display: block; float: left; padding: 0 0 2px 2px;">
+			<div style="float: left; margin: 5px 5px 0 0;" title="Enables zooming the cloud in and out using the mouse wheel or scroll gesture">
+				<div>
+					Wheel Zoom
+				</div>
+				<div  style="float: left;">
+					<input class="radio" id="<?=$this->get_field_id('wheel_zoom'); ?>"
+					name="<?=$this->get_field_name('wheel_zoom'); ?>" type="radio" value="true"
+					<?php if( $wheel_zoom == "true" ){ echo ' checked="checked"'; } ?>>on
+					<input class="radio" id="<?=$this->get_field_id('wheel_zoom'); ?>"
+					name="<?=$this->get_field_name('wheel_zoom'); ?>" type="radio" value="false"
+					<?php if( $wheel_zoom == "false" ){ echo ' checked="checked"'; } ?>>off
+				</div>
+			</div>
+			<label title="Minimal zoom value" style="margin: 5px 5px 0 0;" for="<?=$this->get_field_id('zoom_min'); ?>">
+				Zoom Min
+				<br>
+				<select id="<?=$this->get_field_id('zoom_min'); ?>" name="<?=$this->get_field_name('zoom_min'); ?>">
+					<?php for($i=3; $i<11; $i++){echo '<option id="zomi_' . $i . '" value="' . $i/10 . '"'; if($zoom_min==$i/10){echo ' selected';}; echo '>' . $i/10 . '</option>'; } ?>
+				</select>
+			</label>  
+			<label title="Maximal zoom value" style="margin: 5px 5px 0 0;" for="<?=$this->get_field_id('zoom_max'); ?>">
+				Zoom Max
+				<br>
+				<select id="<?=$this->get_field_id('zoom_max'); ?>" name="<?=$this->get_field_name('zoom_max'); ?>">
+					<?php for($i=20; $i<41; $i++){echo '<option id="zoma_' . $i . '" value="' . $i/10 . '"'; if($zoom_max==$i/10){echo ' selected';}; echo '>' . $i/10 . '</option>'; } ?>
+				</select>
+			</label>
+			<label style="margin: 5px 0 0 0;" title="The amount that the zoom is changed by with each movement of the mouse wheel." for="<?=$this->get_field_id('zoom_step'); ?>">
+				Zoom Step
+				<br>
+				<select id="<?=$this->get_field_id('zoom_step'); ?>" name="<?=$this->get_field_name('zoom_step'); ?>">
+					<?php for($i=1; $i<11; $i++){echo '<option id="zos_' . $i . '" value="' . $i/100 . '"'; if($zoom_step==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
+				</select>
+			</label>
+		</div>
 		<label style="margin: 5px 0 0;" title="Adjusts the relative size of the tag cloud in the canvas. Larger values will zoom into the cloud, smaller values will zoom out." for="<?=$this->get_field_id('zoom'); ?>">
 			Zoom
 			<br>
@@ -1192,7 +1252,6 @@
 				<?php for($i=10; $i<755; $i+=5){echo '<option id="zo_' . $i . '" value="' . $i/100 . '"'; if($zoom==$i/100){echo ' selected';}; echo '>' . $i/100 . '</option>'; } ?>
 			</select>
 		</label>
-
 	</div>
 	<h3><span class="front-title">cloud:</span> SPEED</h3>
 	<div class="section_content" style="padding: 0 2px 5px;">
@@ -1583,7 +1642,7 @@
 		<div style="width: 100%; float: left; padding: 5px 0; border-top: 1px solid #aaa;" title="Function for drawing in the center of the cloud. You can use two ready made functions or create yours.">
 			<span style="font-weight: bold;">CENTER FUNCTION</span>
 		</div>
-		<span title="Put an image in the center of your cloud.">General Settings</span>
+		<span title="">General Settings</span>
 		<br>
 		<label style="margin: 0 10px 0 0;" for="<?=$this->get_field_id('cf_name'); ?>" title="<span class='green'>none</span> - no Center Function;<br><span class='green'>image_cf()</span> - for an image in cloud's center;<br><span class='green'>text_cf()</span> - for text in cloud's center and<br><span class='green'>my_cf()</span> - for your own code.">
 			Function

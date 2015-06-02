@@ -120,6 +120,9 @@ jQuery(function(){
 			if((bg_outline=='')||(bg_outline=='null')) {bg_outline = null;} 
 			else {TagCanvas.bgOutline = bg_outline;};
 			var click_to_front = <?= $click_to_front ?>;
+			var shape = '<?= $shape; ?>';
+			var my_shape_url = '<?= $my_shape_url; ?>';
+			if(shape=='my_shape'&&my_shape_url==''){shape='cube';}
 			var text_color = '#<?= $text_color; ?>';
 			if(text_color=='#') {text_color = null;};
 			var weight_gradient_1 = '<?= $weight_gradient_1; ?>';
@@ -161,6 +164,7 @@ jQuery(function(){
 				maxSpeed: <?= $max_speed; ?>,
 				minBrightness: <?= $min_brightness; ?>,
 				minSpeed: <?= $min_speed; ?>,
+				minTags: <?= $min_tags; ?>,
 				noMouse: <?= $no_mouse; ?>,
 				noSelect: <?= $no_select; ?>,
 				noTagsMessage: <?= $no_tags_msg; ?>,
@@ -173,16 +177,18 @@ jQuery(function(){
 				outlineRadius: <?= $outline_radius; ?>,
 				outlineThickness: <?= $outline_thickness; ?>,
 				padding: <?= $padding; ?>,
+				pinchZoom: <?= $pinch_zoom; ?>,
 				pulsateTime: <?= $pulsate_time; ?>,
 				pulsateTo: <?= $pulsate_to; ?>,
 				radiusX: <?= $radius_x; ?>,
 				radiusY: <?= $radius_y; ?>,
 				radiusZ: <?= $radius_z; ?>,
+				repeatTags: <?= $repeat_tags; ?>,
 				reverse: <?= $reverse; ?>,
 				shadow: '#<?= $shadow; ?>',
 				shadowBlur: <?= $shadow_blur; ?>,
 				shadowOffset: [<?= $shadow_offset_x ?>,<?= $shadow_offset_y ?>],
-				shape: '<?= $shape; ?>',
+				shape: shape,
 				shuffleTags: <?= $shuffle_tags; ?>,
 				splitWidth: <?= $split_width; ?>,
 				stretchX: <?= $stretch_x; ?>,
