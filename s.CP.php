@@ -143,7 +143,7 @@
 		while(multiple_colors.charAt(multiple_colors.length-1) == ',') {
 			multiple_colors = multiple_colors.substr(0, multiple_colors.length-1)
 		};
-		jQuery(e).val(multiple_colors);	
+		jQuery(e).val(multiple_colors);
 		var mc_array = multiple_colors.split(',');
 		jQuery(d).empty();
 		if(multiple_colors != ''){
@@ -157,7 +157,7 @@
 					jQuery(e).tooltip({content: function(){
 						var element = jQuery( this ); 
 						var html_text=element.attr('title'); return html_text;}
-					});	
+					});
 					jQuery(d).append('<span class="multi-colors" style="border-radius: 3px; border: 1px solid #000; font-size: 10px; padding: 0 15px; margin: 0 5px 0 0; line-height: 11px;"><span style="background: #fff; padding: 0 3px;">?</span></span>');
 					poscal = 0;
 					break;
@@ -273,6 +273,7 @@
 				<option value="rings" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "rings" ){ echo ' selected'; }} ?>>Rings Knotwork (3D)</option>
 				<option value="roller" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "roller" ){ echo ' selected'; }} ?>>Roller of rings (3D)</option>
 				<option value="sandglass" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "sandglass" ){ echo ' selected'; }} ?>>Sandglass (3D)</option>
+				<option value="saturn" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "saturn" ){ echo ' selected'; }} ?>>Saturn (3D)</option>
 				<option value="sphere" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "sphere" ){ echo ' selected'; }} ?>>Sphere (3D)</option>
 				<option value="spiral3" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "spiral3" ){ echo ' selected'; }} ?>>Spring (3D)</option>
 				<option value="stairs" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "stairs" ){ echo ' selected'; }} ?>>Staircase (3D)</option>
