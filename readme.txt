@@ -49,7 +49,7 @@ settings.
 
 = 4.4 =
 1. Added multiple shape selection and fadein-fadeout shape transitions during rotation.
-2. Added an option for usage of customer defined shape.
+2. Added an option for usage of a customer defined shape.
 3. Added new shape: Domes.
 4. Improved shapes Glass and Sandglass.
 
