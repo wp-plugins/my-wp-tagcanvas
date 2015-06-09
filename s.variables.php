@@ -46,6 +46,7 @@
 			$text_line_4 = $instance['text_line_4'];
 			$text_line_5 = $instance['text_line_5'];
 			$text_zoom = $instance['text_zoom'];
+			$time = $instance['time'];
 			$title = $instance['title'];
 			$tooltip_status = $instance['tooltip_status'];
 			$width = $instance['width'];

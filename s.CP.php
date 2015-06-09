@@ -25,39 +25,28 @@
 		jQuery(function() {jQuery( "#accordion-1, #accordion-3, #accordion-6" ).accordion({heightStyle: "content", collapsible: true, active: false});});
 		};
 	 });
-// Check for 2d shape selection and hiding Radius Z 
-	function check43d(shape){
-		var raze;
-		if(shape=='circles'||shape=='spiral'||shape=='beam'||shape=='square'||shape=='hexagon'||shape=='triangle'||shape=='heart'){vis = 'hidden'; raze = 0} else{vis = 'visible'; raze = 1};
-		jQuery('#<?=$this->get_field_id('radius_z'); ?>').val(raze);
-		jQuery('#cont_<?=$this->get_field_id('radius_z'); ?>').css('visibility', vis);
-		change_limits(shape);
-	}
-// Change of tag limits for spiral, hexagon, cube, pyramid, beam, circles & antenna, axes, vcones & hcones, square, fir, sandglass and triangle
-	function change_limits(shape){
-		var i=1, j, limits = [5,25,1,"<?= $this->get_field_id('recent_posts'); ?>","rp_","","",
-							  5,100,5,"<?= $this->get_field_id('links'); ?>","l_","l_125",-1,
-							  10,120,5,"<?= $this->get_field_id('tags'); ?>","t_","t_125",0,
-							  6,60,6,"<?= $this->get_field_id('archives_limit'); ?>","arli_","arli_66","",
-							  5,50,5,"<?= $this->get_field_id('pages_limit'); ?>","pali_","pali_55","",
-							  5,50,5,"<?= $this->get_field_id('authors_limit'); ?>","auli_","auli_55","",
-							  5,60,5,"<?= $this->get_field_id('categories'); ?>","c_","c_65",0];
+// Change of tag limits for spiral, hexagon, cube, pyramid, beam, circles & antenna, axes, vcones & hcones, square, fir and triangle
+	function change_limits(shape,length){
+		var i=1, j, delta, limits = [5,25,1,"<?= $this->get_field_id('recent_posts'); ?>","rp_","","",
+							  5,100,5,"<?= $this->get_field_id('links'); ?>","l_","","",
+							  5,120,5,"<?= $this->get_field_id('tags'); ?>","t_","","",
+							  6,60,6,"<?= $this->get_field_id('archives_limit'); ?>","arli_","","",
+							  5,50,5,"<?= $this->get_field_id('pages_limit'); ?>","pali_","","",
+							  5,50,5,"<?= $this->get_field_id('authors_limit'); ?>","auli_","","",
+							  5,60,5,"<?= $this->get_field_id('categories'); ?>","c_","",""];
 		for(i=3;i<= 45;i+=7){
 			jQuery('#'+limits[i]).empty();
 		}
-		if(shape!="spiral"&&shape!="hexagon"&&shape!="cube"&&shape!="pyramid"&&shape!="beam"&&shape!="circles"&&shape!="antena"&&shape!="axes"&&shape!="vcones"&&shape!="hcones"&&shape!="square"&&shape!="fir"&&shape!="sandglass"&&shape!="triangle"&&shape!="heart"&&shape!="love"){
+		if(length!=1||shape!="spiral"&&shape!="hexagon"&&shape!="cube"&&shape!="pyramid"&&shape!="beam"&&shape!="circles"&&shape!="antena"&&shape!="axes"&&shape!="vcones"&&shape!="hcones"&&shape!="square"&&shape!="fir"&&shape!="triangle"&&shape!="heart"&&shape!="love"){
 			for(j=0; j<=42; j+=7){
 				for(i=limits[j]; i<=limits[j+1]; i+=limits[j+2]){
-					jQuery('#'+limits[j+3]).append('<option id="'+limits[j+4]+i+'" value="'+i+'" '+(j==0&&i==limits[j+1]?"selected":"")+'>'+i+'</option>');
+					jQuery('#'+limits[j+3]).append('<option id="'+limits[j+4]+i+'" value="'+i+'" '+"selected"+'>'+i+'</option>');
 				}
-			}
-			for(i=0;i<=35;i+=7){
-				jQuery('#'+limits[10+i]).append('<option id="'+limits[12+i]+'" value="'+limits[13+i]+'" selected>all</option>');
 			}
 		}
 		else{
 //COL: rec, lin, pos, arc, pag, aut, cat
-//ROW: spiral, hexagon, cube, pyramid, beam, circles & antenna, axes, vcones & hcones, square, fir, sandglass, triangle, heart and love
+//ROW: spiral, hexagon, cube, pyramid, beam, circles & antenna, axes, vcones & hcones, square, fir, triangle, heart and love
 			var limits2 = [8,29,7,"","","","",8,99,7,"","","","",8,120,7,"","","","",8,64,7,"","","","",8,50,7,"","","","",8,50,7,"","","","",8,57,7,"","","","",
 						   1,2,1,3,3,1,"",1,5,1,3,3,1,"",1,6,1,3,3,1,"",1,4,1,3,3,1,"",1,3,1,3,3,1,"",1,3,1,3,3,1,"",1,4,1,3,3,1,"",
 						   0,1,1,6,12,8,"",0,3,1,6,12,8,"",0,4,1,6,12,8,"",0,2,1,6,12,8,"",0,1,1,6,12,8,"",0,1,1,6,12,8,"",0,2,1,6,12,8,"",
@@ -68,7 +57,6 @@
 						   2,3,1,2,0,1,"",2,5,1,2,0,1,"",2,6,1,2,0,1,"",2,4,1,2,0,1,"",2,4,1,2,0,1,"",2,4,1,2,0,1,"",2,4,1,2,0,1,"",
 						   2,5,1,"","","","",2,10,1,"","","","",2,11,1,"","","","",2,8,1,"","","","",2,7,1,"","","","",2,7,1,"","","","",2,8,1,"","","","",
 						   1,3,1,2,2,1,"",1,7,1,2,2,1,"",1,8,1,2,2,1,"",1,5,1,2,2,1,"",1,4,1,2,2,1,"",1,4,1,2,2,1,"",1,5,1,2,2,1,"",
-						   2,3,1,4,0,2,"",2,5,1,4,0,2,"",2,6,1,4,0,2,"",2,4,1,4,0,2,"",2,3,1,4,0,2,"",2,3,1,4,0,2,"",2,4,1,4,0,2,"",
 						   3,6,1,0.5,0.5,0,"",3,14,1,0.5,0.5,0,"",3,15,1,0.5,0.5,0,"",3,11,1,0.5,0.5,0,"",3,10,1,0.5,0.5,0,"",3,10,1,0.5,0.5,0,"",3,11,1,0.5,0.5,0,"",
 						   12,24,12,"","","","",12,48,12,"","","","",12,48,12,"","","","",12,48,12,"","","","",12,36,12,"","","","",12,36,12,"","","","",12,48,12,"","","","",
 						   24,36,12,"","","","",24,60,12,"","","","",24,60,12,"","","","",24,60,12,"","","","",24,48,12,"","","","",24,48,12,"","","","",24,60,12,"","","",""]
@@ -85,11 +73,10 @@
 				case "hcones": delta = 343; break;
 				case "square": delta = 392; break;
 				case "fir": delta = 441; break;
-				case "sandglass": delta = 490; break;
-				case "triangle": delta = 539; break;
-				case "heart": delta = 588; break;
-				case "love": delta = 637;
-//				Next delta=686;
+				case "triangle": delta = 490; break;
+				case "heart": delta = 539; break;
+				case "love": delta = 588;
+//				Next delta=637;
 			}
 			for(j=0; j<=42; j+=7){
 				for(i=limits2[delta+j]; i<=limits2[delta+j+1]; i+=limits2[delta+j+2]){
@@ -102,7 +89,7 @@
 						'</option>');
 				}
 			}			
-		}		 
+		}
 	}
 // Center Function Text check
 	function qutes_check(e,s){
@@ -115,7 +102,6 @@
 			});
 		}
 	};
-	
 // HEX check for entered colors	
 	function hex_val_check(e,s){
 		if(s == 'tag' && (e.id.search('bg_color') > -1 || e.id.search('bg_outline') > -1 )){
@@ -143,7 +129,6 @@
 			}
 		}
 	}
-
 // HEX check for entered multiple colors
 	var poscal = 0;
 	function multi_colors_check(e,s,d){
@@ -254,86 +239,70 @@
 	<div class="section_content" style="padding-bottom: 0;">
 		<span>SHAPE</span>
 		<div class="section_content" style="margin: 5px 0; padding: 0;">
-			<select style="margin: 0 0 5px!important;" id="<?=$this->get_field_id('shape'); ?>" name="<?=$this->get_field_name('shape'); ?>" onchange="check43d(this.value)";>
-				<option style="background: #777; color: #fff;" value="my_shape" <?php if( $shape == "my_shape" ){ echo ' selected'; } ?>>My Shape</option>
-				<option value="axes" <?php if( $shape == "axes" ){ echo ' selected'; } ?>>3D Axes*</option>
-				<option value="balls" <?php if( $shape == "balls" ){ echo ' selected'; } ?>>Balls</option>
-				<option value="blossom" <?php if( $shape == "blossom" ){ echo ' selected'; } ?>>Blossom</option>
-				<option value="bulb" <?php if( $shape == "bulb" ){ echo ' selected'; } ?>>Bulb</option>
-				<option value="candy" <?php if( $shape == "candy" ){ echo ' selected'; } ?>>Candy</option>
-				<option value="capsule" <?php if( $shape == "capsule" ){ echo ' selected'; } ?>>Capsule</option>
-				<option value="dna" <?php if( $shape == "dna" ){ echo ' selected'; } ?>>DNA</option>
-				<option value="egg" <?php if( $shape == "egg" ){ echo ' selected'; } ?>>Egg</option>
-				<option value="fir" <?php if( $shape == "fir" ){ echo ' selected'; } ?>>Chrismas Fir*</option>
-				<option value="cube" <?php if( $shape == "cube" ){ echo ' selected'; } ?>>Cube*</option>
-				<option value="glass" <?php if( $shape == "glass" ){ echo ' selected'; } ?>>Glass</option>
-				<option value="globe" <?php if( $shape == "globe" ){ echo ' selected'; } ?>>Globe of Rings</option>
-				<option value="hcylinder" <?php if( $shape == "hcylinder" ){ echo ' selected'; } ?>>Horisontal Cylinder</option>
-				<option value="knot" <?php if( $shape == "knot" ){ echo ' selected'; } ?>>Knot</option>
-				<option value="lemon" <?php if( $shape == "lemon" ){ echo ' selected'; } ?>>Lemon</option>
-				<option value="love" <?php if( $shape == "love" ){ echo ' selected'; } ?>>Love</option>
-				<option value="antenna" <?php if( $shape == "antenna" ){ echo ' selected'; } ?>>Parabolic Antenna*</option>
-				<option value="hcones" <?php if( $shape == "hcones" ){ echo ' selected'; } ?>>Peg top around X-axis*</option>
-				<option value="vcones" <?php if( $shape == "vcones" ){ echo ' selected'; } ?>>Peg top around Y-axis*</option>
-				<option value="hring" <?php if( $shape == "hring" ){ echo ' selected'; } ?>>Ring around X-axis</option>
-				<option value="vring" <?php if( $shape == "vring" ){ echo ' selected'; } ?>>Ring around Y-axis</option>
-				<option value="rings" <?php if( $shape == "rings" ){ echo ' selected'; } ?>>Rings Knotwork</option>
-				<option value="roller" <?php if( $shape == "roller" ){ echo ' selected'; } ?>>Roller of rings</option>
-				<option value="sandglass" <?php if( $shape == "sandglass" ){ echo ' selected'; } ?>>Sandglass*</option>
-				<option value="sphere" <?php if( $shape == "sphere" ){ echo ' selected'; } ?>>Sphere</option>
-				<option value="spiral3" <?php if( $shape == "spiral3" ){ echo ' selected'; } ?>>Spring</option>
-				<option value="stairs" <?php if( $shape == "stairs" ){ echo ' selected'; } ?>>Staircase</option>
-				<option value="stool" <?php if( $shape == "stool" ){ echo ' selected'; } ?>>Stool</option>
-				<option value="pyramid" <?php if( $shape == "pyramid" ){ echo ' selected'; } ?>>Tetrahedron (Triangle Pyramid)*</option>
-				<option value="tire" <?php if( $shape == "tire" ){ echo ' selected'; } ?>>Tire</option>
-				<option value="tower" <?php if( $shape == "tower" ){ echo ' selected'; } ?>>Tower of rings</option>
-				<option value="vcylinder" <?php if( $shape == "vcylinder" ){ echo ' selected'; } ?>>Vertical Cylinder</option>
-				<option style="background: #ccc;" value="spiral" <?php if( $shape == "spiral" ){ echo ' selected'; } ?>>2D Spiral*</option>
-				<option style="background: #ccc;" value="circles" <?php if( $shape == "circles" ){ echo ' selected'; } ?>>Concentric Circles*</option>
-				<option style="background: #ccc;" value="heart" <?php if( $shape == "heart" ){ echo ' selected'; } ?>>Heart</option>
-				<option style="background: #ccc;" value="hexagon" <?php if( $shape == "hexagon" ){ echo ' selected'; } ?>>Hexagon (Bee Cell)*</option>
-				<option style="background: #ccc;" value="square" <?php if( $shape == "square" ){ echo ' selected'; } ?>>Square*</option>
-				<option style="background: #ccc;" value="triangle" <?php if( $shape == "triangle" ){ echo ' selected'; } ?>>Triangle*</option>
-				<option style="background: #aaa;" value="beam" <?php if( $shape == "beam" ){ echo ' selected'; } ?>>Lighthouse Beam*</option>
+			<select style="float: left; height: 172px!important; margin: 0 2px 5px 0!important;" title="Multiple selection is alowed. In that case plugin will change shapes every 5-15 sec. depending on <span class='green'>Shape Time</span> value in <span class='green'>TIME & FUNCTIONS</span> section below.<br><b>N.B. 1</b> Different shapes define different sets of values in <span class='green'>Number</span> fields below. For multiple selection a general set applies.<br><b>N.B. 2</b> For multiple selection the plugin uses predefined cloud speed so <span class='green'>Initial Speed [x, y, z]</span> values in <span class='green'>SPEED</span> section are ignored." id="<?=$this->get_field_id('shape'); ?>" name="<?=$this->get_field_name('shape'); ?>[]" multiple onchange="change_limits(jQuery(this).val()[0],jQuery(this).val().length)">
+				<option value="my_shape" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "my_shape" ){ echo ' selected'; }} ?>>My Shape (Custom)</option>
+				<option value="beam" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "beam" ){ echo ' selected'; }} ?>>Lighthouse Beam* (1D)</option>
+				<option value="spiral" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "spiral" ){ echo ' selected'; }} ?>>2D Spiral* (2D)</option>
+				<option value="circles" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "circles" ){ echo ' selected'; }} ?>>Concentric Circles* (2D)</option>
+				<option value="heart" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "heart" ){ echo ' selected'; }} ?>>Heart (2D)</option>
+				<option value="hexagon" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "hexagon" ){ echo ' selected'; }} ?>>Hexagon (Bee Cell)* (2D)</option>
+				<option value="square" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "square" ){ echo ' selected'; }} ?>>Square* (2D)</option>
+				<option value="triangle" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "triangle" ){ echo ' selected'; }} ?>>Triangle* (2D)</option>
+				<option value="axes" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "axes" ){ echo ' selected'; }} ?>>3D Axes* (3D)</option>
+				<option value="balls" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "balls" ){ echo ' selected'; }} ?>>Balls (3D)</option>
+				<option value="blossom" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "blossom" ){ echo ' selected'; }} ?>>Blossom (3D)</option>
+				<option value="bulb" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "bulb" ){ echo ' selected'; }} ?>>Bulb (3D)</option>
+				<option value="candy" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "candy" ){ echo ' selected'; }} ?>>Candy (3D)</option>
+				<option value="capsule" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "capsule" ){ echo ' selected'; }} ?>>Capsule (3D)</option>
+				<option value="dna" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "dna" ){ echo ' selected'; }} ?>>DNA (3D)</option>
+				<option value="domes" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "domes" ){ echo ' selected'; }} ?>>Domes (3D)</option>
+				<option value="egg" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "egg" ){ echo ' selected'; }} ?>>Egg (3D)</option>
+				<option value="fir" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "fir" ){ echo ' selected'; }} ?>>Chrismas Fir* (3D)</option>
+				<option value="cube" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "cube" || $shape=="cube" ){ echo ' selected'; }} ?>>Cube* (3D)</option>
+				<option value="glass" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "glass" ){ echo ' selected'; }} ?>>Glass (3D)</option>
+				<option value="globe" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "globe" ){ echo ' selected'; }} ?>>Globe of Rings (3D)</option>
+				<option value="hcylinder" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "hcylinder" ){ echo ' selected'; }} ?>>Horisontal Cylinder (3D)</option>
+				<option value="knot" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "knot" ){ echo ' selected'; }} ?>>Knot (3D)</option>
+				<option value="lemon" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "lemon" ){ echo ' selected'; }} ?>>Lemon (3D)</option>
+				<option value="love" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "love" ){ echo ' selected'; }} ?>>Love (3D)</option>
+				<option value="antenna" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "antenna" ){ echo ' selected'; }} ?>>Parabolic Antenna* (3D)</option>
+				<option value="hcones" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "hcones" ){ echo ' selected'; }} ?>>Peg top around X-axis* (3D)</option>
+				<option value="vcones" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "vcones" ){ echo ' selected'; }} ?>>Peg top around Y-axis* (3D)</option>
+				<option value="hring" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "hring" ){ echo ' selected'; }} ?>>Ring around X-axis (3D)</option>
+				<option value="vring" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "vring" ){ echo ' selected'; }} ?>>Ring around Y-axis (3D)</option>
+				<option value="rings" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "rings" ){ echo ' selected'; }} ?>>Rings Knotwork (3D)</option>
+				<option value="roller" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "roller" ){ echo ' selected'; }} ?>>Roller of rings (3D)</option>
+				<option value="sandglass" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "sandglass" ){ echo ' selected'; }} ?>>Sandglass (3D)</option>
+				<option value="sphere" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "sphere" ){ echo ' selected'; }} ?>>Sphere (3D)</option>
+				<option value="spiral3" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "spiral3" ){ echo ' selected'; }} ?>>Spring (3D)</option>
+				<option value="stairs" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "stairs" ){ echo ' selected'; }} ?>>Staircase (3D)</option>
+				<option value="stool" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "stool" ){ echo ' selected'; }} ?>>Stool (3D)</option>
+				<option value="pyramid" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "pyramid" ){ echo ' selected'; }} ?>>Tetrahedron (Triangle Pyramid)* (3D)</option>
+				<option value="tire" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "tire" ){ echo ' selected'; }} ?>>Tire (3D)</option>
+				<option value="tower" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "tower" ){ echo ' selected'; }} ?>>Tower of rings (3D)</option>
+				<option value="vcylinder" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "vcylinder" ){ echo ' selected'; }} ?>>Vertical Cylinder (3D)</option>
 			</select>
-			<div style="text-align: justify;">
-				<b>Legend:</b><br>
-				<span class="color" style="padding: 0; border: 1px solid #444; font-size: 10px; color: #fff;">██</span> 3D Shape, 
-				<span class="color" style="padding: 0; border: 1px solid #444; font-size: 10px; color: #ccc;">██</span> 2D Shape,
-				<span class="color" style="padding: 0; border: 1px solid #444; font-size: 10px; color: #aaa;">██</span> 1D Shape, 
-				<span class="color" style="padding: 0; border: 1px solid #444; font-size: 10px; color: #777;">██</span> Custom Shape, 
-				<b style="font-size: 26px; line-height: 5px; position: relative; top: 10px;">*</b> Specific set of tag numbers (in 'Number' fields below).<br>
-				<div class="thin-spacer"></div>
-				N.B. See <span style='font-weight: bold; color: #dc143c;'>GUIDE & TIPS</span> > <span style='font-weight: bold; color: #444;'>Shape Tips</span> 
-				for tips on selection.
+			<div style="text-align: justify; font-size: 11px; padding: 0 2px 0 0;">
+				<b style="font-size: 12px!important;">Legend:</b><br>
+				<b style="font-size: 26px; line-height: 5px; position: relative; top: 10px;">*</b> Uses specific number of tags.
+				<div style="margin: 5px 0 0;">
+					<b>N.B. 1</b> 2D shapes ignore <span class='green'>Radius Z</span> value in <span class="green">SIZES & ZOOM</span> section.
+				</div>
+				<div style="margin: 5px 0 0;">
+					<b>N.B. 2</b> Find tips on shape selection at <span style='font-weight: bold; color: #dc143c;'>GUIDE & TIPS</span> > <span style='font-weight: bold; color: #444;'>Shape Tips</span>.
+				</div>
 			</div>
 		</div>
-		<div style="display: inline-block; border-bottom: 1px solid #aaa; margin: 0 0 5px;" title="My Shape Function takes 4 standard arguments:<br><span class='green'>n</span> - number of tags to position,<br><span class='green'>xr</span> - X radius,<br><span class='green'>yr</span> - Y radius and<br><span class='green'>zr</span> - Z radius.<br>The function must return an array containing <span class='green'>n</span> entries, each entry being an array of X,Y,Z coordinates, e.g. for n == 2, the array returned could be  [[1,2,3], [3,1,5]].<br>N.B. X is left-right, Y is top-bottom & Z is front-back.">
-			<span>My Shape Function</span>
-			<br>
-			<div style="text-align: justify; display: inline-block; margin: 0 0 5px 0; float: left;">
-				'My Shape' option from the above dropdown menu needs a js file with your my_shape() named function.
-			</div>
-			<label style="width: 100%; margin: 0 0 5px; display: inline-block;" title="URL of a js file containing your <span class='green'>my_shape()</span> function. For example:<br><span>http://your-domain.com/your-js-folder/your-file.js</span>.,<br>If  the selected shape is <span class='green'>My Shape</span> and no URL is entered, plugin loads the default shape (<span class='green'>Cube</span>)." for="<?=$this->get_field_id('my_shape_url'); ?>">
-				URL 
+		<div style="display: inline-block; border-bottom: 1px solid #aaa; margin: 0 0 5px;">
+			<label style="width: 100%; margin: 0 0 5px; display: inline-block;" title="<span class='green'>My Shape</span> option from the above combo box needs a js file with your <span class='green'>my_shape()</span> named function. Enter here the URL of that js file. For example:<br><span>http://your-domain.com/your-js-folder/your-file.js</span>.,<br>If <span class='green'>My Shape</span> is selected and no URL is entered, plugin loads the default shape (<span class='green'>Cube</span>)." for="<?=$this->get_field_id('my_shape_url'); ?>">
+				My Shape URL 
 				<input style="width: 100%;"
 				id="<?=$this->get_field_id('my_shape_url'); ?>"
 				name="<?=$this->get_field_name('my_shape_url'); ?>" type="text"
 				value="<?php echo $my_shape_url; ?>" /> 
 			</label>
-			<div style="clear: both;">
-			N.B. See below a function example (Sphere):
-			</div>
-			<div style="padding: 5px 0 5px 2px; background: #ccc; font-family: monospace, serif; font-size: 10px; border-radius: 10px; display: inline-block; margin: 0 0 5px 0; float: left;">
-				function my_shape(n, xr, yr, zr){<br>
-				  &nbsp;var i, y, r, p=[], inc=Math.PI*(3-Math.sqrt(5)), off=2/n;<br>
-				  &nbsp;for(i = 0; i &lt; n; ++i) {<br>
-				  &nbsp; y = i*off-1+(off/2);<br>
-				  &nbsp; r = Math.sqrt(1-y*y);<br>
-				  &nbsp; p.push([Math.cos(i*inc)*r*xr, y*yr, Math.sin(i*inc)*r*zr]);<br>
-				  &nbsp;}<br>
-				  &nbsp;return p;<br>
-				}<br>
+			<div style="clear: both; padding: 0 0 5px 0;" title="My Shape Function takes 4 standard arguments:<br><span class='green'>n</span> - number of tags to position,<br><span class='green'>xr</span> - X radius,<br><span class='green'>yr</span> - Y radius and<br><span class='green'>zr</span> - Z radius.<br>The function must return an array containing <span class='green'>n</span> entries, each entry being an array of X,Y,Z coordinates, e.g. for n == 2, the array returned could be [[1,2,3], [3,1,5]].<br><strong>N.B.</strong> X is left-right, Y is top-bottom & Z is front-back.<br>Example (Sphere):<br><br>function my_shape(n, xr, yr, zr){<br>&nbsp;var i, y, r, p=[], inc=Math.PI*(3-Math.sqrt(5)), off=2/n;<br>&nbsp;for(i = 0; i &lt; n; ++i) {<br>&nbsp; y = i*off-1+(off/2);<br>&nbsp; r = Math.sqrt(1-y*y);<br>&nbsp; p.push([Math.cos(i*inc)*r*xr, y*yr, Math.sin(i*inc)*r*zr]);<br>&nbsp;}<br>&nbsp;return p;<br>}">
+				<b>N.B.</b> <span style="color: #1e8cbe; font-weight: bold;">Hover to see</span> explanations and a my_shape() function example (Sphere).
 			</div>
 		</div>
 		<table>
@@ -462,10 +431,6 @@
 											$hcones_rec = 0;
 											for($i=2; $i<4; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="rp_' . $calc . '" value="' . $calc . '"'; if($recent_posts==$calc){echo ' selected'; $hcones_rec = 1;} else{if($i==3&&$hcones_rec==0){echo ' selected'; $hcones_rec = 1;}}; echo '>' . $calc . '</option>'; };
 											break;
-										case "sandglass":
-											$sandglass_rec = 0;
-											for($i=2; $i<4; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="rp_' . $calc . '" value="' . $calc . '"'; if($recent_posts==$calc){echo ' selected'; $sandglass_rec = 1;} else{if($i==3&&$sandglass_rec==0){echo ' selected'; $sandglass_rec = 1;}}; echo '>' . $calc . '</option>'; };
-											break;
 										case "square":
 											$square_rec = 0;
 											for($i=2; $i<6; $i++){echo '<option id="rp_' . $i*$i . '" value="' . $i*$i . '"'; if($recent_posts==$i*$i){echo ' selected'; $square_rec = 1;} else{if($i==5&&$square_rec==0){echo ' selected'; $square_rec = 1;}}; echo '>' . $i*$i . '</option>'; };
@@ -556,10 +521,6 @@
 											$hcones_lin = 0;
 											for($i=2; $i<6; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="l_' . $calc . '" value="' . $calc . '"'; if($links==$calc){echo ' selected'; $hcones_lin = 1; } else{if($i==5&&$hcones_lin==0){echo ' selected'; $hcones_lin = 1;}}; echo '>' . $calc . '</option>'; };
 											break;
-										case "sandglass";
-											$sandglass_lin = 0;
-											for($i=2; $i<6; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="l_' . $calc . '" value="' . $calc . '"'; if($links==$calc){echo ' selected'; $sandglass_lin = 1;} else{if($i==5&&$sandglass_lin==0){echo ' selected'; $sandglass_lin = 1;}}; echo '>' . $calc . '</option>'; };
-										break;
 										case "square";
 											$square_lin = 0;
 											for($i=2; $i<11; $i++){echo '<option id="l_' . $i*$i . '" value="' . $i*$i . '"'; if($links==$i*$i){echo ' selected'; $square_lin = 1;} else{if($i==10&&$square_lin==0){echo ' selected'; $square_lin = 1;}}; echo '>' . $i*$i . '</option>'; };
@@ -583,7 +544,7 @@
 										default:
 											$default_lin = 0;
 											for($i=5; $i<105; $i+=5){echo '<option id="l_' . $i . '" value="' . $i . '"'; if($links==$i){echo ' selected'; $default_lin = 1;} else{if($i==100&&$default_lin==0){echo ' selected'; $default_lin = 1;}}; echo '>' . $i . '</option>'; };
-											echo '<option id="l_105"'; if($links=='-1'){echo ' selected';}; echo ' value="-1">all</option>';
+//											echo '<option id="l_105"'; if($links=='-1'){echo ' selected';}; echo ' value="-1">all</option>';
 									}
 								?>
 							</select>
@@ -651,10 +612,6 @@
 										$hcones_cat = 0;
 										for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="c_' . $calc . '" value="' . $calc . '"'; if($categories==$calc){echo ' selected'; $hcones_cat = 1;} else{if($i==4&&$hcones_cat==0){echo ' selected'; $hcones_cat = 1;}}; echo '>' . $calc . '</option>'; };
 										break;
-									case "sandglass":
-										$sandglass_cat = 0;
-										for($i=2; $i<5; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="c_' . $calc . '" value="' . $calc . '"'; if($categories==$calc){echo ' selected'; $sandglass_cat = 1;} else{if($i==4&&$sandglass_cat==0){echo ' selected'; $sandglass_cat = 1;}}; echo '>' . $calc . '</option>'; };
-										break;
 									case "square":
 										$square_cat = 0;
 										for($i=2; $i<9; $i++){echo '<option id="c_' . $i*$i . '" value="' . $i*$i . '"'; if($categories==$i*$i){echo ' selected'; $square_cat = 1;} else{if($i==8&&$square_cat==0){echo ' selected'; $square_cat = 1;}}; echo '>' . $i*$i . '</option>'; };
@@ -678,7 +635,7 @@
 									default:
 										$default_cat = 0;
 										for($i=5; $i<65; $i+=5){echo '<option id="c_' . $i . '" value="' . $i . '"'; if($categories==$i){echo ' selected'; $default_cat = 1;} else{if($i==60&&$default_cat==0){echo ' selected'; $default_cat = 1;}}; echo '>' . $i . '</option>'; };
-										echo '<option id="c_65"'; if($categories=='0'){echo ' selected';}; echo ' value="0">all</option>';
+//										echo '<option id="c_65"'; if($categories=='0'){echo ' selected';}; echo ' value="0">all</option>';
 								}
 							?>
 						</select>
@@ -729,10 +686,6 @@
 										$hcones_pos = 0;
 										for($i=2; $i<7; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="t_' . $calc . '" value="' . $calc . '"'; if($tags==$calc){echo ' selected'; $hcones_pos = 1;} else{if($i==6&&$hcones_pos==0){echo ' selected'; $hcones_pos = 1;}}; echo '>' . $calc . '</option>'; };
 										break;
-									case "sandglass":
-										$sandglass_pos = 0;
-										for($i=2; $i<7; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="t_' . $calc . '" value="' . $calc . '"'; if($tags==$calc){echo ' selected'; $sandglass_pos = 1;} else{if($i==6&&$sandglass_pos==0){echo ' selected'; $sandglass_pos = 1;}}; echo '>' . $calc . '</option>'; };
-										break;
 									case "square":
 										$square_pos = 0;
 										for($i=2; $i<12; $i++){echo '<option id="t_' . $i*$i . '" value="' . $i*$i . '"'; if($tags==$i*$i){echo ' selected'; $square_pos = 1;} else{if($i==11&&$square_pos==0){echo ' selected'; $square_pos = 1;}}; echo '>' . $i*$i . '</option>'; };
@@ -755,8 +708,8 @@
 										break;
 									default:
 										$default_pos = 0;
-										for($i=10; $i<125; $i+=5){echo '<option id="t_' . $i . '" value="' . $i . '"'; if($tags==$i){echo ' selected'; $default_pos = 1;} else{if($i==120&&$default_pos==0){echo ' selected'; $default_pos = 1;}}; echo '>' . $i . '</option>'; };
-										echo '<option id="t_125"'; if($tags=='0'){echo ' selected';}; echo ' value="0">all</option>';
+										for($i=5; $i<125; $i+=5){echo '<option id="t_' . $i . '" value="' . $i . '"'; if($tags==$i){echo ' selected'; $default_pos = 1;} else{if($i==120&&$default_pos==0){echo ' selected'; $default_pos = 1;}}; echo '>' . $i . '</option>'; };
+//										echo '<option id="t_125"'; if($tags=='0'){echo ' selected';}; echo ' value="0">all</option>';
 								}
 							?>
 						</select>
@@ -807,10 +760,6 @@
 									$hcones_arc = 0;
 									for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="arli_' . $calc . '" value="' . $calc . '"'; if($archives_limit==$calc){echo ' selected'; $hcones_arc = 1;} else{if($i==4&&$hcones_arc==0){echo ' selected'; $hcones_arc = 1;}}; echo '>' . $calc . '</option>'; };
 									break;
-								case "sandglass":
-									$sandglass_arc = 0;
-									for($i=2; $i<5; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="arli_' . $calc . '" value="' . $calc . '"'; if($archives_limit==$calc){echo ' selected'; $sandglass_arc = 1;} else{if($i==4&&$sandglass_arc==0){echo ' selected'; $sandglass_arc = 1;}}; echo '>' . $calc . '</option>'; };
-									break;
 								case "square":
 									$square_arc = 0;
 									for($i=2; $i<9; $i++){echo '<option id="arli_' . $i*$i . '" value="' . $i*$i . '"'; if($archives_limit==$i*$i){echo ' selected'; $square_arc = 1;} else{if($i==8&&$square_arc==0){echo ' selected'; $square_arc = 1;}}; echo '>' . $i*$i . '</option>'; };
@@ -834,7 +783,7 @@
 								default:
 									$default_arc = 0;
 									for($i=6; $i<66; $i+=6){echo '<option id="arli_' . $i . '" value="' . $i . '"'; if($archives_limit==$i){echo ' selected'; $default_arc = 1;} else{if($i==60&&$default_arc==0){echo ' selected'; $default_arc = 1;}}; echo '>' . $i . '</option>'; };
-									echo '<option id="arli_66"'; if($archives_limit==''){echo ' selected';}; echo ' value="">all</option>';
+//									echo '<option id="arli_66"'; if($archives_limit==''){echo ' selected';}; echo ' value="">all</option>';
 							}
 						?>
 						</select>
@@ -885,10 +834,6 @@
 									$hcones_pag = 0;
 									for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="pali_' . $calc . '" value="' . $calc . '"'; if($pages_limit==$calc){echo ' selected'; $hcones_pag = 1;} else{if($i==4&&$hcones_pag==0){echo ' selected'; $hcones_pag = 1;}}; echo '>' . $calc . '</option>'; };
 									break;
-								case "sandglass":
-									$sandglass_pag = 0;
-									for($i=2; $i<4; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="pali_' . $calc . '" value="' . $calc . '"'; if($pages_limit==$calc){echo ' selected'; $sandglass_pag = 1;} else{if($i==3&&$sandglass_pag==0){echo ' selected'; $sandglass_pag = 1;}}; echo '>' . $calc . '</option>'; };
-									break;
 								case "square":
 									$square_pag = 0;
 									for($i=2; $i<8; $i++){echo '<option id="pali_' . $i*$i . '" value="' . $i*$i . '"'; if($pages_limit==$i*$i){echo ' selected'; $square_pag = 1;} else{if($i==7&&$square_pag==0){echo ' selected'; $square_pag = 1;}}; echo '>' . $i*$i . '</option>'; };
@@ -912,7 +857,7 @@
 								default:
 									$default_pag = 0;
 									for($i=5; $i<55; $i+=5){echo '<option id="pali_' . $i . '" value="' . $i . '"'; if($pages_limit==$i){echo ' selected'; $default_pag = 1;} else{if($i==50&&$default_pag==0){echo ' selected'; $default_pag = 1;}}; echo '>' . $i . '</option>'; };
-									echo '<option id="pali_55"'; if($pages_limit==''){echo ' selected';}; echo ' value="">all</option>';
+//									echo '<option id="pali_55"'; if($pages_limit==''){echo ' selected';}; echo ' value="">all</option>';
 							}
 						?>
 						</select>
@@ -963,10 +908,6 @@
 									$hcones_aut = 0;
 									for($i=2; $i<5; $i++){$calc = (2*$i*$i*$i+$i)/3; echo '<option id="auli_' . $calc . '" value="' . $calc . '"'; if($authors_limit==$calc){echo ' selected'; $hcones_aut = 1;} else{if($i==4&&$hcones_aut==0){echo ' selected'; $hcones_aut = 1;}}; echo '>' . $calc . '</option>'; };
 									break;
-								case "sandglass":
-									$sandglass_aut = 0;
-									for($i=2; $i<4; $i++){$calc = (4*$i*$i*$i+2*$i)/3-1; echo '<option id="auli_' . $calc . '" value="' . $calc . '"'; if($authors_limit==$calc){echo ' selected'; $sandglass_aut = 1;} else{if($i==3&&$sandglass_aut==0){echo ' selected'; $sandglass_aut = 1;}}; echo '>' . $calc . '</option>'; };
-									break;
 								case "square":
 									$square_aut = 0;
 									for($i=2; $i<8; $i++){echo '<option id="auli_' . $i*$i . '" value="' . $i*$i . '"'; if($authors_limit==$i*$i){echo ' selected'; $square_aut = 1;} else{if($i==7&&$square_aut==0){echo ' selected'; $square_aut = 1;}}; echo '>' . $i*$i . '</option>'; }
@@ -990,7 +931,7 @@
 								default:
 									$default_aut = 0;
 									for($i=5; $i<55; $i+=5){echo '<option id="auli_' . $i . '" value="' . $i . '"'; if($authors_limit==$i){echo ' selected'; $default_aut = 1;} else{if($i==50&&$default_aut==0){echo ' selected'; $default_aut = 1;}}; echo '>' . $i . '</option>'; };
-									echo '<option id="auli_55"'; if($authors_limit==''){echo ' selected';}; echo ' value="">all</option>';
+//									echo '<option id="auli_55"'; if($authors_limit==''){echo ' selected';}; echo ' value="">all</option>';
 							}
 							?>
 						</select>
@@ -1298,7 +1239,14 @@
 			<span>TIME</span>
 			<br>
 			<div class="thin-spacer"></div>
-			<label title="Time to fade in tags at start" style="margin: 0 141px 0 0;" for="<?=$this->get_field_id('fadein'); ?>">
+			<label title="Exposing time of a shape when option <span class='green'>All</span> has been chosen in <span class='green'>SHAPE</span> section." style="margin: 0 38px 0 0;" for="<?=$this->get_field_id('time'); ?>">
+				Shape Time
+				<br>
+				<select id="<?=$this->get_field_id('time'); ?>" name="<?=$this->get_field_name('time'); ?>">
+						<?php for($i=5; $i<16; $i++){echo '<option id="stime_' . $i . '" value="' . $i*1000 . '"'; if($time==$i*1000){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
+				</select>sec
+			</label>	
+			<label title="Time to fade in tags at start" style="margin: 0 38px 0 0;" for="<?=$this->get_field_id('fadein'); ?>">
 				FadeIn Time
 				<br>
 				<select id="<?=$this->get_field_id('fadein'); ?>" name="<?=$this->get_field_name('fadein'); ?>">

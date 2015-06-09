@@ -1,6 +1,6 @@
 === 3D WP Tag Cloud-S ===
 Contributors: hityr5yr, bisko
-Tags: tag cloud, 3D, widget, HTML5, canvas, cloud, tags, links, recent posts, menu, images
+Tags: tag cloud, 3D, widget, HTML5, canvas, cloud, tags, links, recent posts, menu, images, multiple shapes
 Requires at least: 3.9
 Tested up to: 4.2.2
 Stable tag: trunk
@@ -15,15 +15,15 @@ License URI: http://www.gnu.org/licenses/gpl.html
 
 Description: This is the Single Cloud variation of 3D WP Tag Cloud. It Creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Plugin may rotate 
 Pages, Recent Posts, External Links (blogroll), Menus, Blog Archives, List of Authors, Current Page/Post Links, Links from a custom HTML container and of course Post Tags and Post 
-Categories. Supports following shapes: 2D SPIRAL, 3D AXES, parabolic ANTENNA, lighthouse BEAM, BALLS, BLOSSOM, BULB, CANDY, CAPSULE, concentric CIRCLES, CUBE, CYLINDER that 
-starts off horizontal, CYLINDER that starts off vertical, DNA, EGG, Christmas FIR, GLASS, GLOBE of rings, HEART, HEXAGON (bee cell), KNOT, LEMON, LOVE, PEG TOP that starts off horizontal, 
+Categories. Supports following shapes: 2D SPIRAL, 3D AXES, parabolic ANTENNA, lighthouse BEAM, BALLS, BLOSSOM, BULB, CANDY, CAPSULE, concentric CIRCLES, CUBE, CYLINDER that starts 
+off horizontal, CYLINDER that starts off vertical, DNA, DOMES, EGG, Christmas FIR, GLASS, GLOBE of rings, HEART, HEXAGON (bee cell), KNOT, LEMON, LOVE, PEG TOP that starts off horizontal, 
 PEG TOP that starts off vertical, PYRAMID (tetrahedron), RING that starts off horizontal, RING that starts off vertical, RINGS knotwork, ROLLER of rings, SANDGLASS, SPHERE, SPRING, 
-SQUARE, STAIRECASE, STOOL, TIRE , TOWER of rings and TRIANGLE. Able to rotate clouds around all three axes. Option values are preset and don't have to be typed but selected. Multiple 
-fonts, multiple colors and multiple backgrounds can be applied to the cloud content. Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of 
-images. In case of Recent posts, Pages, Menu, List of Authors, External Links (blogroll), Current Page/Post Links and Custom HTML container tags may consist of both image and text. It 
-gives an option to put images and/or text in the center of the cloud. It accepts background images as well. The Number of tags in the cloud is adjustable. The plugin automatically 
-includes WP Links panel for users who started using WP since v 3.5, when Links Manager and blogroll were made hidden by default. 3D WP Tag Cloud uses Graham Breach's Javascript class 
-TagCanvas v. 2.7 and includes all its 80+ options in the Control Panel settings.
+SQUARE, STAIRECASE, STOOL, TIRE, TOWER of rings and TRIANGLE. Supports also multiple shape selection for automatic shape transitions during roration. Able to rotate clouds around all 
+three axes. Option values are preset and don't have to be typed but selected. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content. Full variety 
+of fonts from Google Font Library is available. The plugin allows creating clouds of images. In case of Recent posts, Pages, Menu, List of Authors, External Links (blogroll), Current 
+Page/Post Links and Custom HTML container tags may consist of both image and text. It gives an option to put images and/or text in the center of the cloud. It accepts background images 
+as well. The Number of tags in the cloud is adjustable. The plugin automatically includes WP Links panel for users who started using WP since v 3.5, when Links Manager and blogroll were 
+made hidden by default. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.7 and includes all its 80+ options in the Control Panel settings.
 
 
 == Installation ==
@@ -45,6 +45,11 @@ TagCanvas v. 2.7 and includes all its 80+ options in the Control Panel settings.
 
 
 == Changelog ==
+
+= 4.4 =
+1. Added multiple shape selection and fadein-fadeout shape transitions during rotation.
+2. Added new shape: Domes.
+3. Improved shapes Glass and Sandglass.
 
 = 4.3 =
 1. Added a new shape: DNA.
