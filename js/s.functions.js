@@ -231,9 +231,13 @@ jQuery(function(){
 		});	
 //----- Revolving shapes in the cloud -----
 		function revolve(time){
-			var locks = { hcylinder: 'x', vcylinder: 'y', hring: 'x', vring: 'y', hcones: 'x', vcones: 'y', roller: 'x', tower: 'y', stairs: 'y', dna: 'y', egg: 'y', fir: 'y', glass: 'y', spiral3: 'y', spiral: 'z', sphere:1, axes: 2,  antenna: 3, beam: 4, balls: 5, bulb: 6, blossom: 7, candy: 8, capsule: 1, circles: 2, cube: 3, globe: 4, heart: 5, love: 6, hexagon: 7, knot: 8, lemon: 1, pyramid: 2, sandglass: 3, square: 4, stool: 5, tire: 6, triangle: 7, rings: 8, domes: 1, saturn: 2, my_shape: 3};
+			var locks = { 
+				hcylinder: 'x', vcylinder: 'y', hring: 'x', vring: 'y', hcones: 'x', vcones: 'y', roller: 'x', tower: 'y', stairs: 'y', dna: 'y', egg: 'y', fir: 'y', glass: 'y', 
+				spiral3: 'y', spiral: 'z', sphere:1, axes: 2,  antenna: 3, beam: 4, balls: 5, bulb: 6, blossom: 7, candy: 8, capsule: 1, circles: 2, crown: 3, cube: 4, globe: 5, 
+				heart: 6, love: 7, hexagon: 8, knot: 1, lemon: 2, pyramid: 3, sandglass: 4, square: 5, stool: 6, tire: 7, triangle: 8, rings: 1, domes: 2, saturn: 3, my_shape: 4
+			};
 			var lock = locks[shapes[rev]] || '';
-			TagCanvas.initial = (lock == 'x' && [0,-0.15,0]) || (lock == 'y' && [0.15,0,0]) || (lock == 'z' && [0,0,-0.15]) || (lock == 1&&[0.15,0.15,0.15]) || (lock == 2&&[0.15,0.15,-0.15]) || (lock == 3&&[0.15,-0.15,0.15]) || (lock == 4&&[-0.15,0.15,0.15]) || (lock == 5&&[-0.15,-0.15,0.15]) || (lock == 6&&[-0.15,0.15,-0.15]) || (lock == 7&&[0.15,-0.15,-0.15]) || (lock == 8&&[-0.15,-0.15,-0.15]);
+			TagCanvas.initial = (lock=='x'&&[0,-0.15,0])||(lock=='y'&& [0.15,0,0])||(lock=='z'&&[0,0,-0.15])||(lock==1&&[0.15,0.15,0.15])||(lock==2&&[0.15,0.15,-0.15])||(lock==3&&[0.15,-0.15,0.15])||(lock==4&&[-0.15,0.15,0.15])||(lock==5&&[-0.15,-0.15,0.15])||(lock==6&&[-0.15,0.15,-0.15])||(lock==7&&[0.15,-0.15,-0.15])||(lock==8&&[-0.15,-0.15,-0.15]);
 			TagCanvas.shape = shapes[rev];
 			TagCanvas.lock = lock;
 			TagCanvas.fadeIn = 0;
