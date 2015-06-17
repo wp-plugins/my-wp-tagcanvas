@@ -28,7 +28,7 @@
 // Change of tag limits for spiral, hexagon, cube, pyramid, beam, circles & antenna, axes, vcones & hcones, square, fir and triangle
 	function change_limits(shape,length){
 		var i=1, j, delta, limits = [5,25,1,"<?= $this->get_field_id('recent_posts'); ?>","rp_","","",
-							  5,100,5,"<?= $this->get_field_id('links'); ?>","l_","","",
+							  5,120,5,"<?= $this->get_field_id('links'); ?>","l_","","",
 							  5,120,5,"<?= $this->get_field_id('tags'); ?>","t_","","",
 							  6,60,6,"<?= $this->get_field_id('archives_limit'); ?>","arli_","","",
 							  5,50,5,"<?= $this->get_field_id('pages_limit'); ?>","pali_","","",
@@ -47,13 +47,13 @@
 		else{
 //COL: rec, lin, pos, arc, pag, aut, cat
 //ROW: spiral, hexagon, cube, pyramid, beam, circles & antenna, axes, vcones & hcones, square, fir, triangle, heart and love
-			var limits2 = [8,29,7,"","","","",8,99,7,"","","","",8,120,7,"","","","",8,64,7,"","","","",8,50,7,"","","","",8,50,7,"","","","",8,57,7,"","","","",
+			var limits2 = [8,29,7,"","","","",8,120,7,"","","","",8,120,7,"","","","",8,64,7,"","","","",8,50,7,"","","","",8,50,7,"","","","",8,57,7,"","","","",
 						   1,2,1,3,3,1,"",1,5,1,3,3,1,"",1,6,1,3,3,1,"",1,4,1,3,3,1,"",1,3,1,3,3,1,"",1,3,1,3,3,1,"",1,4,1,3,3,1,"",
 						   0,1,1,6,12,8,"",0,3,1,6,12,8,"",0,4,1,6,12,8,"",0,2,1,6,12,8,"",0,1,1,6,12,8,"",0,1,1,6,12,8,"",0,2,1,6,12,8,"",
 						   1,3,1,2,0,2,"",1,7,1,2,0,2,"",1,8,1,2,0,2,"",1,6,1,2,0,2,"",1,5,1,2,0,2,"",1,5,1,2,0,2,"",1,6,1,2,0,2,"",
 						   5,10,5,"","","","",5,10,5,"","","","",5,10,5,"","","","",5,10,5,"","","","",5,10,5,"","","","",5,10,5,"","","","",5,10,5,"","","","",
 						   2,4,1,"","","","",2,6,1,"","","","",2,7,1,"","","","",2,5,1,"","","","",2,4,1,"","","","",2,4,1,"","","","",2,5,1,"","","","",
-						   6,24,6,"","","","",6,102,6,"","","","",6,120,6,"","","","",6,60,6,"","","","",6,48,6,"","","","",6,48,6,"","","","",6,60,6,"","","","",
+						   6,24,6,"","","","",6,120,6,"","","","",6,120,6,"","","","",6,60,6,"","","","",6,48,6,"","","","",6,48,6,"","","","",6,60,6,"","","","",
 						   2,3,1,2,0,1,"",2,5,1,2,0,1,"",2,6,1,2,0,1,"",2,4,1,2,0,1,"",2,4,1,2,0,1,"",2,4,1,2,0,1,"",2,4,1,2,0,1,"",
 						   2,5,1,"","","","",2,10,1,"","","","",2,11,1,"","","","",2,8,1,"","","","",2,7,1,"","","","",2,7,1,"","","","",2,8,1,"","","","",
 						   1,3,1,2,2,1,"",1,7,1,2,2,1,"",1,8,1,2,2,1,"",1,5,1,2,2,1,"",1,4,1,2,2,1,"",1,4,1,2,2,1,"",1,5,1,2,2,1,"",
@@ -66,10 +66,10 @@
 				case "cube": delta = 98; break;
 				case "pyramid": delta = 147; break;
 				case "beam": delta = 196; break;
-				case "circles": delta = 245; break;
+				case "circles": 
 				case "antenna": delta = 245; break;
 				case "axes": delta = 294; break;
-				case "vcones": delta = 343; break;
+				case "vcones": 
 				case "hcones": delta = 343; break;
 				case "square": delta = 392; break;
 				case "fir": delta = 441; break;
@@ -241,19 +241,20 @@
 		<div class="section_content" style="margin: 5px 0; padding: 0;">
 			<select style="float: left; height: 172px!important; margin: 0 2px 5px 0!important;" title="Multiple selection is alowed. In that case plugin will change shapes every 5-15 sec. depending on <span class='green'>Shape Time</span> value in <span class='green'>TIME & FUNCTIONS</span> section below.<br><b>N.B. 1</b> Different shapes define different sets of values in <span class='green'>Number</span> fields below. For multiple selection a general set applies.<br><b>N.B. 2</b> For multiple selection the plugin uses predefined cloud speed so <span class='green'>Initial Speed [x, y, z]</span> values in <span class='green'>SPEED</span> section are ignored." id="<?=$this->get_field_id('shape'); ?>" name="<?=$this->get_field_name('shape'); ?>[]" multiple onchange="change_limits(jQuery(this).val()[0],jQuery(this).val().length)">
 				<option value="my_shape" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "my_shape" ){ echo ' selected'; }} ?>>My Shape (Custom)</option>
-				<option value="beam" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "beam" ){ echo ' selected'; }} ?>>Lighthouse Beam* (1D)</option>
-				<option value="spiral" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "spiral" ){ echo ' selected'; }} ?>>2D Spiral* (2D)</option>
+				<option value="beam" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "beam" ){ echo ' selected'; }} ?>>Lighthouse Beam (1D)</option>
 				<option value="circles" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "circles" ){ echo ' selected'; }} ?>>Concentric Circles* (2D)</option>
 				<option value="heart" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "heart" ){ echo ' selected'; }} ?>>Heart (2D)</option>
 				<option value="hexagon" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "hexagon" ){ echo ' selected'; }} ?>>Hexagon (Bee Cell)* (2D)</option>
+				<option value="spiral" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "spiral" ){ echo ' selected'; }} ?>>Spiral* (2D)</option>
 				<option value="square" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "square" ){ echo ' selected'; }} ?>>Square* (2D)</option>
 				<option value="triangle" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "triangle" ){ echo ' selected'; }} ?>>Triangle* (2D)</option>
-				<option value="axes" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "axes" ){ echo ' selected'; }} ?>>3D Axes* (3D)</option>
+				<option value="axes" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "axes" ){ echo ' selected'; }} ?>>Axes (3D)</option>
 				<option value="balls" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "balls" ){ echo ' selected'; }} ?>>Balls (3D)</option>
 				<option value="blossom" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "blossom" ){ echo ' selected'; }} ?>>Blossom (3D)</option>
 				<option value="bulb" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "bulb" ){ echo ' selected'; }} ?>>Bulb (3D)</option>
 				<option value="candy" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "candy" ){ echo ' selected'; }} ?>>Candy (3D)</option>
 				<option value="capsule" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "capsule" ){ echo ' selected'; }} ?>>Capsule (3D)</option>
+				<option value="crown" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "crown" ){ echo ' selected'; }} ?>>Crown (3D)</option>
 				<option value="dna" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "dna" ){ echo ' selected'; }} ?>>DNA (3D)</option>
 				<option value="domes" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "domes" ){ echo ' selected'; }} ?>>Domes (3D)</option>
 				<option value="egg" <?php for($i=0; $i<=sizeof($shape)-1; $i++){if( $shape[$i] == "egg" ){ echo ' selected'; }} ?>>Egg (3D)</option>
@@ -484,7 +485,7 @@
 									switch($shape){
 										case "spiral":
 											$spiral_lin = 0;
-											for($i=8; $i<106; $i+=7){echo '<option id="l_' . $i . '" value="' . $i . '"'; if($links==$i){echo ' selected'; $spiral_lin = 1;} else{if($i==99&&$spiral_lin==0){echo ' selected'; $spiral_lin = 1;}}; echo '>' . $i . '</option>'; };
+											for($i=8; $i<127; $i+=7){echo '<option id="l_' . $i . '" value="' . $i . '"'; if($links==$i){echo ' selected'; $spiral_lin = 1;} else{if($i==99&&$spiral_lin==0){echo ' selected'; $spiral_lin = 1;}}; echo '>' . $i . '</option>'; };
 											break;
 										case "hexagon":
 											$hexagon_lin = 0;
@@ -512,7 +513,7 @@
 											break;
 										case "axes";
 											$axes_lin = 0;
-											for($i=6; $i<108; $i+=6){echo '<option id="l_' . $i . '" value="' . $i . '"'; if($links==$i){echo ' selected'; $axes_lin = 1;} else{if($i==102&&$axes_lin==0){echo ' selected'; $axes_lin = 1;}}; echo '>' . $i . '</option>'; };
+											for($i=6; $i<126; $i+=6){echo '<option id="l_' . $i . '" value="' . $i . '"'; if($links==$i){echo ' selected'; $axes_lin = 1;} else{if($i==102&&$axes_lin==0){echo ' selected'; $axes_lin = 1;}}; echo '>' . $i . '</option>'; };
 											break;
 										case "vcones";
 											$vcones_lin = 0;
@@ -544,8 +545,8 @@
 											break;
 										default:
 											$default_lin = 0;
-											for($i=5; $i<105; $i+=5){echo '<option id="l_' . $i . '" value="' . $i . '"'; if($links==$i){echo ' selected'; $default_lin = 1;} else{if($i==100&&$default_lin==0){echo ' selected'; $default_lin = 1;}}; echo '>' . $i . '</option>'; };
-//											echo '<option id="l_105"'; if($links=='-1'){echo ' selected';}; echo ' value="-1">all</option>';
+											for($i=5; $i<125; $i+=5){echo '<option id="l_' . $i . '" value="' . $i . '"'; if($links==$i){echo ' selected'; $default_lin = 1;} else{if($i==100&&$default_lin==0){echo ' selected'; $default_lin = 1;}}; echo '>' . $i . '</option>'; };
+//											echo '<option id="l_125"'; if($links=='-1'){echo ' selected';}; echo ' value="-1">all</option>';
 									}
 								?>
 							</select>
@@ -2145,9 +2146,9 @@
 		</label>	
 	</div>
 	<h3><span class="front-title">tags:</span> MIXED IMAGE & TEXT</h3>
-	<div class="section_content" style="padding: 5px 1px 0;">
-		(for <b>Recent Posts</b>, <b>Pages</b>, <b>Links</b>, <b>Menu</b> & <b>Authors</b>)
-		<div style="padding-top: 5px; display: inline-block;">
+	<div class="section_content" style="padding: 5px 1px 0; text-align: center;">
+		Applicable to: <b>Authors</b>, <b>Blogroll</b>, <b>Current Page/Post Links</b>, <b>Custom HTML container</b>, <b>Menu</b>, <b>Pages</b> and <b>Recent Posts</b>.
+		<div style="padding-top: 10px; display: inline-block;">
 			<label style="margin: 0 17px 0 0;" title="What to display when tag contains images and text:<br><span class='green'>null</span> - Image if present, otherwise text;<br><span class='green'>image</span> - Image tags only;<br><span class='green'>text</span> - Text tags only;<br><span class='green'>both</span> - Image and text on tag using <span class='green'>Image Position</span>." for="<?=$this->get_field_id('image_mode'); ?>">
 				<br>
 				Tag Mode
