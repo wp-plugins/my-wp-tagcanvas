@@ -47,6 +47,9 @@ its 80+ options in the Control Panel settings.
 
 == Changelog ==
 
+= 4.6.1 =
+1. Prevented Firefox from showing an error when image_cf() is selected without supplying an image URL for it.
+
 = 4.6 =
 1. Added new shape: Crown.
 2. Extended range of some Number of tags options.

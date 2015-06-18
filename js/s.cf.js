@@ -1,4 +1,4 @@
-// 3D WP Tag Cloud-M(S): Center Functions
+// 3D WP Tag Cloud-S: Center Functions
 // For creating your Center Function you have to be familiar with HTML tag <canvas>
 // Detailed tutorial: http://diveintohtml5.info/canvas.html
 //
@@ -16,8 +16,10 @@ function image_cf<?= $inst_id; ?>(c, w, h, cx, cy){
 	var step = <?= $img_reduction; ?>; // Image reduction
 	var f = 0.5 + step;
 	var cfimg = new Image();
-	cfimg.src = '<?= $cf_image_loc; ?>'; // Image location
-	c.drawImage(cfimg, cx-(w/h<=1?w*f/2:h*f/2), cy-(w/h<=1?w*f/2:h*f/2), f*(w/h<=1?w:h), f*(w/h<=1?w:h));
+	var cf_image_loc = '<?= $cf_image_loc; ?>';
+	if(cf_image_loc !== ''){ cfimg.src = cf_image_loc;  // Image location;
+		c.drawImage(cfimg, cx-(w/h<=1?w*f/2:h*f/2), cy-(w/h<=1?w*f/2:h*f/2), f*(w/h<=1?w:h), f*(w/h<=1?w:h));
+	}
 }
 
 function text_cf<?= $inst_id; ?>(c, w, h, cx, cy){
