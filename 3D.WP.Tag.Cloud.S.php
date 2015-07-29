@@ -3,7 +3,7 @@
 Plugin Name: 3D WP Tag Cloud-S
 Plugin URI: http://peter.bg/archives/7373
 Description: This is the Single Cloud variation of 3D WP Tag Cloud. It Creates multiple instances widget that draws and animates a HTML5 canvas based tag cloud. Plugin may rotate Pages, Recent Posts, Blogroll (External Links), Menus, Blog Archives, List of Authors, Current Page/Post Links, Links from a custom HTML container, Post Tags and Post Categories. Supports following shapes: parabolic ANTENNA, AXES, lighthouse BEAM, BALLS, BLOSSOM, BULB, CANDY, CAPSULE, concentric CIRCLES, CROWN, CUBE, CYLINDER that starts off horizontal, CYLINDER that starts off vertical, DNA, DOMES, EGG, Christmas FIR, GLASS, GLOBE of rings, HEART, HEXAGON (bee cell), KNOT, LEMON, LOVE, PEG TOP that starts off horizontal, PEG TOP that starts off vertical, PYRAMID (tetrahedron), RING that starts off horizontal, RING that starts off vertical, RINGS knotwork, ROLLER of rings, SANDGLASS, SATURN, SPHERE, SPIRAL, SPRING, SQUARE, STAIRECASE, STOOL, TIRE, TOWER of rings and TRIANGLE. Supports also multiple shape selection for automatic shape transitions during rotation and usage of a customer defined shape. Able to rotate clouds around all three axes. Option values are preset and don't have to be typed but selected. Multiple fonts, multiple colors and multiple backgrounds can be applied to the cloud content. Full variety of fonts from Google Font Library is available. The plugin allows creating clouds of images. In case of Recent posts, Pages, Menu, List of Authors, Blogroll (External Links), Page/Post Links and custom HTML container tags may consist of both image and text. It gives an option to put images and/or text in the center of the cloud. It accepts background images as well. The Number of tags in the cloud is adjustable. The plugin automatically includes WP Links panel for users who started using WP since v 3.5, when Links Manager and blogroll were made hidden by default. 3D WP Tag Cloud uses Graham Breach's Javascript class TagCanvas v. 2.7 and includes all its 80+ options in the Control Panel settings.
-Version: 4.6.1
+Version: 4.6.2
 Author: Peter Petrov
 Author URI: http://peter.bg
 Update Server: http://peter.bg/
@@ -57,7 +57,7 @@ License: LGPL v3
 						$lin_args = array ('category' => $links_category_id, 'hide_invisible' => 0, 'limit' => $links); 
 						$bookmarks = get_bookmarks($lin_args);
 						foreach( $bookmarks as $bookmark ){
-							echo '<a href="' . $bookmark->link_url . '">';
+							echo '<a href="' . $bookmark->link_url . '" target="' . $target . '">';
 							if ($bookmark->link_image) { echo '<img src="' .$bookmark->link_image . '" width="96" height="96">';}
 							echo  $bookmark->link_name . '</a>';
 						}
@@ -73,8 +73,8 @@ License: LGPL v3
 						$args= array ('numberposts' => $recent_posts, 'category' => $rp_category_id); $recent_posts = wp_get_recent_posts($args); 
 						foreach( $recent_posts as $recent ){
 							$count=$count+1; $font_size=round($bigest-$increment*$count); 
-							if($weight_mode != "none") {echo '<a href="' . get_permalink($recent["ID"]) . '" style="font-size: ' . $font_size . 'px;">' . get_the_post_thumbnail( $recent["ID"], 'thumbnail' ), $recent["post_title"].'</a> ';}
-							else {echo '<a href="' . get_permalink($recent["ID"]) . '">' . get_the_post_thumbnail( $recent["ID"], 'thumbnail' ), $recent["post_title"].'</a> ';};
+							if($weight_mode != "none") {echo '<a href="' . get_permalink($recent["ID"]) . '" style="font-size: ' . $font_size . 'px;" target="' . $target . '">' . get_the_post_thumbnail( $recent["ID"], 'thumbnail' ), $recent["post_title"].'</a> ';}
+							else {echo '<a href="' . get_permalink($recent["ID"]) . '" target="' . $target . '">' . get_the_post_thumbnail( $recent["ID"], 'thumbnail' ), $recent["post_title"].'</a> ';};
 						};
 						break;
 					case "archives":
@@ -89,13 +89,13 @@ License: LGPL v3
 							$userLName = $user->last_name;
 							$userPosts = count_user_posts($user->ID);
 							$userPostsURL = get_author_posts_url($user->ID);
-							echo '<a href="'.$userPostsURL.'" style="font-size: '.$userPosts.'px">'.$userAvatar, $userFName.'<br>'.$userLName.'<br>('.$userPosts.')</a>';
+							echo '<a href="'.$userPostsURL.'" style="font-size: '.$userPosts.'px" target="' . $target . '">'.$userAvatar, $userFName.'<br>'.$userLName.'<br>('.$userPosts.')</a>';
 						};	
 						break;
 					case "pages":
 						$args = array('number' => $pages_limit); $pages = get_pages($args);
 						foreach( $pages as $page ){
-							echo '<a href="' . get_page_link( $page->ID ) . '">' . get_the_post_thumbnail( $page->ID, 'thumbnail' ), $page->post_title . '</a>';
+							echo '<a href="' . get_page_link( $page->ID ) . '" target="' . $target . '">' . get_the_post_thumbnail( $page->ID, 'thumbnail' ), $page->post_title . '</a>';
 						};
 						break;
 					case "pp_links":
@@ -158,6 +158,7 @@ License: LGPL v3
 		$tag_option['rp_category_id'] = $new_instance['rp_category_id'];
 		$tag_option['recent_posts'] = $new_instance['recent_posts'];
 		$tag_option['tags'] = $new_instance['tags'];
+		$tag_option['target'] = $new_instance['target'];
 		$tag_option['taxonomy'] = $new_instance['taxonomy'];
 		$tag_option['text_color_cf'] = $new_instance['text_color_cf'];
 		$tag_option['text_line_1'] = $new_instance['text_line_1'];
@@ -299,6 +300,7 @@ License: LGPL v3
 			'recent_posts' => '10',
 			'rp_category_id' => '',
 			'tags' => '45',
+			'target' => '_self',
 			'taxonomy' => 'post_tag',
 			'text_color_cf' => '000',
 			'text_line_1' => 'Fill up',

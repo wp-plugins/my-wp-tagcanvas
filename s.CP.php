@@ -958,22 +958,22 @@
 			<tr>
 				<td colspan="2" style="border-bottom: 1px solid #aaa;">
 					<div class="thick-spacer"></div>
-					<div style="float: left; margin: 0 53px 0 0;" title="The minimum number of tags to show in the cloud. If the number of links available is lower than this value, the list will be repeated. The <span class='green'>Repeat Tags</span> option takes precedence over <span class='green'>Min Tags</span>. Shapes marked with an asterisk (*) may use the nearest downward value.">
+					<div style="float: left; margin: 0 18px 0 0;" title="The minimum number of tags to show in the cloud. If the number of links available is lower than this value, the list will be repeated. The <span class='green'>Repeat Tags</span> option takes precedence over <span class='green'>Min Tags</span>. Shapes marked with an asterisk (*) may use the nearest downward value.">
 						Min Tags
 						<br>
 						<select id="<?=$this->get_field_id('min_tags'); ?>" name="<?=$this->get_field_name('min_tags'); ?>">
 							<?php for($i=0; $i<201; $i++){echo '<option id="mint_' . $i . '" value="' . $i . '"'; if($min_tags==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 						</select>
 					</div>
-					<div style="float: left; margin: 0 53px 0 0;" title="The number of times to repeat the list of tags in the cloud. This option overrides the <span class='green'>Min Tags</span> option. Shapes marked with an asterisk (*) may use the nearest downward to the result value.">
+					<div style="float: left; margin: 0 18px 0 0;" title="The number of times to repeat the list of tags in the cloud. This option overrides the <span class='green'>Min Tags</span> option. Shapes marked with an asterisk (*) may use the nearest downward to the result value.">
 						Repeat Tags
 						<br>
 						<select id="<?=$this->get_field_id('repeat_tags'); ?>" name="<?=$this->get_field_name('repeat_tags'); ?>">
 							<?php for($i=0; $i<65; $i++){echo '<option id="rept_' . $i . '" value="' . $i . '"'; if($repeat_tags==$i){echo ' selected';}; echo '>' . $i . '</option>'; } ?>
 						</select>
 					</div>
-					<div style="float: left;" title="Displays “No tags” instead of an empty canvas when there are no tags available.">
-						No Tags Message
+					<div style="float: left; margin: 0 18px 0 0;" title="Displays “No tags” instead of an empty canvas when there are no tags available.">
+						No Tags Msg.
 						<br>
 						<input style="margin: 0 1px 0 0;" class="radio" id="<?=$this->get_field_id('no_tags_msg'); ?>"
 						name="<?=$this->get_field_name('no_tags_msg'); ?>" type="radio" value="true"
@@ -982,6 +982,16 @@
 						<input style="margin: 0 1px 0 0;" class="radio" id="<?=$this->get_field_id('no_tags_msg'); ?>"
 						name="<?=$this->get_field_name('no_tags_msg'); ?>" type="radio" value="false"
 						<?php if( $no_tags_msg == "false" ){ echo ' checked="checked"'; } ?>>off
+					</div>
+					<div style="float: left; margin: 0;" title="The target option specifies where to open <span class='green'>Authors</span>, <span class='green'>Blogroll</span>, <span class='green'>Pages</span> and <span class='green'>Recent Posts</span> tag links:<br><br><span class='green'>_blank</span> - in a new window or tab;<br><span class='green'>_parent</span> - in the parent frame;<br><span class='green'>_self</span> - in the same frame as it was clicked (default);<br><span class='green'>_top</span> - in the full body of the window.">
+						Target
+						<br>
+						<select id="<?=$this->get_field_id('target'); ?>" name="<?=$this->get_field_name('target'); ?>">
+							<option value="_blank" <?php if( $target == "_blank" ){ echo ' selected'; } ?>>_blank</option>
+							<option value="_parent" <?php if( $target == "_parent" ){ echo ' selected'; } ?>>_parent</option>
+							<option value="_self" <?php if( $target == "_self" ){ echo ' selected'; } ?>>_self</option>
+							<option value="_top" <?php if( $target == "_top" ){ echo ' selected'; } ?>>_top</option>
+						</select>
 					</div>
 					<div class="thin-spacer"></div>
 				</td>

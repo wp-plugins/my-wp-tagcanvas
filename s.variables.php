@@ -37,6 +37,7 @@
 			$recent_posts = $instance['recent_posts'];
 			$rp_category_id = $instance['rp_category_id'];
 			$tags = $instance['tags'];
+			$target = $instance['target'];
 			$taxonomy = $instance['taxonomy'];
 			$text_color_cf = $instance['text_color_cf'];
 			$text_cont = $instance['text_cont'];
