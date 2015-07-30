@@ -47,6 +47,9 @@ its 80+ options in the Control Panel settings.
 
 == Changelog ==
 
+= 4.6.3 =
+1. Added a Target option for opening tag links in a new tab/window, parent or top frame to the rest content types, namely: Archives, Categories, Menu, Page/Post Links and Post Tags.
+
 = 4.6.2 =
 1. Added a Target option for opening tag links in a new tab/window, parent or top frame. Available to Authors, Blogroll, Pages and Recent Posts.
 

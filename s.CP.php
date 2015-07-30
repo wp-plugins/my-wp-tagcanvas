@@ -983,7 +983,7 @@
 						name="<?=$this->get_field_name('no_tags_msg'); ?>" type="radio" value="false"
 						<?php if( $no_tags_msg == "false" ){ echo ' checked="checked"'; } ?>>off
 					</div>
-					<div style="float: left; margin: 0;" title="The target option specifies where to open <span class='green'>Authors</span>, <span class='green'>Blogroll</span>, <span class='green'>Pages</span> and <span class='green'>Recent Posts</span> tag links:<br><br><span class='green'>_blank</span> - in a new window or tab;<br><span class='green'>_parent</span> - in the parent frame;<br><span class='green'>_self</span> - in the same frame as it was clicked (default);<br><span class='green'>_top</span> - in the full body of the window.">
+					<div style="float: left; margin: 0;" title="This option specifies where to open tag links:<br><br><span class='green'>_blank</span> - in a new window or tab;<br><span class='green'>_parent</span> - in the parent frame;<br><span class='green'>_self</span> - in the same frame as it was clicked (default);<br><span class='green'>_top</span> - in the full body of the window.">
 						Target
 						<br>
 						<select id="<?=$this->get_field_id('target'); ?>" name="<?=$this->get_field_name('target'); ?>">

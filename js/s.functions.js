@@ -32,7 +32,7 @@ jQuery(function(){
 				else {var mf_array = new Array("Arial");}
 				}
 			}
-		
+		var target = '<?= $target; ?>'; 
 		var multiple_colors = '<?= $multiple_colors; ?>';
 		multiple_colors = multiple_colors.replace(/ /gi, '');
 		var mc_array = multiple_colors.split(',');
@@ -103,6 +103,14 @@ jQuery(function(){
 				for (var j = 0; j < any_type_tags.length; j++) { 
 					jQuery('#'+container[i]+' a').eq(j).css({'background-color':mb_array[Math.floor(Math.random()*mb_array.length)]});
 				}
+			}
+		
+//-----  Setting  target attribute of tag links -----
+			if(taxonomy=="category"||taxonomy=="post_tag"||taxonomy=="archives"||taxonomy=="menu"||taxonomy=="pp_links"){
+				var taglinks = jQuery('#'+container[i]+' a');
+				for (var j = 0; j < taglinks.length; j++) { 
+					jQuery('#'+container[i]+' a').eq(j).attr("target", target);
+				}							
 			}
 		}
 
